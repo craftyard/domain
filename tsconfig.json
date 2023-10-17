@@ -9,7 +9,6 @@
     "moduleResolution": "nodeNext",
     "outDir": "./dist",
 
-    "allowJs": true,
     "esModuleInterop": true,
 
     "noErrorTruncation": true,
