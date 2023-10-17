@@ -1,7 +1,7 @@
 {
-  "name": "your-package-name",
+  "name": "workshop-domain",
   "version": "1.0.0",
-  "description": "Описание вашего пакета",
+  "description": "Предметный слой модуля субъектов ",
   "repository": {
     "type": "git",
     "url": "https://github.com/soul-workshop/domain.git"
