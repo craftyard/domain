@@ -2,19 +2,14 @@ import { UuidType } from 'rilata2/src/common/types';
 import { AggregateRootDataParams } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
 import { DomainMeta } from 'rilata2/src/domain/domain-object-data/common-types';
 
-export type UserProfile = {
-  name: string,
-}
-
-export type UserAttrs = {
-  userId: UuidType,
-  telegramId: number,
+export type EmployeerAttrs = {
   employeerId: UuidType,
-  userProfile: UserProfile,
+  roles: ('Manager' | 'Owner' | 'Master')[],
+  workshopId: UuidType,
 }
 
-export type UserMeta = DomainMeta<'UserAR'>;
+export type EmployeerMeta = DomainMeta<'EmployeerAR'>;
 
-export type UserParams = AggregateRootDataParams<
-  UserAttrs, UserMeta, never
+export type EmployeerParams = AggregateRootDataParams<
+  EmployeerAttrs, EmployeerMeta, never
 >;
