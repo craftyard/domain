@@ -4,19 +4,12 @@
       "telegramId": 1646601311,
       "employeerId": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
       "userProfile": {
-        "name": "Sagyndyq"
-      },
-      "meta": {
-        "name": "UserAR",
-        "domainType": "domain-object",
-        "objectType": "aggregate"
-      },
-      "params": {}
+        "name": "Sagyndyk"
+      }
     },
     {
       "userId": "d462f0c6-25c4-45a3-bcf5-7d25d2a9a8df",
       "telegramId": 694528239,
-      "employeerId": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
       "userProfile": {
         "name": "Damir"
       }
@@ -40,7 +33,6 @@
       {
         "userId": "b0ee48d6-12e9-4682-a8e6-77320921f7df",
         "telegramId": 1364353192,
-        "employeerId": "7f98c3a2-00ce-4e40-8b58-7704008e342d",
         "userProfile": {
           "name": "Nuradil"
         }
