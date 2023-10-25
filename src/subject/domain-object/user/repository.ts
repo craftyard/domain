@@ -1,13 +1,13 @@
 import { TelegramId } from "../../../types";
 import { UserAttrs } from "../../domain-data/user/params";
-import { Facadable } from "rilata2/src/domain/facadable";
+import { Repositoriable } from "rilata2/src/domain/repositoriable";
 
 export interface UserRepository {
   getByTelegramId(telegramId: TelegramId): UserAttrs
 }
 
 export const UserRepository = {
-  instance(facadable: Facadable): UserRepository {
-    return facadable.getFacade(UserRepository) as UserRepository;
+  instance(repoResolver: Repositoriable): UserRepository {
+    return repoResolver.getRepository(UserRepository) as UserRepository;
   }
 }
