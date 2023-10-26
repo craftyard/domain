@@ -3,7 +3,7 @@ import { UserAttrs } from "../../domain-data/user/params";
 import { Repositoriable } from "rilata2/src/domain/repositoriable";
 
 export interface UserRepository {
-  getByTelegramId(telegramId: TelegramId): UserAttrs
+  findByTelegramId(telegramId: TelegramId): UserAttrs[]
 }
 
 export const UserRepository = {
