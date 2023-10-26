@@ -1,6 +1,6 @@
-import { ActionParams, DomainResult } from "rilata2/src/domain/domain-object-data/aggregate-data-types";
-import { TelegramId } from "../../../types";
-import { UserId, UuidType } from "rilata2/src/common/types";
+import { ActionParams, DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
+import { UserId, UuidType } from 'rilata2/src/common/types';
+import { TelegramId } from '../../../types';
 
 export type TelegramAuthDTO = {
   id: TelegramId,
@@ -24,7 +24,6 @@ export type JwtToken = {
   },
   payload: {
     userId: UserId,
-    telegramId: TelegramId,
     employeeId: UuidType,
     signature: string,
   }
