@@ -1,7 +1,7 @@
 [
     {
         "employeerId": "550e8400-e29b-41d4-a716-446655440000",
-        "roles": ["Owner"],
+        "roles": ["Owner", "Manager","Master"],
         "workshopId": "3a9b6b10-33f3-4e56-8f86-58ea71b8e274"
     },
     {
@@ -10,8 +10,13 @@
         "workshopId": "3a9b6b10-33f3-4e56-8f86-58ea71b8e274"
     },
     {
-        "employeerId": "7f98c3a2-00ce-4e40-8b58-7704008e342d",
+        "employeerId": "1a3c9c82-c9f2-4e39-8fb4-d7df562cbefa",
         "roles": ["Manager"],
+        "workshopId": "3a9b6b10-33f3-4e56-8f86-58ea71b8e274"
+    },
+    {
+        "employeerId": "7f98c3a2-00ce-4e40-8b58-7704008e342d",
+        "roles": ["Manager", "Master"],
         "workshopId": "3a9b6b10-33f3-4e56-8f86-58ea71b8e274"
     }
 ]
