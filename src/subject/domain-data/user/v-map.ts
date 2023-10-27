@@ -2,7 +2,6 @@ import { UuidField } from 'rilata2/src/domain/validator/field-validator/prepared
 import { ValidatorMap } from 'rilata2/src/domain/validator/field-validator/types';
 import { LiteralFieldValidator } from 'rilata2/src/domain/validator/field-validator/literal-field-validator';
 import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
-import { OnlyLitinicOrCyrillicCharsValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/only-latinic-or-cyrillic-chars.v-rule';
 import { RegexFormatValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/regex.field-v-rule';
 import {
     UserProfile, UserAttrs,
@@ -10,7 +9,6 @@ import {
 
 const userprofileVMap: ValidatorMap<UserProfile> = {
     name: new LiteralFieldValidator("name", true, { isArray: false }, "string", [
-        new OnlyLitinicOrCyrillicCharsValidationRule, 
         new RegexFormatValidationRule(/^(?=.{1,60}$)/, 'строка должна содержать от 1 до 60 символов'), 
         new RegexFormatValidationRule(/^[а-яёa-z,]+$/i, 'без пробелов и символов кроме "-"')])
 }
@@ -18,6 +16,6 @@ const userprofileVMap: ValidatorMap<UserProfile> = {
 const userVMap: ValidatorMap<UserAttrs> = {
     userId: new UuidField("userId"),
     telegramId: new LiteralFieldValidator("telegramId", true, { isArray: false}, "number", []),
-    employeeId: new UuidField("employeeId"),
+    employeeId: new LiteralFieldValidator("employeeId", false, { isArray: false}, "string", []),
     userProfile: new DtoFieldValidator("userProfile", true, {isArray: false}, "dto", userprofileVMap),
 };

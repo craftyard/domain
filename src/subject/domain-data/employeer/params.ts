@@ -8,7 +8,7 @@ export type EmployeeAttrs = {
   workshopId: UuidType,
 }
 
-export type EmployeeMeta = DomainMeta<'EmployeerAR'>;
+export type EmployeeMeta = DomainMeta<'EmployeeAR'>;
 
 export type EmployeeParams = AggregateRootDataParams<
   EmployeeAttrs, EmployeeMeta, never
