@@ -24,8 +24,7 @@ export type JwtToken = {
   },
   payload: {
     userId: UserId,
-    employeeId: UuidType,
-    signature: string,
+    employeeId?: UuidType,
   }
 }
 
