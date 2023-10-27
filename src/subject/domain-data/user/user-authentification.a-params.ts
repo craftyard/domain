@@ -26,7 +26,6 @@ export type JwtToken = {
     userId: UserId,
     telegramId: TelegramId,
     employeeId: UuidType,
-    signature: string,
   }
 }
 
