@@ -9,6 +9,6 @@ export class UserArJsonRepositoryImpl implements UserRepository {
   }
 
   findByTelegramId(telegramId: number): UserAttrs[] {
-    throw new Error('Method not implemented.');
+    return this.users.filter((user) => user.telegramId === telegramId);
   }
 }
