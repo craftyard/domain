@@ -26,7 +26,7 @@ const locationAttrsValidatorMap: ValidatorMap<Location> = {
   ),
 };
 
-const workshopVMap: ValidatorMap<WorkshopAttrs> = {
+export const workshopVMap: ValidatorMap<WorkshopAttrs> = {
   workshopId: new UuidField('workshopId'),
   name: new LiteralFieldValidator('name', true, { isArray: false }, 'string', [
     new MaxCharsCountValidationRule(50),

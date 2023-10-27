@@ -17,7 +17,7 @@ const userprofileVMap: ValidatorMap<UserProfile> = {
     new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"')]),
 };
 
-const userVMap: ValidatorMap<UserAttrs> = {
+export const userVMap: ValidatorMap<UserAttrs> = {
   userId: new UuidField('userId'),
   telegramId: new LiteralFieldValidator('telegramId', true, { isArray: false }, 'number', [new PositiveNumberValidationRule()]),
   employeeId: new LiteralFieldValidator('employeeId', false, { isArray: false }, 'string', []),

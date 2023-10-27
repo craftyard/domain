@@ -1,3 +1,4 @@
+/* eslint-disable function-paren-newline */
 import { ValidatorMap } from 'rilata2/src/domain/validator/field-validator/types';
 import { UuidField } from 'rilata2/src/domain/validator/field-validator/prepared-fields/string/uuid-field';
 import { StringChoiceValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/string-choice.v-rule';
@@ -7,8 +8,10 @@ import {
   EmployeeAttrs,
 } from './params';
 
-const employeeVMap: ValidatorMap<EmployeeAttrs> = {
+export const employeeVMap: ValidatorMap<EmployeeAttrs> = {
   employeeId: new UuidField('employeeId'),
-  roles: new LiteralFieldValidator('roles', true, { isArray: true }, 'string', [new StringChoiceValidationRule(roles as unknown as string[])]),
+  roles: new LiteralFieldValidator(
+    'roles', true, { isArray: true }, 'string', [new StringChoiceValidationRule(roles)],
+  ),
   workshopId: new UuidField('workshopId'),
 };
