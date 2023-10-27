@@ -3,5 +3,8 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   extends: ['airbnb-base', 'plugin:@typescript-eslint/recommended'],
   rules: {
+    'import/prefer-default-export': 'off',
+    'import/no-unresolved': 'off',
+    'import/extensions': 'off',
   },
 };
