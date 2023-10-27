@@ -1,0 +1,50 @@
+[
+    {
+      "userId":"fb8a83cf-25a3-4b4f-86e1-27f6de6d8372",
+      "telegramId":773084180,
+      "employeerId":"550e8400-e29b-41d4-a716-446655440000",
+      "userProfile":{
+        "name":"Nurbolat"
+      }
+    },
+    {
+      "userId": "c89b5d14-7a35-4b07-8c4b-52e49ea349eb",
+      "telegramId": 1646601311,
+      "employeerId": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+      "userProfile": {
+        "name": "Sagyndyk"
+      }
+    },
+    {
+      "userId": "d462f0c6-25c4-45a3-bcf5-7d25d2a9a8df",
+      "telegramId": 694528239,
+      "userProfile": {
+        "name": "Damir"
+      }
+    },
+    {
+        "userId": "8e7f101f-82f6-4c45-8c17-316a61cc367d",
+        "telegramId": 5298484021,
+        "employeerId": "550e8400-e29b-41d4-a716-446655440000",
+        "userProfile": {
+          "name": "Renat"
+        }
+      },
+      {
+        "userId": "94dbd841-6f1d-4a42-8f65-4e5bb76a21c7",
+        "telegramId": 1811945765,
+        "employeerId": "7f98c3a2-00ce-4e40-8b58-7704008e342d",
+        "userProfile": {
+          "name": "Daniyar"
+        }
+      },
+      {
+        "userId": "b0ee48d6-12e9-4682-a8e6-77320921f7df",
+        "telegramId": 1364353192,
+        "employeerId":"1a3c9c82-c9f2-4e39-8fb4-d7df562cbefa",
+        "userProfile": {
+          "name": "Nuradil"
+        }
+      }
+  ]
+  
