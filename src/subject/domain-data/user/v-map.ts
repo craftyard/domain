@@ -5,6 +5,7 @@ import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/
 import { RegexFormatValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/regex.field-v-rule';
 import { MaxCharsCountValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/max-chars-count.v-rule';
 import { PositiveNumberValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/number/positive-number.v-rule';
+import { OnlyLitinicOrCyrillicCharsValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/only-latinic-or-cyrillic-chars.v-rule';
 import {
     UserProfile, UserAttrs,
 } from './params';
@@ -12,7 +13,8 @@ import {
 const userprofileVMap: ValidatorMap<UserProfile> = {
     name: new LiteralFieldValidator("name", true, { isArray: false }, "string", [
         new MaxCharsCountValidationRule(50),
-        new RegexFormatValidationRule(/^[а-яёa-z,]+$/i, 'без пробелов и символов кроме "-"')])
+        new OnlyLitinicOrCyrillicCharsValidationRule(), 
+        new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"')]),
 }
 
 const userVMap: ValidatorMap<UserAttrs> = {
