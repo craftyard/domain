@@ -1,7 +1,7 @@
 import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
 
-export class UserAR extends AggregateRoot<UserParams> {
+export default class UserAR extends AggregateRoot<UserParams> {
   protected attrs: UserAttrs;
 
   protected version: number;

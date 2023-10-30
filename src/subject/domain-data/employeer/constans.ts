@@ -1,1 +1,3 @@
-export const roles = ['Manager', 'Owner', 'Master'];
+const roles = ['Manager', 'Owner', 'Master'];
+
+export default roles;

@@ -23,3 +23,5 @@ export const userVMap: ValidatorMap<UserAttrs> = {
   employeeId: new LiteralFieldValidator('employeeId', false, { isArray: false }, 'string', []),
   userProfile: new DtoFieldValidator('userProfile', true, { isArray: false }, 'dto', userprofileVMap),
 };
+
+export default userVMap;

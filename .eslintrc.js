@@ -3,7 +3,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   extends: ['airbnb-base', 'plugin:@typescript-eslint/recommended'],
   rules: {
-    'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'class-methods-use-this': 'off',

@@ -26,16 +26,32 @@ const locationAttrsValidatorMap: ValidatorMap<Location> = {
   ),
 };
 
-export const workshopVMap: ValidatorMap<WorkshopAttrs> = {
+const workshopVMap: ValidatorMap<WorkshopAttrs> = {
   workshopId: new UuidField('workshopId'),
   name: new LiteralFieldValidator('name', true, { isArray: false }, 'string', [
     new MaxCharsCountValidationRule(50),
     new OnlyLitinicOrCyrillicCharsValidationRule(),
-    new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"')]),
+    new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"'),
+  ]),
   city: new LiteralFieldValidator('city', true, { isArray: false }, 'string', [
     new MaxCharsCountValidationRule(50),
     new OnlyLitinicOrCyrillicCharsValidationRule(),
-    new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"')]),
-  address: new LiteralFieldValidator('address', true, { isArray: false }, 'string', [new MaxCharsCountValidationRule(250)]),
-  location: new DtoFieldValidator('location', true, { isArray: false }, 'dto', locationAttrsValidatorMap),
+    new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"'),
+  ]),
+  address: new LiteralFieldValidator(
+    'address',
+    true,
+    { isArray: false },
+    'string',
+    [new MaxCharsCountValidationRule(250)],
+  ),
+  location: new DtoFieldValidator(
+    'location',
+    true,
+    { isArray: false },
+    'dto',
+    locationAttrsValidatorMap,
+  ),
 };
+
+export default workshopVMap;
