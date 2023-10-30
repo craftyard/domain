@@ -1,6 +1,7 @@
 import { ActionParams, DomainResult } from "rilata2/src/domain/domain-object-data/aggregate-data-types";
 import { TelegramId } from "../../../types";
 import { UserId, UuidType } from "rilata2/src/common/types";
+import { UserAttrs } from "./params";
 
 export type TelegramAuthDTO = {
   id: TelegramId,
@@ -15,18 +16,27 @@ export type TelegramAuthDTO = {
 export type AuthentificationUserDomainQuery = {
   telegramAuthDto: TelegramAuthDTO,
   botToken: string,
+  JWT_SECRET: string,
+  userAttrs:UserAttrs,
 }
 
-export type JwtToken = {
-  header: {
-    typ: 'jwt',
-    alg: 'HS256',
-  },
-  payload: {
+export type JwtToken ={
+  jwtToken: string;
+}
+
+export type JwtTokens ={
+  accessToken: string;
+  refreshToken:string
+}
+
+export type JwtAccessData = {
     userId: UserId,
     telegramId: TelegramId,
-    employeeId: UuidType,
-  }
+    employeeId?: UuidType,
+}
+export type JwtRefreshData = {
+  jwtAccessData:JwtAccessData,
+  salt:string,
 }
 
 export type AuthentificationUserActionParams = ActionParams<
