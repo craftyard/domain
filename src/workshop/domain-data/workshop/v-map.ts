@@ -7,7 +7,7 @@ import { RegexFormatValidationRule } from 'rilata2/src/domain/validator/rules/va
 import { MaxCharsCountValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/max-chars-count.v-rule';
 import { RangeNumberValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/number/range-number.v-rule';
 import { DtoFieldValidator } from "rilata2/src/domain/validator/field-validator/dto-field-validator";
-import { OnlyLitinicOrCyrillicCharsValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/only-latinic-or-cyrillic-chars.v-rule';
+import { OnlyHyphenAndLitinicOrCyrillicCharsValidationRule } from "../../../common/val-rules/only-dash-and-latinic-or-cyrillic-chars.v-rule";
 
 const locationAttrsValidatorMap: ValidatorMap<Location> = {
     latitude: new LiteralFieldValidator(
@@ -30,12 +30,14 @@ const workshopVMap: ValidatorMap<WorkshopAttrs> = {
     workshopId: new UuidField("workshopId"),
     name: new LiteralFieldValidator("name", true, { isArray: false }, "string", [
         new MaxCharsCountValidationRule(50),
-        new OnlyLitinicOrCyrillicCharsValidationRule(), 
-        new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"')]),
+        new RegexFormatValidationRule(/^[-a-z-а-яё]+$/i, 'Строка не должна содержать символы кроме "-"(дефис)'),
+        new OnlyHyphenAndLitinicOrCyrillicCharsValidationRule(),
+      ]),
     city: new LiteralFieldValidator("city", true, { isArray: false }, "string", [
         new MaxCharsCountValidationRule(50),
-        new OnlyLitinicOrCyrillicCharsValidationRule(), 
-        new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"')]),
+        new RegexFormatValidationRule(/^[-a-z-а-яё]+$/i, 'Строка не должна содержать символы кроме "-"(дефис)'),
+        new OnlyHyphenAndLitinicOrCyrillicCharsValidationRule(),
+      ]),
     address: new LiteralFieldValidator("address", true, { isArray: false }, "string", [ new MaxCharsCountValidationRule(250) ]),
     location: new DtoFieldValidator("location", true, { isArray: false}, "dto", locationAttrsValidatorMap)
 }

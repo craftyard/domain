@@ -5,19 +5,17 @@ import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/
 import { RegexFormatValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/regex.field-v-rule';
 import { MaxCharsCountValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/max-chars-count.v-rule';
 import { PositiveNumberValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/number/positive-number.v-rule';
-import { OnlyLitinicOrCyrillicCharsValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/only-latinic-or-cyrillic-chars.v-rule';
-import {
-    UserProfile, UserAttrs,
-} from './params';
+import { OnlyHyphenAndLitinicOrCyrillicCharsValidationRule } from '../../../common/val-rules/only-dash-and-latinic-or-cyrillic-chars.v-rule';
+import { UserProfile, UserAttrs } from './params';
 
-const userprofileVMap: ValidatorMap<UserProfile> = {
+export const userprofileVMap: ValidatorMap<UserProfile> = {
     name: new LiteralFieldValidator("name", true, { isArray: false }, "string", [
         new MaxCharsCountValidationRule(50),
-        new OnlyLitinicOrCyrillicCharsValidationRule(), 
-        new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"')]),
+        new RegexFormatValidationRule(/^[-a-z-а-яё]+$/i, 'Строка не должна содержать символы кроме "-"(дефис)'),
+        new OnlyHyphenAndLitinicOrCyrillicCharsValidationRule(),
+    ]),
 }
-
-const userVMap: ValidatorMap<UserAttrs> = {
+export const userVMap: ValidatorMap<UserAttrs> = {
     userId: new UuidField("userId"),
     telegramId: new LiteralFieldValidator("telegramId", true, { isArray: false}, "number", [ new PositiveNumberValidationRule()]),
     employeeId: new LiteralFieldValidator("employeeId", false, { isArray: false}, "string", []),
