@@ -30,12 +30,10 @@ const workshopVMap: ValidatorMap<WorkshopAttrs> = {
     workshopId: new UuidField("workshopId"),
     name: new LiteralFieldValidator("name", true, { isArray: false }, "string", [
         new MaxCharsCountValidationRule(50),
-        new RegexFormatValidationRule(/^[-a-z-а-яё]+$/i, 'Строка не должна содержать символы кроме "-"(дефис)'),
         new OnlyHyphenAndLitinicOrCyrillicCharsValidationRule(),
       ]),
     city: new LiteralFieldValidator("city", true, { isArray: false }, "string", [
         new MaxCharsCountValidationRule(50),
-        new RegexFormatValidationRule(/^[-a-z-а-яё]+$/i, 'Строка не должна содержать символы кроме "-"(дефис)'),
         new OnlyHyphenAndLitinicOrCyrillicCharsValidationRule(),
       ]),
     address: new LiteralFieldValidator("address", true, { isArray: false }, "string", [ new MaxCharsCountValidationRule(250) ]),

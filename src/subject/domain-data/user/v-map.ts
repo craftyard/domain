@@ -5,14 +5,12 @@ import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/
 import { RegexFormatValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/regex.field-v-rule';
 import { MaxCharsCountValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/max-chars-count.v-rule';
 import { PositiveNumberValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/number/positive-number.v-rule';
-<<<<<<< HEAD
 import { OnlyHyphenAndLitinicOrCyrillicCharsValidationRule } from '../../../common/val-rules/only-dash-and-latinic-or-cyrillic-chars.v-rule';
 import { UserProfile, UserAttrs } from './params';
 
 export const userprofileVMap: ValidatorMap<UserProfile> = {
     name: new LiteralFieldValidator("name", true, { isArray: false }, "string", [
         new MaxCharsCountValidationRule(50),
-        new RegexFormatValidationRule(/^[-a-z-а-яё]+$/i, 'Строка не должна содержать символы кроме "-"(дефис)'),
         new OnlyHyphenAndLitinicOrCyrillicCharsValidationRule(),
     ]),
 }
@@ -21,23 +19,4 @@ export const userVMap: ValidatorMap<UserAttrs> = {
     telegramId: new LiteralFieldValidator("telegramId", true, { isArray: false}, "number", [ new PositiveNumberValidationRule()]),
     employeeId: new LiteralFieldValidator("employeeId", false, { isArray: false}, "string", []),
     userProfile: new DtoFieldValidator("userProfile", true, {isArray: false}, "dto", userprofileVMap),
-=======
-import { OnlyLitinicOrCyrillicCharsValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/only-latinic-or-cyrillic-chars.v-rule';
-import {
-  UserProfile, UserAttrs,
-} from './params';
-
-const userprofileVMap: ValidatorMap<UserProfile> = {
-  name: new LiteralFieldValidator('name', true, { isArray: false }, 'string', [
-    new MaxCharsCountValidationRule(50),
-    new OnlyLitinicOrCyrillicCharsValidationRule(),
-    new RegexFormatValidationRule(/^[-]+$/i, 'без пробелов и символов кроме "-"')]),
-};
-
-export const userVMap: ValidatorMap<UserAttrs> = {
-  userId: new UuidField('userId'),
-  telegramId: new LiteralFieldValidator('telegramId', true, { isArray: false }, 'number', [new PositiveNumberValidationRule()]),
-  employeeId: new LiteralFieldValidator('employeeId', false, { isArray: false }, 'string', []),
-  userProfile: new DtoFieldValidator('userProfile', true, { isArray: false }, 'dto', userprofileVMap),
->>>>>>> c27c8598f371d12b5f93aa45261029bdeb0284e5
 };
