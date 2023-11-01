@@ -1,10 +1,9 @@
 // eslint-disable-next-line max-classes-per-file
 import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
 import * as jwt from 'jsonwebtoken';
-import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+import crypto, { randomBytes } from 'crypto';
 import {
-  AuthentificationUserDomainQuery, JwtAccessData, JwtToken, JwtToken2, JwtTokens,
+  AuthentificationUserDomainQuery, JwtAccessData, JwtTokens,
 } from '../../domain-data/user/user-authentification.a-params';
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
 
@@ -44,7 +43,7 @@ export class UserAR extends AggregateRoot<UserParams> {
       const jwtToken = this.generateJwtToken(authQuery);
       return jwtToken;
     }
-    throw new AuthenticationError('Неверные учетные данные');
+    throw new Error('Неверные учетные данные');
   }
 
   private isValidUser(authQuery: AuthentificationUserDomainQuery): boolean {
@@ -61,7 +60,17 @@ export class UserAR extends AggregateRoot<UserParams> {
       .createHmac('sha256', authQuery.botToken)
       .update(`${id}${first_name}${Last_name}${username}${photo_url}${auth_date}`)
       .digest('hex');
-    return hash === computedHash;
+    if (hash !== computedHash) {
+      throw new Error('Невалидный хэш телеграмма');
+    }
+    const currentDate = Math.floor(Date.now() / 1000);
+    const validAuthDate = currentDate - 7 * 24 * 60 * 60;
+    const authDateNumber = parseInt(auth_date, 10);
+
+    if (authDateNumber <= validAuthDate) {
+      throw new Error('auth_date устарел');
+    }
+    return true;
   }
 
   private generateJwtToken(authQuery: AuthentificationUserDomainQuery): JwtTokens {
@@ -77,8 +86,8 @@ export class UserAR extends AggregateRoot<UserParams> {
     return { accessToken, refreshToken };
   }
 
-  private generateRefreshToken(tokenData:JwtAccessData): string {
-    const refreshSecret = bcrypt.genSaltSync(10);
+  private generateRefreshToken(tokenData: JwtAccessData): string {
+    const refreshSecret = randomBytes(32).toString('hex');
     const refreshToken = jwt.sign(tokenData, refreshSecret, { expiresIn: '7d' });
     return refreshToken;
   }
