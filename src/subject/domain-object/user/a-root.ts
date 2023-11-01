@@ -47,7 +47,8 @@ export class UserAR extends AggregateRoot<UserParams> {
     throw new Error('Неверные учетные данные');
   }
 
-  private isValidUser(authQuery: AuthentificationUserDomainQuery): boolean {
+  private isValidUser(authQuery: AuthentificationUserDomainQuery): 
+  boolean | TelegramHashNotValidError | TelegramDateNotValidError {
     const {
       id,
       first_name,
@@ -62,7 +63,7 @@ export class UserAR extends AggregateRoot<UserParams> {
       .update(`${id}${first_name}${Last_name}${username}${photo_url}${auth_date}`)
       .digest('hex');
     if (hash !== computedHash) {
-      throw failure(dodUtility.getDomainErrorByType<TelegramHashNotValidError>(
+      return failure(dodUtility.getDomainErrorByType<TelegramHashNotValidError>(
         'TelegramHashNotValidError',
         'Хэш телеграмма некорректный',
         { hash },
