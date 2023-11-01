@@ -2,8 +2,8 @@ import { describe, expect, test } from 'bun:test';
 import { WorkshopAttrs } from './params';
 import { workshopVMap } from './v-map';
 
-describe('', () => {
-  test('', () => {
+describe('test workshopAttrs', () => {
+  test('succes, all values are valid', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat',
@@ -18,7 +18,7 @@ describe('', () => {
     expect(workshopVMap.location.validate(workshopAttrs.location).value).toBeUndefined();
   });
 
-  test('', () => {
+  test('failure, workshopId value does not match UUID format', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d31240050sfai72cf3757cc33',
       name: 'Nurbolat',
@@ -40,7 +40,7 @@ describe('', () => {
     expect(workshopVMap.location.validate(workshopAttrs.location).value).toBeUndefined();
   });
 
-  test('', () => {
+  test('failure, A line name cannot contain two languages at the same time', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat-Нурболат',
@@ -61,7 +61,7 @@ describe('', () => {
     expect(workshopVMap.address.validate(workshopAttrs.address).value).toBeUndefined();
     expect(workshopVMap.location.validate(workshopAttrs.location).value).toBeUndefined();
   });
-  test('', () => {
+  test('failure, A line city cannot contain two languages at the same time', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat',
@@ -83,7 +83,7 @@ describe('', () => {
     expect(workshopVMap.location.validate(workshopAttrs.location).value).toBeUndefined();
   });
 
-  test('', () => {
+  test('failure, workshopAttrs address has string length violation', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat',
@@ -107,7 +107,7 @@ describe('', () => {
     expect(workshopVMap.location.validate(workshopAttrs.location).value).toBeUndefined();
   });
 
-  test('', () => {
+  test('failure, coordinates entered incorrectly', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat',
@@ -134,7 +134,7 @@ describe('', () => {
     });
   });
 
-  test('', () => {
+  test('failure, coordinates entered incorrectly', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat',
@@ -152,7 +152,7 @@ describe('', () => {
           {
             text: 'Число должно быть в диапозоне от {{min}} до {{max}}',
             hint: {
-              max: 360,
+              max: 180,
               min: -180,
             },
           },
