@@ -1,7 +1,6 @@
 import { ValidatorMap } from 'rilata2/src/domain/validator/field-validator/types';
 import { UuidField } from 'rilata2/src/domain/validator/field-validator/prepared-fields/string/uuid-field';
 import { LiteralFieldValidator } from 'rilata2/src/domain/validator/field-validator/literal-field-validator';
-import { RegexFormatValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/regex.field-v-rule';
 import { MaxCharsCountValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/max-chars-count.v-rule';
 import { RangeNumberValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/number/range-number.v-rule';
 import { DtoFieldValidator } from "rilata2/src/domain/validator/field-validator/dto-field-validator";
@@ -26,7 +25,7 @@ const locationAttrsValidatorMap: ValidatorMap<Location> = {
   ),
 };
 
-const workshopVMap: ValidatorMap<WorkshopAttrs> = {
+export const workshopVMap: ValidatorMap<WorkshopAttrs> = {
     workshopId: new UuidField("workshopId"),
     name: new LiteralFieldValidator("name", true, { isArray: false }, "string", [
         new MaxCharsCountValidationRule(50),
