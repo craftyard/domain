@@ -1,7 +1,8 @@
-import { ActionParams, DomainResult } from "rilata2/src/domain/domain-object-data/aggregate-data-types";
-import { TelegramId } from "../../../types";
-import { UserId, UuidType } from "rilata2/src/common/types";
-import { UserAttrs } from "./params";
+import { ActionParams, DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
+import { UserId, UuidType } from 'rilata2/src/common/types';
+import { ErrorDod } from 'rilata2/src/domain/domain-object-data/common-types';
+import { TelegramId } from '../../../types';
+import { UserAttrs } from './params';
 
 export type TelegramAuthDTO = {
   id: TelegramId,
@@ -16,7 +17,7 @@ export type TelegramAuthDTO = {
 export type AuthentificationUserDomainQuery = {
   telegramAuthDto: TelegramAuthDTO,
   botToken: string,
-  JWT_SECRET: string,
+  privateKey: string,
   userAttrs:UserAttrs,
 }
 
@@ -49,3 +50,21 @@ export type AuthentificationUserActionParams = ActionParams<
 >
 
 export type AuthentificationUserResult = DomainResult<AuthentificationUserActionParams>;
+
+export type TelegramHashNotValidBody = {
+    text: 'Хэш телеграмма некорректный',
+    hint:{
+        hash: string,
+    }
+}
+
+export type TelegramHashNotValidError = ErrorDod<TelegramHashNotValidBody, 'TelegramHashNotValidError'>
+
+export type TelegramAuthDateNotValidError = {
+    text: 'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
+    hint:{
+        authHashLifetimeAsSeconds: number,
+    }
+}
+
+export type TelegramDateNotValidError = ErrorDod<TelegramAuthDateNotValidError, 'TelegramAuthDateNotValidError'>

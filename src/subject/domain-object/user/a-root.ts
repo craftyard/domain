@@ -2,17 +2,18 @@
 import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
 import * as jwt from 'jsonwebtoken';
 import crypto, { randomBytes } from 'crypto';
+import { failure } from 'rilata2/src/common/result/failure';
+import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
 import {
-  AuthentificationUserDomainQuery, JwtAccessData, JwtTokens,
+  AuthentificationUserDomainQuery,
+  JwtAccessData,
+  JwtTokens,
+  TelegramDateNotValidError,
+  TelegramHashNotValidError,
 } from '../../domain-data/user/user-authentification.a-params';
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
 
-class AuthenticationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'AuthenticationError';
-  }
-}
+const telegramAuthHashLifetimeAsSeconds = 7 * 24 * 60 * 60;
 
 export class UserAR extends AggregateRoot<UserParams> {
   protected attrs: UserAttrs;
@@ -38,7 +39,7 @@ export class UserAR extends AggregateRoot<UserParams> {
   }
 
   userAuthentification(authQuery: AuthentificationUserDomainQuery)
-  : JwtTokens | AuthenticationError {
+  : JwtTokens | TelegramHashNotValidError | TelegramDateNotValidError {
     if (this.isValidUser(authQuery)) {
       const jwtToken = this.generateJwtToken(authQuery);
       return jwtToken;
@@ -61,25 +62,37 @@ export class UserAR extends AggregateRoot<UserParams> {
       .update(`${id}${first_name}${Last_name}${username}${photo_url}${auth_date}`)
       .digest('hex');
     if (hash !== computedHash) {
-      throw new Error('Невалидный хэш телеграмма');
+      throw failure(dodUtility.getDomainErrorByType<TelegramHashNotValidError>(
+        'TelegramHashNotValidError',
+        'Хэш телеграмма некорректный',
+        { hash },
+      ));
     }
-    const currentDate = Math.floor(Date.now() / 1000);
-    const validAuthDate = currentDate - 7 * 24 * 60 * 60;
+    const authHashLifetimeAsSeconds = Math.floor(Date.now() / 1000);
+    const validAuthDate = authHashLifetimeAsSeconds - telegramAuthHashLifetimeAsSeconds;
     const authDateNumber = parseInt(auth_date, 10);
 
     if (authDateNumber <= validAuthDate) {
-      throw new Error('auth_date устарел');
+      throw failure(dodUtility.getDomainErrorByType<TelegramDateNotValidError>(
+        'TelegramAuthDateNotValidError',
+        'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
+        { authHashLifetimeAsSeconds },
+      ));
     }
     return true;
   }
 
-  private generateJwtToken(authQuery: AuthentificationUserDomainQuery): JwtTokens {
-    const tokenData:JwtAccessData = {
+  generateJwtToken(authQuery: AuthentificationUserDomainQuery): JwtTokens {
+    const tokenData: JwtAccessData = {
       userId: authQuery.userAttrs.userId,
       telegramId: authQuery.telegramAuthDto.id,
       employeeId: authQuery.userAttrs.employeeId,
     };
-    const accessToken = jwt.sign(tokenData, authQuery.JWT_SECRET, { expiresIn: '1h' });
+
+    const accessToken = jwt.sign(tokenData, authQuery.privateKey, {
+      algorithm: 'RS256',
+      expiresIn: '1h',
+    });
 
     const refreshToken = this.generateRefreshToken(tokenData);
 
@@ -88,7 +101,9 @@ export class UserAR extends AggregateRoot<UserParams> {
 
   private generateRefreshToken(tokenData: JwtAccessData): string {
     const refreshSecret = randomBytes(32).toString('hex');
-    const refreshToken = jwt.sign(tokenData, refreshSecret, { expiresIn: '7d' });
+    const refreshToken = jwt.sign(tokenData, refreshSecret, {
+      expiresIn: '7d',
+    });
     return refreshToken;
   }
 }
