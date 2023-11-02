@@ -7,7 +7,7 @@ import { EmployeeAttrs } from './params';
 
 export const employeeVMap: ValidatorMap<EmployeeAttrs> = {
   employeeId: new UuidField('employeeId'),
-  roles: new LiteralFieldValidator('roles', true, { isArray: false, minElementsCount: 1 }, 'string', [
+  roles: new LiteralFieldValidator('roles', true, { isArray: true, minElementsCount: 1 }, 'string', [
     new StringChoiceValidationRule(roles)]),
   workshopId: new UuidField('workshopId'),
 };
