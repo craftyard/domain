@@ -1,4 +1,5 @@
 import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
+// eslint-disable-next-line import/extensions
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
 
 export class UserAR extends AggregateRoot<UserParams> {
@@ -17,7 +18,7 @@ export class UserAR extends AggregateRoot<UserParams> {
       name: 'UserAR',
       domainType: 'domain-object',
       objectType: 'aggregate',
-    }
+    };
   }
 
   getShortName(): string {

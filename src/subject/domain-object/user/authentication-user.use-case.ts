@@ -5,8 +5,12 @@ import { failure } from 'rilata2/src/common/result/failure';
 import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
 import { PermissionDeniedError, UseCaseBaseErrors } from 'rilata2/src/app/use-case/error-types';
 import { ErrorDod } from 'rilata2/src/domain/domain-object-data/common-types';
-import { AuthentificationUserInputOptions, AuthentificationUserSuccessOut, AuthentificationUserErrors, AuthentificationInvalidUserErrors } from '../../read-usecase/user-authentifiacaion/uc-params';
+import {
+  AuthentificationUserInputOptions, AuthentificationUserSuccessOut, AuthentificationUserErrors, AuthentificationInvalidUserErrors,
+} from '../../read-usecase/user-authentifiacaion/uc-params';
 import { UserRepository } from './repository';
+import { TelegramAuthDTO } from '../../domain-data/user/user-authentification.a-params';
+// import { Caller } from 'rilata2/src/app/caller';
 
 export abstract class AuthentificationUserUseCase extends QueryUseCase<{
     inputOptions: AuthentificationUserInputOptions,
@@ -17,26 +21,34 @@ export abstract class AuthentificationUserUseCase extends QueryUseCase<{
 
   actionType = 'instance' as const;
 
+  protected inputValidator = .instance(this.moduleResolver);
+
   actionName = 'authentificationUser';
 
-  protected async runDomain(options: AuthentificationUserInputOptions):
+  protected runDomain(options: AuthentificationUserInputOptions):
         Promise<GetUcResult<{
-            inputOptions: AuthentificationUserInputOptions;
-            successOut: AuthentificationUserSuccessOut;
-            errors: AuthentificationUserErrors;
+          inputOptions: AuthentificationUserInputOptions,
+          successOut: AuthentificationUserSuccessOut,
+          errors: AuthentificationUserErrors,
         }>> {
-    const userRepo = UserRepository.instance(this);
-    const getUserResult = await userRepo.getByTelegramId(options.query);
-    if (getUserResult.telegramId) {
-      return failure(
-        dodUtility.getDomainErrorByType<>{
-          
-        }
-      );
+    {
+      const userRepo = UserRepository.instance(this.runInitialChecks);
+      const getUserResult = await userRepo.getByTelegramId(options.query.telegramId);
+      if (getUserResult.isFailure()) {
+        return failure(
+          dodUtility.getDomainErrorByType<AuthentificationUserErrors>(
+            'AuthentificationUserErrors',
+            { telegramId: options.caller },
+            {},
+          ),
+        );
+      }
     }
-    return true;
+    return success(res.value.attrs.id);
   }
 }
+
+// ..
 // const userRepo = UserRepository.instance(this.supportedCallers);
 // const getUserResult = await userRepo.instance(this.);
 // // const getUserResult = await userRepo.getByTelegramId();

@@ -29,7 +29,7 @@ export type JwtToken = {
 }
 
 export type AuthentificationUserActionParams = ActionParams<
-  'userAuthentification',
+  'AuthentificationUser',
   'instance',
   AuthentificationUserDomainQuery,
   JwtToken,
