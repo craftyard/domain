@@ -57,7 +57,7 @@ describe('test EmployeeAttrs', () => {
   test('failure, there is a value not from the list', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: ['Manager', 'Owner', 'Guest'] as unknown as Roles[],
+      roles: ['Manager', 'Owner', 'Guest'] as Roles[],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();
@@ -79,7 +79,7 @@ describe('test EmployeeAttrs', () => {
   test('failure, value cannot be empty', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: [],
+      roles: [] as Roles[],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();

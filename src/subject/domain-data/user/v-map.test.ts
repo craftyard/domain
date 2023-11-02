@@ -29,7 +29,7 @@ describe('all tested', () => {
       expect(vResult.value).toEqual({
         name: [
           {
-            text: 'Длина строки должна быть меньше или равно {{maxCount}}',
+            text: 'Длина строки должна быть не больше {{maxCount}}',
             hint: { maxCount: 50 },
           },
         ],
@@ -184,7 +184,7 @@ describe('all tested', () => {
         userProfile: {
           name: [
             {
-              text: 'Длина строки должна быть меньше или равно {{maxCount}}',
+              text: 'Длина строки должна быть не больше {{maxCount}}',
               hint: {
                 maxCount: 50,
               },
