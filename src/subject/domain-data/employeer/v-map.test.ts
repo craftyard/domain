@@ -6,7 +6,7 @@ describe('test EmployeeAttrs', () => {
   test('succes, all values are valid', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: ['Manager'] as unknown as Roles,
+      roles: ['Manager'],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();
@@ -17,7 +17,7 @@ describe('test EmployeeAttrs', () => {
   test('succes, all values are valid', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: ['Manager', 'Owner', 'Master', 'Master'] as unknown as Roles,
+      roles: ['Manager', 'Owner', 'Master', 'Master'],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();
@@ -28,7 +28,7 @@ describe('test EmployeeAttrs', () => {
   test('succes, all values are valid', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: ['Manager', 'Owner', 'Master'] as unknown as Roles,
+      roles: ['Manager', 'Owner', 'Master'],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();
@@ -39,7 +39,7 @@ describe('test EmployeeAttrs', () => {
   test('failure, employeeId value does not match UUID format', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-48esflsdg;dlg0ea85c8f211',
-      roles: ['Manager'] as unknown as Roles,
+      roles: ['Manager'],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toEqual({
@@ -57,7 +57,7 @@ describe('test EmployeeAttrs', () => {
   test('failure, there is a value not from the list', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: ['Manager', 'Owner', 'Guest'] as unknown as Roles,
+      roles: ['Manager', 'Owner', 'Guest'] as Roles[],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();
@@ -79,7 +79,7 @@ describe('test EmployeeAttrs', () => {
   test('failure, value cannot be empty', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: [] as unknown as Roles,
+      roles: [] as Roles[],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();
@@ -99,7 +99,7 @@ describe('test EmployeeAttrs', () => {
   test('failure, workshopId value does not match UUID format', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: ['Owner'] as unknown as Roles,
+      roles: ['Owner'],
       workshopId: 'dfc74516ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();
@@ -117,7 +117,7 @@ describe('test EmployeeAttrs', () => {
   test('failure, there is a value not from the list', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
-      roles: ['Manager', 'Owner', 'Master', 'Generalisimus'] as unknown as Roles,
+      roles: ['Manager', 'Owner', 'Master', 'Generalisimus'] as Roles[],
       workshopId: 'dfc74516-5955-4ed3-9129-ba65d02bc8fe',
     };
     expect(employeeVMap.employeeId.validate(employeeAttrs.employeeId).value).toBeUndefined();
