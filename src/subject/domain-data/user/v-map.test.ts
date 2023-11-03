@@ -1,30 +1,30 @@
 import { describe, expect, test } from 'bun:test';
 import { UserAttrs, UserProfile } from './params';
-import { userAttrsVMap, userprofileVMap } from './v-map';
+import { userAttrsVMap, userProfileVMap } from './v-map';
 
 describe('all tested', () => {
   describe('test userProfile', () => {
     test('succes, there are no prohibited characters in the name and it does not exceed the limits', () => {
       const userProfile: UserProfile = { name: 'Nurbolat' };
-      const vResult = userprofileVMap.name.validate(userProfile.name);
+      const vResult = userProfileVMap.name.validate(userProfile.name);
       expect(vResult.isSuccess()).toEqual(true);
       expect(vResult.value).toBeUndefined();
     });
     test('succes, there are no prohibited characters in the name and it does not exceed the limits', () => {
       const userProfile: UserProfile = { name: 'Нурболат' };
-      const vResult = userprofileVMap.name.validate(userProfile.name);
+      const vResult = userProfileVMap.name.validate(userProfile.name);
       expect(vResult.isSuccess()).toEqual(true);
       expect(vResult.value).toBeUndefined();
     });
     test('succes, there are no prohibited characters in the name and it does not exceed the limits', () => {
       const userProfile: UserProfile = { name: 'Nurbolat-Amangaliyev' };
-      const vResult = userprofileVMap.name.validate(userProfile.name);
+      const vResult = userProfileVMap.name.validate(userProfile.name);
       expect(vResult.isSuccess()).toEqual(true);
       expect(vResult.value).toBeUndefined();
     });
     test('failure, string length greater than 50', () => {
       const userProfile: UserProfile = { name: 'Nurbolaaaaaaaaaaaaat-Amangaliyevvvvvvvvvvvvvvvvvvvvvvvvvv' };
-      const vResult = userprofileVMap.name.validate(userProfile.name);
+      const vResult = userProfileVMap.name.validate(userProfile.name);
       expect(vResult.isFailure()).toEqual(true);
       expect(vResult.value).toEqual({
         name: [
@@ -37,7 +37,7 @@ describe('all tested', () => {
     });
     test('failure, A line cannot contain two languages at the same time', () => {
       const userProfile: UserProfile = { name: 'Nurbolat-Амангалиев' };
-      const vResult = userprofileVMap.name.validate(userProfile.name);
+      const vResult = userProfileVMap.name.validate(userProfile.name);
       expect(vResult.isFailure()).toEqual(true);
       expect(vResult.value).toEqual({
         name: [
@@ -50,7 +50,7 @@ describe('all tested', () => {
     });
     test('failure, There cannot be extra characters in the line', () => {
       const userProfile: UserProfile = { name: 'English$#%@' };
-      const vResult = userprofileVMap.name.validate(userProfile.name);
+      const vResult = userProfileVMap.name.validate(userProfile.name);
       expect(vResult.isFailure()).toEqual(true);
       expect(vResult.value).toEqual({
         name: [
@@ -192,21 +192,6 @@ describe('all tested', () => {
           ],
         },
       });
-    });
-
-    test('failure, user profile name has string length violation', () => {
-      const userAttrs: UserAttrs = {
-        userId: '68ae48f2-5ae8-4191-8bc5-93c21a4a35b3',
-        telegramId: 1234568910,
-        employeeId: undefined,
-        userProfile: {
-          name: 'Nurbolat',
-        },
-      };
-      expect(userAttrsVMap.userId.validate(userAttrs.userId).value).toBeUndefined();
-      expect(userAttrsVMap.telegramId.validate(userAttrs.telegramId).value).toBeUndefined();
-      expect(userAttrsVMap.employeeId.validate(userAttrs.employeeId).value).toBeUndefined();
-      expect(userAttrsVMap.userProfile.validate(userAttrs.userProfile).value).toBeUndefined();
     });
   });
 });

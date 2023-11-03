@@ -2,8 +2,8 @@ import { describe, expect, test } from 'bun:test';
 import { EmployeeAttrs, Roles } from './params';
 import { employeeVMap } from './v-map';
 
-describe('test EmployeeAttrs', () => {
-  test('succes, all values are valid', () => {
+describe('tests to check the properties of a workshop employee object or something like that', () => {
+  test('Success, attributes are valid, employee with one role', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
       roles: ['Manager'],
@@ -14,7 +14,7 @@ describe('test EmployeeAttrs', () => {
     expect(employeeVMap.workshopId.validate(employeeAttrs.workshopId).value).toBeUndefined();
   });
 
-  test('succes, all values are valid', () => {
+  test('Success, attributes are valid, employee with multiple roles', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
       roles: ['Manager', 'Owner', 'Master', 'Master'],
@@ -25,7 +25,7 @@ describe('test EmployeeAttrs', () => {
     expect(employeeVMap.workshopId.validate(employeeAttrs.workshopId).value).toBeUndefined();
   });
 
-  test('succes, all values are valid', () => {
+  test('Success, attributes are valid, employee with all allowed roles', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
       roles: ['Manager', 'Owner', 'Master'],
@@ -54,7 +54,7 @@ describe('test EmployeeAttrs', () => {
     expect(employeeVMap.workshopId.validate(employeeAttrs.workshopId).value).toBeUndefined();
   });
 
-  test('failure, there is a value not from the list', () => {
+  test('failure, there is a value not from the list roles', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
       roles: ['Manager', 'Owner', 'Guest'] as Roles[],
@@ -76,7 +76,7 @@ describe('test EmployeeAttrs', () => {
     expect(employeeVMap.workshopId.validate(employeeAttrs.workshopId).value).toBeUndefined();
   });
 
-  test('failure, value cannot be empty', () => {
+  test('failure, value roles cannot be empty', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
       roles: [] as Roles[],
@@ -114,7 +114,7 @@ describe('test EmployeeAttrs', () => {
     });
   });
 
-  test('failure, there is a value not from the list', () => {
+  test('failure, there is a value not from the list roles', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
       roles: ['Manager', 'Owner', 'Master', 'Generalisimus'] as Roles[],

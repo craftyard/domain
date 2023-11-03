@@ -40,7 +40,7 @@ describe('test workshopAttrs', () => {
     expect(workshopVMap.location.validate(workshopAttrs.location).value).toBeUndefined();
   });
 
-  test('failure, A line name cannot contain two languages at the same time', () => {
+  test('failure, A name line cannot contain two languages at the same time', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat-Нурболат',
@@ -61,7 +61,7 @@ describe('test workshopAttrs', () => {
     expect(workshopVMap.address.validate(workshopAttrs.address).value).toBeUndefined();
     expect(workshopVMap.location.validate(workshopAttrs.location).value).toBeUndefined();
   });
-  test('failure, A line city cannot contain two languages at the same time', () => {
+  test('failure, A city line cannot contain two languages at the same time', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat',
@@ -107,7 +107,7 @@ describe('test workshopAttrs', () => {
     expect(workshopVMap.location.validate(workshopAttrs.location).value).toBeUndefined();
   });
 
-  test('failure, coordinates entered incorrectly', () => {
+  test('failure, coordinates entered incorrectly, minimum value latitude 90 degrees', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat',
@@ -134,7 +134,7 @@ describe('test workshopAttrs', () => {
     });
   });
 
-  test('failure, coordinates entered incorrectly', () => {
+  test('failure, coordinates entered incorrectly, maximum value longitude 180 degrees', () => {
     const workshopAttrs: WorkshopAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       name: 'Nurbolat',

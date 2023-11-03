@@ -4,7 +4,7 @@ import { LiteralFieldValidator } from 'rilata2/src/domain/validator/field-valida
 import { MaxCharsCountValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/max-chars-count.v-rule';
 import { RangeNumberValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/number/range-number.v-rule';
 import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
-import { OnlyHyphenAndLitinicOrCyrillicCharsValidationRule } from '../../../common/val-rules/only-dash-and-latinic-or-cyrillic-chars.v-rule';
+import { OnlyDashAndLitinicOrCyrillicCharsValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/only-dash-and-latinic-or-cyrillic-chars.v-rule';
 import { Location } from '../../../types';
 import { WorkshopAttrs } from './params';
 
@@ -29,11 +29,11 @@ export const workshopVMap: ValidatorMap<WorkshopAttrs> = {
   workshopId: new UuidField('workshopId'),
   name: new LiteralFieldValidator('name', true, { isArray: false }, 'string', [
     new MaxCharsCountValidationRule(50),
-    new OnlyHyphenAndLitinicOrCyrillicCharsValidationRule(),
+    new OnlyDashAndLitinicOrCyrillicCharsValidationRule(),
   ]),
   city: new LiteralFieldValidator('city', true, { isArray: false }, 'string', [
     new MaxCharsCountValidationRule(50),
-    new OnlyHyphenAndLitinicOrCyrillicCharsValidationRule(),
+    new OnlyDashAndLitinicOrCyrillicCharsValidationRule(),
   ]),
   address: new LiteralFieldValidator('address', true, { isArray: false }, 'string', [new MaxCharsCountValidationRule(250)]),
   location: new DtoFieldValidator('location', true, { isArray: false }, 'dto', locationAttrsValidatorMap),
