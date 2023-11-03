@@ -38,17 +38,20 @@ export class UserAR extends AggregateRoot<UserParams> {
     throw new Error('Method not implemented.');
   }
 
-  userAuthentification(authQuery: AuthentificationUserDomainQuery)
-  : JwtTokens | TelegramHashNotValidError | TelegramDateNotValidError {
-    if (this.isValidUser(authQuery)) {
-      const jwtToken = this.generateJwtToken(authQuery);
-      return jwtToken;
+  userAuthentification(authQuery: AuthentificationUserDomainQuery): 
+  JwtTokens | TelegramHashNotValidError | TelegramDateNotValidError {
+    const validationError = this.isValidUser(authQuery);
+
+    if (validationError) {
+      return validationError; // Вернуть объект ошибки
     }
-    throw new Error('Неверные учетные данные');
+
+    const jwtToken = this.generateJwtToken(authQuery);
+    return jwtToken;
   }
 
-  private isValidUser(authQuery: AuthentificationUserDomainQuery): 
-  boolean | TelegramHashNotValidError | TelegramDateNotValidError {
+  private isValidUser(authQuery: AuthentificationUserDomainQuery):
+   TelegramHashNotValidError | TelegramDateNotValidError | null {
     const {
       id,
       first_name,
@@ -63,12 +66,13 @@ export class UserAR extends AggregateRoot<UserParams> {
       .update(`${id}${first_name}${Last_name}${username}${photo_url}${auth_date}`)
       .digest('hex');
     if (hash !== computedHash) {
-      return failure(dodUtility.getDomainErrorByType<TelegramHashNotValidError>(
+      throw failure(dodUtility.getDomainErrorByType<TelegramHashNotValidError>(
         'TelegramHashNotValidError',
         'Хэш телеграмма некорректный',
         { hash },
       ));
     }
+
     const authHashLifetimeAsSeconds = Math.floor(Date.now() / 1000);
     const validAuthDate = authHashLifetimeAsSeconds - telegramAuthHashLifetimeAsSeconds;
     const authDateNumber = parseInt(auth_date, 10);
@@ -80,7 +84,8 @@ export class UserAR extends AggregateRoot<UserParams> {
         { authHashLifetimeAsSeconds },
       ));
     }
-    return true;
+
+    return null;
   }
 
   generateJwtToken(authQuery: AuthentificationUserDomainQuery): JwtTokens {
