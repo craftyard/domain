@@ -14,9 +14,9 @@ export abstract class AuthentificationUserUseCase extends QueryUseCase<{
     successOut: AuthentificationUserSuccessOut,
     errors: AuthentificationUserErrors,
 }> {
-//   protected inputValidator = .instance(this.moduleResolver);
+  protected inputValidator = (this.moduleResolver);
 
-  protected supportedCallers: ('AnonymousUser')[] = ['AnonymousUser'];
+  protected supportedCallers = ('AnonymousUser') as const;
 
   protected abstract validatorMap: CommandValidatorMap<AuthentificationUserUCParams['inputOptions']['query']>;
 
