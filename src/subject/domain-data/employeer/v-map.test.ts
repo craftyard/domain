@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test';
 import { EmployeeAttrs, Roles } from './params';
 import { employeeVMap } from './v-map';
 
-describe('tests to check the properties of a workshop employee object or something like that', () => {
+describe('tests to check the properties of a workshop employee object', () => {
   test('Success, attributes are valid, employee with one role', () => {
     const employeeAttrs: EmployeeAttrs = {
       employeeId: '9a095f57-a11e-4874-bb15-70ea85c8f211',
