@@ -17,7 +17,7 @@ export class UserAR extends AggregateRoot<UserParams> {
       name: 'UserAR',
       domainType: 'domain-object',
       objectType: 'aggregate',
-    }
+    };
   }
 
   getShortName(): string {
