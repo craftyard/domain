@@ -5,4 +5,5 @@ export type Location = {
   longitude: number,
 }
 
-export type TelegramId = number;
+export type TelegramId = string;
+// Проверка

@@ -3,9 +3,9 @@ import { UserId, UuidType } from 'rilata2/src/common/types';
 import { TelegramId } from '../../../types';
 
 export type TelegramAuthDTO = {
-  id: TelegramId,
+  telegram_id: TelegramId,
   first_name: string,
-  Last_name: string,
+  last_name: string,
   username: string,
   photo_url: string,
   auth_date: string,

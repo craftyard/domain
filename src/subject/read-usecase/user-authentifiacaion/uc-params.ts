@@ -3,7 +3,7 @@ import { ErrorDod, UseCaseQueryDod } from 'rilata2/src/domain/domain-object-data
 import { QueryUseCaseParams } from 'rilata2/src/app/use-case/types';
 import { JwtToken, TelegramAuthDTO } from '../../domain-data/user/user-authentification.a-params';
 
-export type AuthentificationUserUCQuery = UseCaseQueryDod<TelegramAuthDTO, 'AuthentificationUserUCQuery'>
+export type AuthentificationUserUCQuery = UseCaseQueryDod<TelegramAuthDTO, 'AuthentificationUserQuery'>
 
 export type AuthentificationUserInputOptions = {
   query: AuthentificationUserUCQuery,
