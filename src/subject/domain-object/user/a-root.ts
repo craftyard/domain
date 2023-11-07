@@ -38,12 +38,12 @@ export class UserAR extends AggregateRoot<UserParams> {
     throw new Error('Method not implemented.');
   }
 
-  userAuthentification(authQuery: AuthentificationUserDomainQuery): 
+  userAuthentification(authQuery: AuthentificationUserDomainQuery):
   JwtTokens | TelegramHashNotValidError | TelegramDateNotValidError {
     const validationError = this.isValidUser(authQuery);
 
     if (validationError) {
-      return validationError; // Вернуть объект ошибки
+      return validationError;
     }
 
     const jwtToken = this.generateJwtToken(authQuery);
