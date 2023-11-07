@@ -2,14 +2,16 @@ import { UuidType } from 'rilata2/src/common/types';
 import { AggregateRootDataParams } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
 import { DomainMeta } from 'rilata2/src/domain/domain-object-data/common-types';
 
-export type EmployeerAttrs = {
-  employeerId: UuidType,
-  roles: ('Manager' | 'Owner' | 'Master')[],
+export type Roles = 'Manager' | 'Owner' | 'Master';
+
+export type EmployeeAttrs = {
+  employeeId: UuidType,
+  roles: Roles[],
   workshopId: UuidType,
 }
 
-export type EmployeerMeta = DomainMeta<'EmployeerAR'>;
+export type EmployeeMeta = DomainMeta<'EmployeeAR'>;
 
-export type EmployeerParams = AggregateRootDataParams<
-  EmployeerAttrs, EmployeerMeta, never
+export type EmployeeParams = AggregateRootDataParams<
+  EmployeeAttrs, EmployeeMeta, never
 >;
