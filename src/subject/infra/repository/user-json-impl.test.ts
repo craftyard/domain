@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test';
+import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
 import { UserAttrs, UserProfile } from '../../domain-data/user/params';
 import { UserArJsonRepositoryImpl } from './user-json-impl';
 
@@ -44,57 +45,94 @@ const getUserAttrs = (attrs: Partial<UserAttrs>) => {
 describe('UserAr json implementation repository tests', () => {
   describe('проверка инвариантов при загрузке объекта userAr', () => {
     test('провал, проверка на валидность userId и выкидывается ошибка', () => {
-      const notFoundUserId = getUserAttrs({ userId: undefined });
-      const notFoundCb = () => new UserArJsonRepositoryImpl(notFoundUserId);
-      expect(notFoundCb).toThrow('not valid userId');
+      try {
+        const userAttrsWithUndefinedUserId = getUserAttrs({ userId: undefined });
+        (() => new UserArJsonRepositoryImpl(userAttrsWithUndefinedUserId, new ConsoleLogger()))();
+        expect(true).toBe(false);
+      } catch (error) {
+        expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+      }
 
-      // last chat not valid;
-      const notValidUserId = getUserAttrs({ userId: 'bc9166cb-ba37-43cb-93d3-ce6da27471dU' });
-      const notValidCb = () => new UserArJsonRepositoryImpl(notValidUserId);
-      expect(notValidCb).toThrow('not valid userId');
-    });
-
-    test('провал, при загрузке если есть объект без telegramId, то выкинется ошибка', () => {
-      const notFoundTelegramId = getUserAttrs({ telegramId: undefined });
-      const notFoundCb = () => new UserArJsonRepositoryImpl(notFoundTelegramId);
-      expect(notFoundCb).toThrow('not valid userId');
-
-      const notValidTelegramId = getUserAttrs({ telegramId: ('5436134100' as unknown as number) });
-      const notValidCb = () => new UserArJsonRepositoryImpl(notValidTelegramId);
-      expect(notValidCb).toThrow('not valid userId');
-    });
-
-    test('провал, при загрузке если есть объект без userProfile, то выкинется ошибка', () => {
-      const notFoundUserProfile = getUserAttrs({ userProfile: undefined });
-      const notFoundCb = () => new UserArJsonRepositoryImpl(notFoundUserProfile);
-      expect(notFoundCb).toThrow('not valid userId');
-
-      const notValidUserProfile = getUserAttrs({ userProfile: ('5436134100' as unknown as UserProfile) });
-      const notValidCb = () => new UserArJsonRepositoryImpl(notValidUserProfile);
-      expect(notValidCb).toThrow('not valid userId');
-    });
-
-    test('провал, при загрузке если в userProfile не указан атрибут name, то выкинется ошибка', () => {
-      const notFoundUserNameAttr = getUserAttrs(
-        { userProfile: { name: undefined as unknown as string } },
-      );
-      const notFoundCb = () => new UserArJsonRepositoryImpl(notFoundUserNameAttr);
-      expect(notFoundCb).toThrow('not valid userId');
-
-      const notValidUserNameAttr = getUserAttrs(
-        { userProfile: { name: 5 as unknown as string } },
-      );
-      const notValidCb = () => new UserArJsonRepositoryImpl(notValidUserNameAttr);
-      expect(notValidCb).toThrow('not valid userId');
-    });
-
-    test('убрать default с класса репо', () => {
-      expect(true).toBe(false);
+      // last char not valid;
+      try {
+        const userAttrsWithInvalidUserId = getUserAttrs(
+          { userId: 'bc9166cb-ba37-43cb-93d3-ce6da27471dU' },
+        );
+        (() => new UserArJsonRepositoryImpl(userAttrsWithInvalidUserId, new ConsoleLogger()))();
+        expect(true).toBe(false);
+      } catch (error) {
+        expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+      }
     });
   });
 
+  test('провал, при загрузке если есть объект без telegramId, то выкинется ошибка', () => {
+    try {
+      const userAttrsWithUndefinedTelegramId = getUserAttrs({ telegramId: undefined });
+      (() => new UserArJsonRepositoryImpl(userAttrsWithUndefinedTelegramId, new ConsoleLogger()))();
+      expect(true).toBe(false);
+    } catch (error) {
+      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+    }
+
+    try {
+      const userAttrsWithStringTelegramId = getUserAttrs(
+        { telegramId: ('5436134100' as unknown as number) },
+      );
+      (() => new UserArJsonRepositoryImpl(userAttrsWithStringTelegramId, new ConsoleLogger()))();
+      expect(true).toBe(false);
+    } catch (error) {
+      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+    }
+  });
+
+  test('провал, при загрузке если есть объект без userProfile, то выкинется ошибка', () => {
+    try {
+      const userAttrsWithUndefinedUserProfile = getUserAttrs({ userProfile: undefined });
+      (() => new UserArJsonRepositoryImpl(
+        userAttrsWithUndefinedUserProfile,
+        new ConsoleLogger(),
+      ))();
+      expect(true).toBe(false);
+    } catch (error) {
+      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+    }
+
+    try {
+      const userAttrsWithInvalidUserProfile = getUserAttrs(
+        { userProfile: ('5436134100' as unknown as UserProfile) },
+      );
+      (() => new UserArJsonRepositoryImpl(userAttrsWithInvalidUserProfile, new ConsoleLogger()))();
+      expect(true).toBe(false);
+    } catch (error) {
+      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+    }
+  });
+
+  test('провал, при загрузке если в userProfile не указан атрибут name, то выкинется ошибка', () => {
+    try {
+      const userAttrsWithoutName = getUserAttrs(
+        { userProfile: { name: undefined as unknown as string } },
+      );
+      (() => new UserArJsonRepositoryImpl(userAttrsWithoutName, new ConsoleLogger()))();
+      expect(true).toBe(false);
+    } catch (error) {
+      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+    }
+
+    try {
+      const userAttrsWithInvalidName = getUserAttrs(
+        { userProfile: { name: 5 as unknown as string } },
+      );
+      (() => new UserArJsonRepositoryImpl(userAttrsWithInvalidName, new ConsoleLogger()))();
+      expect(true).toBe(false);
+    } catch (error) {
+      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+    }
+  });
+
   describe('поиск пользователя по telegramId', () => {
-    const sut = new UserArJsonRepositoryImpl(testUsersAsJson);
+    const sut = new UserArJsonRepositoryImpl(testUsersAsJson, new ConsoleLogger());
     test('успех, когда в списке есть несколько пользователей с одинаковым telegramId, то возвращаются все', () => {
       const result = sut.findByTelegramId(5436134100);
       expect(result).toEqual([
