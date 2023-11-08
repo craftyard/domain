@@ -13,7 +13,8 @@ export type AuthentificationUserInputOptions = {
 export type AuthentificationUserSuccessOut = JwtToken;
 
 export type AuthentificationUserErrors = ErrorDod<
-  {text: 'Пользователь по такому TelegramID не зарегистрирован в приложений',
+  {
+  text: 'Пользователь по такому TelegramID не зарегистрирован в приложений',
   hint: Record<never, unknown>},
   'AuthentificationUserErrors'
 >;

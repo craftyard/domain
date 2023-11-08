@@ -6,4 +6,5 @@ export type Location = {
 }
 
 export type TelegramId = string;
-// Проверка
+// eslint-disable-next-line max-len
+// Во время реализации use-case auth посмотрел в рилата2 и антхилл а там ID строка и для себя на пока что сделал строкой
