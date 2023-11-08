@@ -1,5 +1,5 @@
 import { QueryUseCase } from 'rilata2/src/app/use-case/query-use-case';
-import { GeneralQueryUcParams, GetUcOptions, GetUcResult } from 'rilata2/src/app/use-case/types';
+import { GetUcOptions, GetUcResult } from 'rilata2/src/app/use-case/types';
 import { CommandValidatorMap } from 'rilata2/src/domain/validator/field-validator/types';
 import { Caller, CallerType } from 'rilata2/src/app/caller';
 import { success } from 'rilata2/src/common/result/success';
@@ -31,7 +31,7 @@ export class AuthentificationUserUCQuery extends QueryUseCase<AuthentificationUs
   }
 
   protected checkCallerPermission(caller: Caller): GetUcResult<AuthentificationUserUCParams> {
-    if (this.supportedCallers.includes(caller.type)) return success(undefined);
+    if (this.supportedCallers.includes(caller.type)) return success();
 
     const err = dodUtility.getDomainErrorByType<AuthentificationUserError<Locale>>(
       'AuthentificationUserError',
