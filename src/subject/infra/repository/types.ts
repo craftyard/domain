@@ -1,1 +1,3 @@
-export type UserAttrsPropertyNames = 'userId' | 'telegramId' | 'employeeId' | 'userProfile';
+import { UserAttrs } from '../../domain-data/user/params';
+
+export type UserAttrsPropertyNames = keyof UserAttrs;

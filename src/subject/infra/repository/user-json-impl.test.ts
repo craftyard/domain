@@ -66,7 +66,7 @@ describe('UserAr json implementation repository tests', () => {
     });
   });
 
-  test('провал, при загрузке если есть объект без telegramId, то выкинется ошибка', () => {
+  test('провал, при загрузке если есть объект без или с неправильным telegramId, то выкинется ошибка', () => {
     try {
       const userAttrsWithUndefinedTelegramId = getUserAttrs({ telegramId: undefined });
       (() => new UserArJsonRepositoryImpl(userAttrsWithUndefinedTelegramId, new ConsoleLogger()))();
@@ -86,7 +86,7 @@ describe('UserAr json implementation repository tests', () => {
     }
   });
 
-  test('провал, при загрузке если есть объект без userProfile, то выкинется ошибка', () => {
+  test('провал, при загрузке если есть объект без или с неправильным userProfile, то выкинется ошибка', () => {
     try {
       const userAttrsWithUndefinedUserProfile = getUserAttrs({ userProfile: undefined });
       (() => new UserArJsonRepositoryImpl(
@@ -109,7 +109,7 @@ describe('UserAr json implementation repository tests', () => {
     }
   });
 
-  test('провал, при загрузке если в userProfile не указан атрибут name, то выкинется ошибка', () => {
+  test('провал, при загрузке если в userProfile не указан атрибут name или его значение не строковое, то выкинется ошибка', () => {
     try {
       const userAttrsWithoutName = getUserAttrs(
         { userProfile: { name: undefined as unknown as string } },

@@ -10,7 +10,10 @@ export class UserArJsonRepositoryImpl implements UserRepository {
   constructor(jsonUsers: string, logger: Logger) {
     this.users = JSON.parse(jsonUsers);
     this.users.forEach((user) => {
-      (Object.keys(user) as UserAttrsPropertyNames[]).forEach((key) => {
+      const userAtrsPropertyNames: UserAttrsPropertyNames[] = [
+        'userId', 'telegramId', 'employeeId', 'userProfile',
+      ];
+      userAtrsPropertyNames.forEach((key) => {
         const validationResult = userAttrsVMap[key].validate(user[key]);
         if (validationResult.isFailure() === true) {
           logger.error(
