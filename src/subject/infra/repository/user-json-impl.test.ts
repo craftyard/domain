@@ -50,7 +50,7 @@ describe('UserAr json implementation repository tests', () => {
         (() => new UserArJsonRepositoryImpl(userAttrsWithUndefinedUserId, new ConsoleLogger()))();
         expect(true).toBe(false);
       } catch (error) {
-        expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+        expect(String(error)).toContain('Входящие данные не валидны');
       }
 
       // last char not valid;
@@ -61,7 +61,7 @@ describe('UserAr json implementation repository tests', () => {
         (() => new UserArJsonRepositoryImpl(userAttrsWithInvalidUserId, new ConsoleLogger()))();
         expect(true).toBe(false);
       } catch (error) {
-        expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+        expect(String(error)).toContain('Входящие данные не валидны');
       }
     });
   });
@@ -72,7 +72,7 @@ describe('UserAr json implementation repository tests', () => {
       (() => new UserArJsonRepositoryImpl(userAttrsWithUndefinedTelegramId, new ConsoleLogger()))();
       expect(true).toBe(false);
     } catch (error) {
-      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+      expect(String(error)).toContain('Входящие данные не валидны');
     }
 
     try {
@@ -82,7 +82,7 @@ describe('UserAr json implementation repository tests', () => {
       (() => new UserArJsonRepositoryImpl(userAttrsWithStringTelegramId, new ConsoleLogger()))();
       expect(true).toBe(false);
     } catch (error) {
-      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+      expect(String(error)).toContain('Входящие данные не валидны');
     }
   });
 
@@ -95,7 +95,7 @@ describe('UserAr json implementation repository tests', () => {
       ))();
       expect(true).toBe(false);
     } catch (error) {
-      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+      expect(String(error)).toContain('Входящие данные не валидны');
     }
 
     try {
@@ -105,7 +105,7 @@ describe('UserAr json implementation repository tests', () => {
       (() => new UserArJsonRepositoryImpl(userAttrsWithInvalidUserProfile, new ConsoleLogger()))();
       expect(true).toBe(false);
     } catch (error) {
-      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+      expect(String(error)).toContain('Входящие данные не валидны');
     }
   });
 
@@ -117,7 +117,7 @@ describe('UserAr json implementation repository tests', () => {
       (() => new UserArJsonRepositoryImpl(userAttrsWithoutName, new ConsoleLogger()))();
       expect(true).toBe(false);
     } catch (error) {
-      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+      expect(String(error)).toContain('Входящие данные не валидны');
     }
 
     try {
@@ -127,7 +127,7 @@ describe('UserAr json implementation repository tests', () => {
       (() => new UserArJsonRepositoryImpl(userAttrsWithInvalidName, new ConsoleLogger()))();
       expect(true).toBe(false);
     } catch (error) {
-      expect(String(error)).toContain('Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json');
+      expect(String(error)).toContain('Входящие данные не валидны');
     }
   });
 

@@ -1,28 +1,17 @@
 import { Logger } from 'rilata2/src/common/logger/logger';
+import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
 import { UserAttrs } from '../../domain-data/user/params';
 import { userAttrsVMap } from '../../domain-data/user/v-map';
 import { UserRepository } from '../../domain-object/user/repository';
-import { UserAttrsPropertyNames } from './types';
 
 export class UserArJsonRepositoryImpl implements UserRepository {
   private users: UserAttrs[];
 
   constructor(jsonUsers: string, logger: Logger) {
     this.users = JSON.parse(jsonUsers);
-    this.users.forEach((user) => {
-      const userAtrsPropertyNames: UserAttrsPropertyNames[] = [
-        'userId', 'telegramId', 'employeeId', 'userProfile',
-      ];
-      userAtrsPropertyNames.forEach((key) => {
-        const validationResult = userAttrsVMap[key].validate(user[key]);
-        if (validationResult.isFailure() === true) {
-          logger.error(
-            'Ошибка при валидаций передаваемого в конструктор списков пользователей в виде json',
-            validationResult.value,
-          );
-        }
-      });
-    });
+    const validator = new DtoFieldValidator('user', true, { isArray: true, mustBeFilled: true }, 'dto', userAttrsVMap);
+    const validateResult = validator.validate(this.users);
+    if (validateResult.isFailure()) logger.error('Входящие данные не валидны', validateResult.value);
   }
 
   findByTelegramId(telegramId: number): UserAttrs[] {
