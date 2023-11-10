@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
-import { WorkshopAttrs } from './params';
-import { workshopVMap } from './v-map';
+import { WorkshopAttrs } from 'src/workshop/domain-data/workshop/params';
+import { workshopVMap } from 'src/workshop/domain-data/workshop/v-map';
 
 describe('test workshopAttrs', () => {
   test('succes, all values are valid', () => {

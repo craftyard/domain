@@ -2,6 +2,10 @@
   "compilerOptions": {
     "types": [ "bun-types" ],
 
+    "paths": {
+      "src/*": ["./src/*"],
+    },
+
     "lib": ["esnext"],
     "module": "NodeNext",
     "target": "esnext",

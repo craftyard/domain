@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
-import { EmployeeAttrs, Roles } from './params';
-import { employeeVMap } from './v-map';
+import { EmployeeAttrs, Roles } from 'src/subject/domain-data/employee/params';
+import { employeeVMap } from 'src/subject/domain-data/employee/v-map';
 
 describe('tests to check the properties of a workshop employee object', () => {
   test('Success, attributes are valid, employee with one role', () => {
