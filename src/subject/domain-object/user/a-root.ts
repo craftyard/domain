@@ -4,6 +4,8 @@ import * as jwt from 'jsonwebtoken';
 import crypto, { randomBytes } from 'crypto';
 import { failure } from 'rilata2/src/common/result/failure';
 import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
+import { Result } from 'rilata2/src/common/result/types';
+import { success } from 'rilata2/src/common/result/success';
 import {
   AuthentificationUserDomainQuery,
   JwtAccessData,
@@ -12,8 +14,7 @@ import {
   TelegramHashNotValidError,
 } from '../../domain-data/user/user-authentification.a-params';
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
-
-const telegramAuthHashLifetimeAsSeconds = 7 * 24 * 60 * 60;
+import { TG_AUTH_HASH_LIFETIME_AS_SECONDS } from '../../subject-config';
 
 export class UserAR extends AggregateRoot<UserParams> {
   protected attrs: UserAttrs;
@@ -39,67 +40,71 @@ export class UserAR extends AggregateRoot<UserParams> {
   }
 
   userAuthentification(authQuery: AuthentificationUserDomainQuery):
-  JwtTokens | TelegramHashNotValidError | TelegramDateNotValidError {
-    const validationError = this.isValidUser(authQuery);
+  Result<TelegramHashNotValidError | TelegramDateNotValidError, JwtTokens> {
+    const result = this.isValidHash(authQuery);
 
-    if (validationError) {
-      return validationError;
+    if (result.isFailure()) {
+      return failure(result.value);
     }
 
     const jwtToken = this.generateJwtToken(authQuery);
-    return jwtToken;
+    return success(jwtToken);
   }
 
-  private isValidUser(authQuery: AuthentificationUserDomainQuery):
-   TelegramHashNotValidError | TelegramDateNotValidError | null {
-    const {
-      id,
-      first_name,
-      Last_name,
-      username,
-      photo_url,
-      auth_date,
-      hash,
-    } = authQuery.telegramAuthDto;
-    const computedHash = crypto
-      .createHmac('sha256', authQuery.botToken)
-      .update(`${id}${first_name}${Last_name}${username}${photo_url}${auth_date}`)
-      .digest('hex');
-    if (hash !== computedHash) {
-      throw failure(dodUtility.getDomainErrorByType<TelegramHashNotValidError>(
+  private isValidHash(authQuery: AuthentificationUserDomainQuery):
+   Result<TelegramHashNotValidError | TelegramDateNotValidError, true> {
+    const receivedHash = authQuery.telegramAuthDto.hash;
+    const secret = crypto.createHash('sha256').update(authQuery.botToken).digest();
+    const rawData = Object
+      .entries(authQuery.telegramAuthDto)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .filter(([key, value]) => key !== 'hash')
+      .map(([key, value]) => `${key}=${value}`)
+      .sort()
+      .join('\n');
+    const calcHash = crypto.createHmac('sha256', secret).update(rawData).digest('hex');
+    if (receivedHash !== calcHash) {
+      return failure(dodUtility.getDomainErrorByType<TelegramHashNotValidError>(
         'TelegramHashNotValidError',
         'Хэш телеграмма некорректный',
-        { hash },
+        { hash: authQuery.telegramAuthDto.hash },
       ));
     }
 
-    const authHashLifetimeAsSeconds = Math.floor(Date.now() / 1000);
-    const validAuthDate = authHashLifetimeAsSeconds - telegramAuthHashLifetimeAsSeconds;
-    const authDateNumber = parseInt(auth_date, 10);
+    const nowTimeStamp = this.getNowDate().getTime();
+    const hashLifeTimeAsMilliSeconds = nowTimeStamp - Number(authQuery.telegramAuthDto.auth_date);
+    const hashLifeTimeIsValid = (
+      hashLifeTimeAsMilliSeconds - (TG_AUTH_HASH_LIFETIME_AS_SECONDS * 1000)
+    );
 
-    if (authDateNumber <= validAuthDate) {
-      throw failure(dodUtility.getDomainErrorByType<TelegramDateNotValidError>(
-        'TelegramAuthDateNotValidError',
-        'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
-        { authHashLifetimeAsSeconds },
-      ));
+    if (hashLifeTimeIsValid) {
+      return success(true);
     }
 
-    return null;
+    return failure(dodUtility.getDomainErrorByType<TelegramDateNotValidError>(
+      'TelegramAuthDateNotValidError',
+      'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
+      { authHashLifetimeAsSeconds: TG_AUTH_HASH_LIFETIME_AS_SECONDS },
+    ));
   }
 
-  generateJwtToken(authQuery: AuthentificationUserDomainQuery): JwtTokens {
+  private generateJwtToken(authQuery: AuthentificationUserDomainQuery): JwtTokens {
     const tokenData: JwtAccessData = {
-      userId: authQuery.userAttrs.userId,
-      telegramId: authQuery.telegramAuthDto.id,
-      employeeId: authQuery.userAttrs.employeeId,
+      userId: this.attrs.userId,
+      telegramId: this.attrs.telegramId,
+      employeeId: this.attrs.employerId,
     };
 
-    const accessToken = jwt.sign(tokenData, authQuery.privateKey, {
-      algorithm: 'RS256',
-      expiresIn: '1h',
-    });
-
+    try {
+      const accessToken = jwt.sign(tokenData, authQuery.jwtTokenGeneratePrivateKey as string, {
+        algorithm: 'RS256',
+        expiresIn: '1h',
+      });
+      console.log(accessToken);
+    } catch (error) {
+      console.error('Error generating JWT token:', error);
+    }
+    
     const refreshToken = this.generateRefreshToken(tokenData);
 
     return { accessToken, refreshToken };
@@ -111,5 +116,9 @@ export class UserAR extends AggregateRoot<UserParams> {
       expiresIn: '7d',
     });
     return refreshToken;
+  }
+
+  getNowDate(): Date {
+    return new Date();
   }
 }

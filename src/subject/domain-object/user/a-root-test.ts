@@ -10,17 +10,16 @@ export interface TelegramLoginPayload {
   photo_url?: string;
 }
 
-export function verifyTelegramPayload(payload: TelegramLoginPayload, secret: Buffer) {
-  const hash = payload.hash;
-  delete payload.hash;
-  const check = crypto.createHmac('sha256', secret).update(
-    Object
-      .keys(payload)
-      .map((key: keyof TelegramLoginPayload) => `${key}=${payload[key]}`)
-      .sort()
-      .join('\n'),
-  ).digest('hex');
-  return hash === check ? Object.assign(payload, { hash }) : false;
+export function verifyTelegramPayload(payload: TelegramLoginPayload, secret: Buffer): boolean {
+  const rawData = Object
+    .entries(payload)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .filter(([key, value]) => key !== 'hash')
+    .map(([key, value]) => `${key}=${value}`)
+    .sort()
+    .join('\n');
+  const calcHash = crypto.createHmac('sha256', secret).update(rawData).digest('hex');
+  return payload.hash === calcHash;
 }
 
 export class TelegramLogin {
@@ -30,7 +29,7 @@ export class TelegramLogin {
     this.secret = crypto.createHash('sha256').update(token).digest();
   }
 
-  chechValidData(data: TelegramLoginPayload) {
+  checkValidData(data: TelegramLoginPayload): boolean {
     return verifyTelegramPayload(data, this.secret);
   }
 }
