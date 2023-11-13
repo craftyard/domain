@@ -94,9 +94,9 @@ export class UserAR extends AggregateRoot<UserParams> {
       telegramId: this.attrs.telegramId,
       employeeId: this.attrs.employerId,
     };
-
+    console.log(authQuery.jwtTokenGeneratePrivateKey);
     try {
-      const accessToken = jwt.sign(tokenData, authQuery.jwtTokenGeneratePrivateKey as string, {
+      const accessToken = jwt.sign(tokenData, authQuery.jwtTokenGeneratePrivateKey, {
         algorithm: 'RS256',
         expiresIn: '1h',
       });
@@ -104,7 +104,7 @@ export class UserAR extends AggregateRoot<UserParams> {
     } catch (error) {
       console.error('Error generating JWT token:', error);
     }
-    
+
     const refreshToken = this.generateRefreshToken(tokenData);
 
     return { accessToken, refreshToken };
