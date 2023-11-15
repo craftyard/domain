@@ -3,7 +3,7 @@ import { TelegramId } from '../../../types';
 import { UserAttrs } from '../../domain-data/user/params';
 
 export interface UserRepository {
-  getByTelegramId(telegramId: TelegramId): UserAttrs
+  findByTelegramId(telegramId: TelegramId): UserAttrs
 }
 
 export const UserRepository = {
