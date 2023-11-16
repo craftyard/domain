@@ -8,7 +8,7 @@ import { Result } from 'rilata2/src/common/result/types';
 import { success } from 'rilata2/src/common/result/success';
 import {
   AuthentificationUserDomainQuery,
-  JwtAccessData,
+  JWTPayload,
   JwtTokens,
   TelegramDateNotValidError,
   TelegramHashNotValidError,
@@ -89,7 +89,7 @@ export class UserAR extends AggregateRoot<UserParams> {
   }
 
   private generateJwtToken(authQuery: AuthentificationUserDomainQuery): JwtTokens {
-    const tokenData: JwtAccessData = {
+    const tokenData: JWTPayload = {
       userId: this.attrs.userId,
       telegramId: this.attrs.telegramId,
       employeeId: this.attrs.employerId,

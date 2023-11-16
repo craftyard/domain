@@ -30,13 +30,13 @@ export type JwtTokens ={
   refreshToken:string
 }
 
-export type JwtAccessData = {
+export type JWTPayload = {
     userId: UserId,
     telegramId: TelegramId,
     employeeId?: UuidType,
 }
 export type JwtRefreshData = {
-  jwtAccessData:JwtAccessData,
+  JWTPayload:JWTPayload,
   salt:string,
 }
 
