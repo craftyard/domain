@@ -8,4 +8,4 @@ export type Location = {
 
 export type TelegramId = number;
 
-export type TokenCreatorPayload = Omit<UserAttrs, 'userProfile'>;
+export type TokenCreatorPayload = Pick<UserAttrs, 'userId' | 'telegramId' | 'employeeId'>;
