@@ -47,8 +47,8 @@ export class UserAR extends AggregateRoot<UserParams> {
       return failure(result.value);
     }
 
-    const jwtToken = this.generateJwtToken(authQuery);
-    return success(jwtToken);
+    const jwtTokens = this.generateJwtToken(authQuery);
+    return success(jwtTokens);
   }
 
   private isValidHash(authQuery: AuthentificationUserDomainQuery):

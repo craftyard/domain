@@ -2,7 +2,6 @@ import { ActionParams, DomainResult } from 'rilata2/src/domain/domain-object-dat
 import { UserId, UuidType } from 'rilata2/src/common/types';
 import { ErrorDod } from 'rilata2/src/domain/domain-object-data/common-types';
 import { TelegramId } from '../../../types';
-import { UserAttrs } from './params';
 
 export type TelegramAuthDTO = {
   id: TelegramId,
