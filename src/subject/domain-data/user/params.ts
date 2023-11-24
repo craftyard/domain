@@ -10,7 +10,7 @@ export type UserProfile = {
 export type UserAttrs = {
   userId: UuidType,
   telegramId: TelegramId,
-  employerId?: UuidType,
+  employeeId?: UuidType,
   userProfile: UserProfile,
 }
 
