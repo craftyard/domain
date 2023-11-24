@@ -1,11 +1,11 @@
 // eslint-disable-next-line max-classes-per-file
 import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
-import { Algorithm, sign } from 'jsonwebtoken';
-import crypto, { randomBytes } from 'crypto';
+import crypto from 'crypto';
 import { failure } from 'rilata2/src/common/result/failure';
 import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
 import { Result } from 'rilata2/src/common/result/types';
 import { success } from 'rilata2/src/common/result/success';
+import * as jwt from 'jsonwebtoken';
 import {
   AuthentificationUserDomainQuery,
   JWTPayload,
@@ -94,27 +94,9 @@ export class UserAR extends AggregateRoot<UserParams> {
       telegramId: this.attrs.telegramId,
       employeeId: this.attrs.employerId,
     };
-    console.log(authQuery.jwtTokenGeneratePrivateKey);
-    function getJWTPrivateKey(): string {
-      return authQuery.jwtTokenGeneratePrivateKey as string;
-    }
-    async function generateToken(
-      payload: PlainJWTPayload<LiteralRecord>,
-      expiresIn = '10h',
-      algorithm: Algorithm = 'RS512',
-    ): Promise<string> {
-      return sign(
-        {
-          tokenType: payload.tokenType,
-          payload: payload.payload,
-        },
-        getJWTPrivateKey(),
-        {
-          algorithm,
-          expiresIn,
-        },
-      );
-    }
+    const accessToken = jwt.sign(tokenData, authQuery.jwtTokenGeneratePrivateKey, { expiresIn: '1h', algorithm: 'RS512' });
+    const refreshToken = jwt.sign(tokenData, authQuery.jwtTokenGeneratePrivateKey, { expiresIn: '7d', algorithm: 'RS512' });
+    return { accessToken, refreshToken };
   }
 
   getNowDate(): Date {
