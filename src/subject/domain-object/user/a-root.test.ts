@@ -19,7 +19,7 @@ describe('UserAR test', () => {
     const user = new UserAR({
       userId: 'd462f0c6-25c4-45a3-bcf5-7d25d2a9a8df',
       telegramId: 694528239,
-      employerId: '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
+      employeeId: '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
       userProfile: {
         name: 'Damir',
       },

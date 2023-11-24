@@ -92,7 +92,7 @@ export class UserAR extends AggregateRoot<UserParams> {
     const tokenData: JWTPayload = {
       userId: this.attrs.userId,
       telegramId: this.attrs.telegramId,
-      employeeId: this.attrs.employerId,
+      employeeId: this.attrs.employeeId,
     };
     const accessToken = jwt.sign({ ...tokenData, typeToken: 'access' }, authQuery.jwtTokenGeneratePrivateKey, { expiresIn: '1h', algorithm: 'RS512' });
     const refreshToken = jwt.sign({ ...tokenData, typeToken: 'refresh' }, authQuery.jwtTokenGeneratePrivateKey, { expiresIn: '7d', algorithm: 'RS512' });
