@@ -94,8 +94,8 @@ export class UserAR extends AggregateRoot<UserParams> {
       telegramId: this.attrs.telegramId,
       employeeId: this.attrs.employerId,
     };
-    const accessToken = jwt.sign(tokenData, authQuery.jwtTokenGeneratePrivateKey, { expiresIn: '1h', algorithm: 'RS512' });
-    const refreshToken = jwt.sign(tokenData, authQuery.jwtTokenGeneratePrivateKey, { expiresIn: '7d', algorithm: 'RS512' });
+    const accessToken = jwt.sign({ ...tokenData, typeToken: 'access' }, authQuery.jwtTokenGeneratePrivateKey, { expiresIn: '1h', algorithm: 'RS512' });
+    const refreshToken = jwt.sign({ ...tokenData, typeToken: 'refresh' }, authQuery.jwtTokenGeneratePrivateKey, { expiresIn: '7d', algorithm: 'RS512' });
     return { accessToken, refreshToken };
   }
 
