@@ -74,18 +74,17 @@ export class UserAR extends AggregateRoot<UserParams> {
     const nowTimeStamp = this.getNowDate().getTime();
     const hashLifeTimeAsMilliSeconds = nowTimeStamp - Number(authQuery.telegramAuthDto.auth_date);
     const hashLifeTimeIsValid = (
-      hashLifeTimeAsMilliSeconds - (TG_AUTH_HASH_LIFETIME_AS_SECONDS * 1000)
+      (TG_AUTH_HASH_LIFETIME_AS_SECONDS * 1000) - hashLifeTimeAsMilliSeconds
     );
 
-    if (hashLifeTimeIsValid) {
-      return success(true);
+    if (hashLifeTimeIsValid < 0) {
+      return failure(dodUtility.getDomainErrorByType<TelegramDateNotValidError>(
+        'TelegramAuthDateNotValidError',
+        'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
+        { authHashLifetimeAsSeconds: TG_AUTH_HASH_LIFETIME_AS_SECONDS },
+      ));
     }
-
-    return failure(dodUtility.getDomainErrorByType<TelegramDateNotValidError>(
-      'TelegramAuthDateNotValidError',
-      'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
-      { authHashLifetimeAsSeconds: TG_AUTH_HASH_LIFETIME_AS_SECONDS },
-    ));
+    return success(true);
   }
 
   private generateJwtToken(authQuery: AuthentificationUserDomainQuery): JwtTokens {
