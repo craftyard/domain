@@ -34,10 +34,6 @@ export type JWTPayload = {
     telegramId: TelegramId,
     employeeId?: UuidType,
 }
-export type JwtRefreshData = {
-  JWTPayload:JWTPayload,
-  salt:string,
-}
 
 export type AuthentificationUserActionParams = ActionParams<
   'userAuthentification',
