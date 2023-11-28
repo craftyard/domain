@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
 import crypto from 'crypto';
 import { failure } from 'rilata2/src/common/result/failure';
@@ -54,7 +53,7 @@ export class UserAR extends AggregateRoot<UserParams> {
   private isValidHash(authQuery: AuthentificationUserDomainQuery):
    Result<TelegramHashNotValidError | TelegramDateNotValidError, true> {
     const receivedHash = authQuery.telegramAuthDto.hash;
-    const secret = crypto.createHash('sha256').update(authQuery.botToken).digest();
+    const secret = new Bun.CryptoHasher('sha256').update(authQuery.botToken).digest();
     const rawData = Object
       .entries(authQuery.telegramAuthDto)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

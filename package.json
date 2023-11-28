@@ -13,10 +13,7 @@
     "lint": "bun eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "crypto": "^1.0.1",
-    "dotenv": "^16.3.1",
-    "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "rilata2": "https://github.com/soul-workshop/rilata2.git"
   },
