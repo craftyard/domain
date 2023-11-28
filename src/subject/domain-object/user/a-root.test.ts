@@ -44,7 +44,6 @@ describe('UserAR test', () => {
       new Date(Number(userQuery.telegramAuthDto.auth_date) + 35000),
     );
     const result = user.userAuthentification(userQuery);
-    console.log(result);
     expect(dateMock).toHaveBeenCalledTimes(2);
     expect(result.isFailure()).toBe(true);
     expect(result.value).toEqual({
@@ -67,6 +66,11 @@ describe('UserAR test', () => {
     const result = user.userAuthentification(userQuery);
     expect(dateMock).toHaveBeenCalledTimes(3);
     expect(result.isSuccess()).toBe(true);
-    console.log(result);
+    if ('accessToken' in result.value && 'refreshToken' in result.value) {
+      expect(typeof result.value.accessToken).toBe('string');
+      expect(typeof result.value.refreshToken).toBe('string');
+    } else {
+      expect(typeof result.value).not.toBe('object');
+    }
   });
 });
