@@ -4,10 +4,10 @@ import { ErrorDod } from 'rilata2/src/domain/domain-object-data/common-types';
 import { TelegramId } from '../../../types';
 
 export type TelegramAuthDTO = {
-  id: TelegramId,
-  first_name: string,
+  id?: TelegramId,
+  first_name?: string,
   last_name?: string,
-  username: string,
+  username?: string,
   photo_url?: string,
   auth_date: string,
   hash: string,
@@ -17,11 +17,6 @@ export type AuthentificationUserDomainQuery = {
   telegramAuthDTO: TelegramAuthDTO,
   botToken: string,
   jwtTokenGeneratePrivateKey: string,
-  jwtTokenGeneratePublicKey: string,
-}
-
-export type JwtToken ={
-  jwtToken: string;
 }
 
 export type JwtTokens ={
@@ -35,31 +30,31 @@ export type JWTPayload = {
     employeeId?: UuidType,
 }
 
-export type AuthentificationUserActionParams = ActionParams<
-  'userAuthentification',
-  'instance',
-  AuthentificationUserDomainQuery,
-  JwtToken,
-  never,
-  never
->
-
-export type AuthentificationUserResult = DomainResult<AuthentificationUserActionParams>;
-
-export type TelegramHashNotValidBody = {
+type TelegramHashNotValidLocale = {
     text: 'Хэш телеграмма некорректный',
     hint:{
         hash: string,
     }
 }
 
-export type TelegramHashNotValidError = ErrorDod<TelegramHashNotValidBody, 'TelegramHashNotValidError'>
+export type TelegramHashNotValidError = ErrorDod<TelegramHashNotValidLocale, 'TelegramHashNotValidError'>
 
-export type TelegramAuthDateNotValidError = {
+type TelegramAuthDateNotValidLocale = {
     text: 'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
     hint:{
         authHashLifetimeAsSeconds: number,
     }
 }
 
-export type TelegramDateNotValidError = ErrorDod<TelegramAuthDateNotValidError, 'TelegramAuthDateNotValidError'>
+export type TelegramDateNotValidError = ErrorDod<TelegramAuthDateNotValidLocale, 'TelegramAuthDateNotValidError'>
+
+export type AuthentificationUserActionParams = ActionParams<
+  'userAuthentification',
+  'instance',
+  AuthentificationUserDomainQuery,
+  JwtTokens,
+  TelegramDateNotValidError | TelegramHashNotValidError,
+  never
+>
+
+export type AuthentificationUserResult = DomainResult<AuthentificationUserActionParams>;

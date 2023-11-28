@@ -5,7 +5,9 @@ import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
 import { Result } from 'rilata2/src/common/result/types';
 import { success } from 'rilata2/src/common/result/success';
 import * as jwt from 'jsonwebtoken';
+import { DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
 import {
+  AuthentificationUserActionParams,
   AuthentificationUserDomainQuery,
   JWTPayload,
   JwtTokens,
@@ -39,7 +41,7 @@ export class UserAR extends AggregateRoot<UserParams> {
   }
 
   userAuthentification(authQuery: AuthentificationUserDomainQuery):
-  Result<TelegramHashNotValidError | TelegramDateNotValidError, JwtTokens> {
+  DomainResult<AuthentificationUserActionParams> {
     const result = this.isValidHash(authQuery);
 
     if (result.isFailure()) {
@@ -72,11 +74,11 @@ export class UserAR extends AggregateRoot<UserParams> {
 
     const nowTimeStamp = this.getNowDate().getTime();
     const hashLifeTimeAsMilliSeconds = nowTimeStamp - Number(authQuery.telegramAuthDTO.auth_date);
-    const hashLifeTimeIsValid = (
+    const hashLifeTimeValid = (
       (TG_AUTH_HASH_LIFETIME_AS_SECONDS * 1000) - hashLifeTimeAsMilliSeconds
     );
 
-    if (hashLifeTimeIsValid < 0) {
+    if (hashLifeTimeValid < 0) {
       return failure(dodUtility.getDomainErrorByType<TelegramDateNotValidError>(
         'TelegramAuthDateNotValidError',
         'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
