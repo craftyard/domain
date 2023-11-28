@@ -52,10 +52,10 @@ export class UserAR extends AggregateRoot<UserParams> {
 
   private isValidHash(authQuery: AuthentificationUserDomainQuery):
    Result<TelegramHashNotValidError | TelegramDateNotValidError, true> {
-    const receivedHash = authQuery.telegramAuthDto.hash;
+    const receivedHash = authQuery.telegramAuthDTO.hash;
     const secret = new Bun.CryptoHasher('sha256').update(authQuery.botToken).digest();
     const rawData = Object
-      .entries(authQuery.telegramAuthDto)
+      .entries(authQuery.telegramAuthDTO)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .filter(([key, value]) => key !== 'hash')
       .map(([key, value]) => `${key}=${value}`)
@@ -66,12 +66,12 @@ export class UserAR extends AggregateRoot<UserParams> {
       return failure(dodUtility.getDomainErrorByType<TelegramHashNotValidError>(
         'TelegramHashNotValidError',
         'Хэш телеграмма некорректный',
-        { hash: authQuery.telegramAuthDto.hash },
+        { hash: authQuery.telegramAuthDTO.hash },
       ));
     }
 
     const nowTimeStamp = this.getNowDate().getTime();
-    const hashLifeTimeAsMilliSeconds = nowTimeStamp - Number(authQuery.telegramAuthDto.auth_date);
+    const hashLifeTimeAsMilliSeconds = nowTimeStamp - Number(authQuery.telegramAuthDTO.auth_date);
     const hashLifeTimeIsValid = (
       (TG_AUTH_HASH_LIFETIME_AS_SECONDS * 1000) - hashLifeTimeAsMilliSeconds
     );

@@ -14,7 +14,7 @@ export type TelegramAuthDTO = {
 }
 
 export type AuthentificationUserDomainQuery = {
-  telegramAuthDto: TelegramAuthDTO,
+  telegramAuthDTO: TelegramAuthDTO,
   botToken: string,
   jwtTokenGeneratePrivateKey: string,
   jwtTokenGeneratePublicKey: string,
