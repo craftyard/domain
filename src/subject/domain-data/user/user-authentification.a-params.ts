@@ -28,7 +28,6 @@ export type JwtTokens ={
   accessToken: string;
   refreshToken:string
 }
-export type typeToken = 'access' | 'refresh';
 
 export type JWTPayload = {
     userId: UserId,
