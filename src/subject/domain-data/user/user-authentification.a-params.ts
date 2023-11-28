@@ -6,7 +6,7 @@ import { TelegramId } from '../../../types';
 export type TelegramAuthDTO = {
   id: TelegramId,
   first_name: string,
-  Last_name?: string,
+  last_name?: string,
   username: string,
   photo_url?: string,
   auth_date: string,
