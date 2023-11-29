@@ -2,6 +2,8 @@ import {
   describe, expect, spyOn, test,
 } from 'bun:test';
 import { UserAR } from './a-root';
+import { TokenCreator } from '../../token-creator.interface';
+import { JWTPayload, JwtTokens } from '../../domain-data/user/user-authentification.a-params';
 
 const TOKEN = '6698548206:AAHF49aVG7c-QkIbHQb-OBGwgkYdBRSmTCo';
 
@@ -33,36 +35,44 @@ const user = new UserAR({
 const userQuery = {
   telegramAuthDTO: authQuery,
   botToken: TOKEN,
-  jwtTokenGeneratePrivateKey: '-----BEGIN RSA PRIVATE KEY-----MIIBOgIBAAJBAI2NGWEeXhoJcF007rDpD3v8K68d7wso5lcGFQxffE9kf+IP6SI5WkEdaACuxAS0fNoHZBgQr+AI28PtQmS/1W0CAwEAAQJANqWTd7f2kky0kXc+8xN2w+Htp3SB9af7jPsvIxC1+Bv8LphWRLlG9Cp5zEblvGNYTJnwyIIeSTpW10O0f2UiQQIhAMrt/tci9kBlc1oNRkxud6RTeUU6XiTifkVuCIEkc5exAiEAspHauhmS78rVWb0L0zGm7Y09qCzc8K9H8r+0NdTwBH0CIGZ1DWMP2ucekcQYybKTX8LPBn6mfpv+4yQo7xBNGDOxAiEAo0+za5nyAS5O+zhi9S6mzQDsj78f/VtBAOiEhusM6/0CICdCjeXyJWs85tGMoVrOAA0KdCc9f/RrgSnfjQwcgyPx-----END RSA PRIVATE KEY-----',
 };
 const userQuery2 = {
   telegramAuthDTO: authQueryNotValid,
   botToken: TOKEN,
-  jwtTokenGeneratePrivateKey: '-----BEGIN RSA PRIVATE KEY-----MIIBOgIBAAJBAI2NGWEeXhoJcF007rDpD3v8K68d7wso5lcGFQxffE9kf+IP6SI5WkEdaACuxAS0fNoHZBgQr+AI28PtQmS/1W0CAwEAAQJANqWTd7f2kky0kXc+8xN2w+Htp3SB9af7jPsvIxC1+Bv8LphWRLlG9Cp5zEblvGNYTJnwyIIeSTpW10O0f2UiQQIhAMrt/tci9kBlc1oNRkxud6RTeUU6XiTifkVuCIEkc5exAiEAspHauhmS78rVWb0L0zGm7Y09qCzc8K9H8r+0NdTwBH0CIGZ1DWMP2ucekcQYybKTX8LPBn6mfpv+4yQo7xBNGDOxAiEAo0+za5nyAS5O+zhi9S6mzQDsj78f/VtBAOiEhusM6/0CICdCjeXyJWs85tGMoVrOAA0KdCc9f/RrgSnfjQwcgyPx-----END RSA PRIVATE KEY-----',
 };
+
+class TokenCreatorMock implements TokenCreator {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  createToken(payload: JWTPayload): JwtTokens {
+    throw new Error('Method not implemented.');
+  }
+}
 
 describe('UserAR test', () => {
   test('Проверяем на успешное возвращение токенов и типы токенов', () => {
     const dateMock = spyOn(user, 'getNowDate').mockReturnValueOnce(
       new Date(Number(userQuery.telegramAuthDTO.auth_date) + 5000),
     );
-    const result = user.userAuthentification(userQuery);
+
+    const tokenCreatorMock = new TokenCreatorMock();
+    const createTokenMock = spyOn(tokenCreatorMock, 'createToken').mockReturnValueOnce({
+      accessToken: 'anklehfkahlgrhaiyr7ihfkjashrlgk',
+      refreshToken: 'afauhslfuhalskdfhauefglkasdfg',
+    });
+
+    const result = user.userAuthentification(userQuery, tokenCreatorMock);
     expect(dateMock).toHaveBeenCalledTimes(1);
+    expect(createTokenMock).toHaveBeenCalledTimes(1);
     expect(result.isSuccess()).toBe(true);
-    if ('accessToken' in result.value && 'refreshToken' in result.value) {
-      expect(typeof result.value.accessToken).toBe('string');
-      expect(typeof result.value.refreshToken).toBe('string');
-    } else {
-      expect(typeof result.value).not.toBe('object');
-    }
+    expect(result.value).toEqual({
+      accessToken: 'anklehfkahlgrhaiyr7ihfkjashrlgk',
+      refreshToken: 'afauhslfuhalskdfhauefglkasdfg',
+    });
   });
 
   test('Проверяем на ошибку времени приходящего хэша при авторизации', () => {
-    const dateMock = spyOn(user, 'getNowDate').mockReturnValueOnce(
-      new Date(Number(userQuery.telegramAuthDTO.auth_date) + 35000),
-    );
-    const result = user.userAuthentification(userQuery);
-    expect(dateMock).toHaveBeenCalledTimes(2);
+    const tokenCreatorMock = new TokenCreatorMock();
+    const result = user.userAuthentification(userQuery, tokenCreatorMock);
     expect(result.isFailure()).toBe(true);
     expect(result.value).toStrictEqual({
       name: 'TelegramAuthDateNotValidError',
@@ -77,7 +87,8 @@ describe('UserAR test', () => {
     });
   });
   test('Проверяем на ошибку хэша при авторизации', () => {
-    const result = user.userAuthentification(userQuery2);
+    const tokenCreatorMock = new TokenCreatorMock();
+    const result = user.userAuthentification(userQuery2, tokenCreatorMock);
     expect(result.isFailure()).toBe(true);
     expect(result.value).toStrictEqual({
       name: 'TelegramHashNotValidError',
