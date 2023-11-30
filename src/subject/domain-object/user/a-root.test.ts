@@ -80,15 +80,18 @@ describe('UserAR test', () => {
     const result = user.userAuthentification(userQuery2);
     expect(result.isFailure()).toBe(true);
     expect(result.value).toStrictEqual({
-      name: 'TelegramHashNotValidError',
-      locale: {
-        text: 'Хэш телеграмма некорректный',
-        hint: {
-          hash: '24b95fcfe1b294643cdfdae068c2e5d643172a2b18ad9823812617187f3d68e4H',
-        },
+      TelegramAuthDTO: {
+        hash: [
+          {
+            hint: {
+              count: 64,
+              current: 65,
+            },
+            name: 'EqualCharsCountValidationRule',
+            text: 'Длина строки должна быть равна {{count}}, сейчас {{current}}',
+          },
+        ],
       },
-      errorType: 'domain-error',
-      domainType: 'error',
     });
   });
 });
