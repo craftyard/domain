@@ -19,7 +19,7 @@ import {
 } from '../../domain-data/user/user-authentification.a-params';
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
 import { TG_AUTH_HASH_LIFETIME_AS_SECONDS } from '../../subject-config';
-import { TelegramAuthDTOValidator } from './telegram-validator';
+import { TelegramAuthDTOValidator } from './user-auth-vmap';
 
 export class UserAR extends AggregateRoot<UserParams> {
   protected attrs: UserAttrs;
