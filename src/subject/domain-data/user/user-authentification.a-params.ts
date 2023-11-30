@@ -1,4 +1,5 @@
 import { ActionParams, DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
+import { ValidationError } from 'rilata2/src/app/use-case/error-types';
 import { UserId, UuidType } from 'rilata2/src/common/types';
 import { ErrorDod } from 'rilata2/src/domain/domain-object-data/common-types';
 import { TelegramId } from '../../../types';
@@ -53,7 +54,7 @@ export type AuthentificationUserActionParams = ActionParams<
   'instance',
   AuthentificationUserDomainQuery,
   JwtTokens,
-  TelegramDateNotValidError | TelegramHashNotValidError,
+  TelegramDateNotValidError | TelegramHashNotValidError | ValidationError,
   never
 >
 
