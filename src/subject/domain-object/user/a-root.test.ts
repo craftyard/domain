@@ -53,8 +53,8 @@ const userQuery = {
   jwtTokenGeneratePrivateKey: '-----BEGIN RSA PRIVATE KEY-----MIIBOgIBAAJBAI2NGWEeXhoJcF007rDpD3v8K68d7wso5lcGFQxffE9kf+IP6SI5WkEdaACuxAS0fNoHZBgQr+AI28PtQmS/1W0CAwEAAQJANqWTd7f2kky0kXc+8xN2w+Htp3SB9af7jPsvIxC1+Bv8LphWRLlG9Cp5zEblvGNYTJnwyIIeSTpW10O0f2UiQQIhAMrt/tci9kBlc1oNRkxud6RTeUU6XiTifkVuCIEkc5exAiEAspHauhmS78rVWb0L0zGm7Y09qCzc8K9H8r+0NdTwBH0CIGZ1DWMP2ucekcQYybKTX8LPBn6mfpv+4yQo7xBNGDOxAiEAo0+za5nyAS5O+zhi9S6mzQDsj78f/VtBAOiEhusM6/0CICdCjeXyJWs85tGMoVrOAA0KdCc9f/RrgSnfjQwcgyPx-----END RSA PRIVATE KEY-----',
 };
 
-describe('Успех, токен создан', () => {
-  test('Проверяем на успешное возвращение токенов и типы токенов', () => {
+describe('Тесты для проверки успешного создания токена и на возвращения ошибок', () => {
+  test('Успех, токен создан', () => {
     const dateMock = spyOn(user, 'getNowDate').mockReturnValueOnce(
       new Date(Number(userQuery.telegramAuthDTO.auth_date) + 5000),
     );
