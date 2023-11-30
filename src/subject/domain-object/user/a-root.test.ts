@@ -2,6 +2,7 @@ import {
   describe, expect, spyOn, test,
 } from 'bun:test';
 import { UserAR } from './a-root';
+import { AuthentificationUserDomainQuery } from '../../domain-data/user/user-authentification.a-params';
 
 const TOKEN = '6698548206:AAHF49aVG7c-QkIbHQb-OBGwgkYdBRSmTCo';
 
@@ -103,7 +104,9 @@ describe('UserAR test', () => {
     });
   });
   test('Проверяем на ошибку id при авторизации', () => {
-    const result = user.userAuthentification(userQuery3);
+    const result = user.userAuthentification(
+      userQuery3 as unknown as AuthentificationUserDomainQuery,
+    );
     expect(result.isFailure()).toBe(true);
     expect(result.value).toStrictEqual({
       TelegramAuthDTO: {
