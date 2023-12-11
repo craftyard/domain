@@ -5,6 +5,7 @@ import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
 import { Result } from 'rilata2/src/common/result/types';
 import { success } from 'rilata2/src/common/result/success';
 import { DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
+import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface'
 import {
   AuthentificationUserActionParams,
   AuthentificationUserDomainQuery,
@@ -14,7 +15,6 @@ import {
 } from '../../domain-data/user/user-authentification.a-params';
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
 import { TG_AUTH_HASH_LIFETIME_AS_SECONDS } from '../../subject-config';
-import { TokenCreator } from '../../token-creator.interface';
 
 export class UserAR extends AggregateRoot<UserParams> {
   protected attrs: UserAttrs;
@@ -41,7 +41,7 @@ export class UserAR extends AggregateRoot<UserParams> {
 
   userAuthentification(
     authQuery: AuthentificationUserDomainQuery,
-    tokenCreator: TokenCreator,
+    tokenCreator: TokenCreator<JWTPayload>,
   ):DomainResult<AuthentificationUserActionParams> {
     const result = this.isValidHash(authQuery);
 
@@ -51,7 +51,6 @@ export class UserAR extends AggregateRoot<UserParams> {
 
     const tokenData: JWTPayload = {
       userId: this.attrs.userId,
-      telegramId: this.attrs.telegramId,
       employeeId: this.attrs.employeeId,
     };
 
