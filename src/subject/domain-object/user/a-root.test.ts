@@ -1,9 +1,10 @@
 import {
   describe, expect, spyOn, test,
 } from 'bun:test';
+import { JWTTokens } from 'rilata2/src/app/jwt/types';
+import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
 import { UserAR } from './a-root';
-import { TokenCreator } from '../../token-creator.interface';
-import { JWTPayload, JwtTokens } from '../../domain-data/user/user-authentification.a-params';
+import { JWTPayload } from '../../domain-data/user/user-authentification.a-params';
 
 const TOKEN = '6698548206:AAHF49aVG7c-QkIbHQb-OBGwgkYdBRSmTCo';
 
@@ -41,9 +42,9 @@ const userQuery2 = {
   botToken: TOKEN,
 };
 
-class TokenCreatorMock implements TokenCreator {
+class TokenCreatorMock implements TokenCreator<JWTPayload> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  createToken(payload: JWTPayload): JwtTokens {
+  createToken(payload: JWTPayload): JWTTokens {
     throw new Error('Method not implemented.');
   }
 }
