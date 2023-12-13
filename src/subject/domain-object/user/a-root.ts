@@ -12,7 +12,7 @@ import {
   JWTPayload,
   TelegramDateNotValidError,
   TelegramHashNotValidError,
-} from '../../domain-data/user/user-authentification.a-params';
+} from '../../domain-data/user/user-authentification/a-params';
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
 import { TG_AUTH_HASH_LIFETIME_AS_SECONDS } from '../../subject-config';
 
