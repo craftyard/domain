@@ -5,7 +5,7 @@ import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
 import { Result } from 'rilata2/src/common/result/types';
 import { success } from 'rilata2/src/common/result/success';
 import { DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
-import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface'
+import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
 import {
   AuthentificationUserActionParams,
   AuthentificationUserDomainQuery,
