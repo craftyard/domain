@@ -4,7 +4,7 @@ import {
 import { JWTTokens } from 'rilata2/src/app/jwt/types';
 import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
 import { UserAR } from './a-root';
-import { JWTPayload } from '../../domain-data/user/user-authentification.a-params';
+import { JWTPayload } from '../../domain-data/user/user-authentification/a-params';
 
 const TOKEN = '6698548206:AAHF49aVG7c-QkIbHQb-OBGwgkYdBRSmTCo';
 
