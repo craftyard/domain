@@ -4,12 +4,16 @@ import { LiteralFieldValidator } from 'rilata2/src/domain/validator/field-valida
 import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
 import { MaxCharsCountValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/max-chars-count.v-rule';
 import { PositiveNumberValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/number/positive-number.v-rule';
-import { NoRequiredUuidField } from 'rilata2/src/domain/validator/field-validator/prepared-fields/string/no-required-uuid-field';
+import { StringChoiceValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/string-choice.v-rule';
 import { OnlyDashAndLitinicOrCyrillicCharsValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/only-dash-and-latinic-or-cyrillic-chars.v-rule';
 import { UserProfile, UserAttrs } from './params';
 
 export const userProfileVMap: ValidatorMap<UserProfile> = {
-  name: new LiteralFieldValidator('name', true, { isArray: false }, 'string', [
+  firstName: new LiteralFieldValidator('firstName', true, { isArray: false }, 'string', [
+    new MaxCharsCountValidationRule(50),
+    new OnlyDashAndLitinicOrCyrillicCharsValidationRule(),
+  ]),
+  lastName: new LiteralFieldValidator('lastName', true, { isArray: false }, 'string', [
     new MaxCharsCountValidationRule(50),
     new OnlyDashAndLitinicOrCyrillicCharsValidationRule(),
   ]),
@@ -17,7 +21,11 @@ export const userProfileVMap: ValidatorMap<UserProfile> = {
 
 export const userAttrsVMap: ValidatorMap<UserAttrs> = {
   userId: new UuidField('userId'),
-  telegramId: new LiteralFieldValidator('telegramId', true, { isArray: false }, 'number', [new PositiveNumberValidationRule()]),
-  employeeId: new NoRequiredUuidField('employeeId'),
+  telegramId: new LiteralFieldValidator('telegramId', true, { isArray: false }, 'number', [
+    new PositiveNumberValidationRule(),
+  ]),
+  type: new LiteralFieldValidator('type', true, { isArray: false }, 'string', [
+    new StringChoiceValidationRule(['employee', 'client']),
+  ]),
   userProfile: new DtoFieldValidator('userProfile', true, { isArray: false }, 'dto', userProfileVMap),
 };
