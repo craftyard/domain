@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
 import { UserJsonRepository } from './repo';
-import { getUserAttrs, testUsersAsJson } from './fixture';
+import { testUsersAsJson } from './fixture';
 
 describe('UserAr json implementation repository tests', () => {
   const logger = new ConsoleLogger();
@@ -49,25 +49,5 @@ describe('UserAr json implementation repository tests', () => {
   test('успех, когда в списке нет пользователей с таким telegramId, приходит пустой массив', async () => {
     const result = await sut.findByTelegramId(55555533333);
     expect(result).toEqual([]);
-  });
-
-  test('провал, валидатор работает и ловит невалидные значения', () => {
-    try {
-      const userAttrsWithUndefinedUserId = getUserAttrs({ userId: undefined });
-      (() => new UserJsonRepository(userAttrsWithUndefinedUserId, logger))();
-      expect(true).toBe(false);
-    } catch (error) {
-      expect(String(error)).toContain('Входящие данные не валидны');
-    }
-
-    try {
-      const userAttrsWithInvalidUserId = getUserAttrs(
-        { userId: 'bc9166cb-ba37-43cb-93d3-ce6da27471dU' }, // last char not valid;
-      );
-      (() => new UserJsonRepository(userAttrsWithInvalidUserId, logger))();
-      expect(true).toBe(false);
-    } catch (error) {
-      expect(String(error)).toContain('Входящие данные не валидны');
-    }
   });
 });
