@@ -5,6 +5,7 @@ import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
 import { Result } from 'rilata2/src/common/result/types';
 import { success } from 'rilata2/src/common/result/success';
 import { DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
+import { Logger } from 'rilata2/src/common/logger/logger';
 import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
 import {
   AuthentificationUserActionParams,
@@ -15,14 +16,17 @@ import {
 } from '../../domain-data/user/user-authentification/a-params';
 import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
 import { TG_AUTH_HASH_LIFETIME_AS_SECONDS } from '../../subject-config';
+import { userARValidator } from '../../domain-data/user/v-map';
 
 export class UserAR extends AggregateRoot<UserParams> {
-  protected attrs: UserAttrs;
-
-  protected version: number;
-
-  constructor(attrs: UserAttrs, version: number) {
+  constructor(
+    protected attrs: UserAttrs,
+    protected version: number,
+    protected logger: Logger,
+  ) {
     super();
+    const result = userARValidator.validate(attrs);
+    if (result.isFailure()) this.logger.error('Не соблюдены инварианты UserAR', { attrs, result });
     this.attrs = attrs;
     this.version = version;
   }
@@ -36,7 +40,7 @@ export class UserAR extends AggregateRoot<UserParams> {
   }
 
   getShortName(): string {
-    throw new Error('Method not implemented.');
+    return `${this.attrs.userProfile.lastName} ${this.attrs.userProfile.firstName}`;
   }
 
   userAuthentification(
@@ -51,7 +55,6 @@ export class UserAR extends AggregateRoot<UserParams> {
 
     const tokenData: JWTPayload = {
       userId: this.attrs.userId,
-      employeeId: this.attrs.employeeId,
     };
 
     const jwtTokens = tokenCreator.createToken(tokenData);

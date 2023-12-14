@@ -2,6 +2,7 @@ import {
   describe, expect, spyOn, test,
 } from 'bun:test';
 import { JWTTokens } from 'rilata2/src/app/jwt/types';
+import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
 import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
 import { UserAR } from './a-root';
 import { JWTPayload } from '../../domain-data/user/user-authentification/a-params';
@@ -27,11 +28,12 @@ const authQueryNotValid = {
 const user = new UserAR({
   userId: 'd462f0c6-25c4-45a3-bcf5-7d25d2a9a8df',
   telegramId: 694528239,
-  employeeId: '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
+  type: 'employee',
   userProfile: {
-    name: 'Damir',
+    firstName: 'Damir',
+    lastName: 'SuperPro',
   },
-}, 0);
+}, 0, new ConsoleLogger());
 
 const userQuery = {
   telegramAuthDTO: authQuery,
@@ -49,7 +51,7 @@ class TokenCreatorMock implements TokenCreator<JWTPayload> {
   }
 }
 
-describe('UserAR test', () => {
+describe('тесты аутентификации пользователя', () => {
   test('Проверяем на успешное возвращение токенов и типы токенов', () => {
     const dateMock = spyOn(user, 'getNowDate').mockReturnValueOnce(
       new Date(Number(userQuery.telegramAuthDTO.auth_date) + 5000),
