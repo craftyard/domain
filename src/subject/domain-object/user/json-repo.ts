@@ -14,7 +14,7 @@ export class UserJsonRepository implements UserRepository {
     if (result.isFailure()) logger.error('Входящие данные не валидны', result.value);
   }
 
-  findByTelegramId(telegramId: number): UserAttrs[] {
+  async findByTelegramId(telegramId: number): Promise<UserAttrs[]> {
     return this.users.filter((user) => user.telegramId === telegramId);
   }
 }
