@@ -4,9 +4,9 @@ import { TelegramId } from '../../../types';
 import { UserAttrs } from '../../domain-data/user/params';
 
 export interface UserRepository {
-  findByTelegramId(telegramId: TelegramId): UserAttrs[]
-
   getUsers(userIds: UserId[]): Promise<UserAttrs[]>
+
+  findByTelegramId(telegramId: TelegramId): Promise<UserAttrs[]>
 }
 
 export const UserRepository = {

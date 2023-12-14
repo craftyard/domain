@@ -18,7 +18,7 @@ export class UserJsonRepository implements UserRepository {
     return this.users.filter((user) => userIds.includes(user.userId));
   }
 
-  findByTelegramId(telegramId: number): UserAttrs[] {
+  async findByTelegramId(telegramId: number): Promise<UserAttrs[]> {
     return this.users.filter((user) => user.telegramId === telegramId);
   }
 }
