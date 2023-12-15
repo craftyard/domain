@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "crypto": "^1.0.1",
-    "rilata2": "https://github.com/soul-workshop/rilata2.git"
+    "rilata2": "soul-workshop/rilata2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.8.0",
