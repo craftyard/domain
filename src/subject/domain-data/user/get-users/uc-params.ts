@@ -1,21 +1,19 @@
-import { Caller } from 'rilata2/src/app/caller';
-import { QueryUseCaseParams } from 'rilata2/src/app/use-case/types';
+import { InputOptions, QueryUseCaseParams } from 'rilata2/src/app/use-case/types';
 import { UseCaseBaseErrors } from 'rilata2/src/app/use-case/error-types';
 import { UserId } from 'rilata2/src/common/types';
-import { UserAttrs } from '../params';
+import { UserAttrs, UserParams } from '../params';
 
-export type GetingUsersQuery = {
-  queryName: 'getUsers',
-  userIds: UserId[],
+export type GetUsersActionDod = {
+  actionName: 'getUsers',
+  body: {
+    userIds: UserId[]
+  },
 }
+
+export type GetUsersInputOptions = InputOptions<GetUsersActionDod>
 
 export type GetingUsersOut = UserAttrs[];
 
-export type GetingUsersInputOptions = {
-  command: GetingUsersQuery,
-  caller: Caller,
-}
-
 export type GetingUsersUcParams = QueryUseCaseParams<
-  GetingUsersQuery, GetingUsersOut, UseCaseBaseErrors
+  UserParams, GetUsersInputOptions, GetingUsersOut, UseCaseBaseErrors
 >
