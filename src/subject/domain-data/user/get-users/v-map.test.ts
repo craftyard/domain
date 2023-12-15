@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'bun:test';
-import { getingUsersValidator } from './v-map';
+import { getUsersValidator } from './v-map';
 
 describe('тесты для проверки запроса на получение списка пользователей', () => {
-  const sut = getingUsersValidator;
+  const sut = getUsersValidator;
   test('успех, для одного пользователя', () => {
     const result = sut.validate({
       userIds: ['37417aa8-a171-4330-bad2-4b74473fce80'],
