@@ -5,13 +5,16 @@ import { TelegramId } from '../../../types';
 import { AuthentificationUserActionParams } from './user-authentification/a-params';
 
 export type UserProfile = {
-  name: string,
+  firstName: string,
+  lastName: string,
 }
+
+export type UserType = 'employee' | 'client';
 
 export type UserAttrs = {
   userId: UuidType,
   telegramId: TelegramId,
-  employeeId?: UuidType,
+  type: UserType,
   userProfile: UserProfile,
 }
 
