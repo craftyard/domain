@@ -2,195 +2,108 @@ import { describe, expect, test } from 'bun:test';
 import { UserAttrs, UserProfile } from './params';
 import { userAttrsVMap, userProfileVMap } from './v-map';
 
-describe('all tested', () => {
-  describe('test userProfile', () => {
-    test('succes, there are no prohibited characters in the name and it does not exceed the limits', () => {
-      const userProfile: UserProfile = { name: 'Nurbolat' };
-      const vResult = userProfileVMap.name.validate(userProfile.name);
-      expect(vResult.isSuccess()).toEqual(true);
-      expect(vResult.value).toBeUndefined();
-    });
-    test('succes, there are no prohibited characters in the name and it does not exceed the limits', () => {
-      const userProfile: UserProfile = { name: 'Нурболат' };
-      const vResult = userProfileVMap.name.validate(userProfile.name);
-      expect(vResult.isSuccess()).toEqual(true);
-      expect(vResult.value).toBeUndefined();
-    });
-    test('succes, there are no prohibited characters in the name and it does not exceed the limits', () => {
-      const userProfile: UserProfile = { name: 'Nurbolat-Amangaliyev' };
-      const vResult = userProfileVMap.name.validate(userProfile.name);
-      expect(vResult.isSuccess()).toEqual(true);
-      expect(vResult.value).toBeUndefined();
-    });
-    test('failure, string length greater than 50', () => {
-      const userProfile: UserProfile = { name: 'Nurbolaaaaaaaaaaaaat-Amangaliyevvvvvvvvvvvvvvvvvvvvvvvvvv' };
-      const vResult = userProfileVMap.name.validate(userProfile.name);
-      expect(vResult.isFailure()).toEqual(true);
-      expect(vResult.value).toEqual({
-        name: [
-          {
-            text: 'Длина строки должна быть не больше {{maxCount}}',
-            hint: { maxCount: 50 },
-          },
-        ],
+describe('тесты валидаторов для атрибутов User', () => {
+  describe('тесты валидаторов для атрибутов UserProfile', () => {
+    describe('тесты валидатора атрибута имени', () => {
+      test('успех, все поля валидны', () => {
+        const vResult = userProfileVMap.firstName.validate('Nurbolat');
+        expect(vResult.isSuccess()).toEqual(true);
+        expect(vResult.value).toBeUndefined();
+      });
+      test('провал, срабатывает правило на лимит символов', () => {
+        const vResult = userProfileVMap.firstName.validate(`Nubolat${'-'.repeat(44)}`);
+        expect(vResult.isFailure()).toEqual(true);
+        expect(vResult.value).toEqual({
+          firstName: [
+            {
+              name: 'MaxCharsCountValidationRule',
+              text: 'Длина строки должна быть не больше {{maxCount}}',
+              hint: { maxCount: 50 },
+            },
+          ],
+        });
+      });
+      test('провал, срабатывает правило на проверку латиницы, кирилицы', () => {
+        const vResult = userProfileVMap.firstName.validate('Nurbolat-Амангалиев');
+        expect(vResult.isFailure()).toEqual(true);
+        expect(vResult.value).toEqual({
+          firstName: [
+            {
+              name: 'OnlyDashAndLitinicOrCyrillicCharsValidationRule',
+              text: 'Строка не должна содержать символы кроме "-"(дефис) и может содержать слова только на латинице или на кирилице.',
+              hint: {},
+            },
+          ],
+        });
       });
     });
-    test('failure, A line cannot contain two languages at the same time', () => {
-      const userProfile: UserProfile = { name: 'Nurbolat-Амангалиев' };
-      const vResult = userProfileVMap.name.validate(userProfile.name);
-      expect(vResult.isFailure()).toEqual(true);
-      expect(vResult.value).toEqual({
-        name: [
-          {
-            text: 'Строка не должна содержать символы кроме "-"(дефис) и может содержать слова только на латинице или на кирилице.',
-            hint: {},
-          },
-        ],
+    describe('тесты валидатора атрибута фамилии', () => {
+      test('провал, срабатывает правило на лимит символов для фамилии', () => {
+        const vResult = userProfileVMap.lastName.validate(`Амангалиев${'-'.repeat(44)}`);
+        expect(vResult.isFailure()).toEqual(true);
+        expect(vResult.value).toEqual({
+          lastName: [
+            {
+              name: 'MaxCharsCountValidationRule',
+              text: 'Длина строки должна быть не больше {{maxCount}}',
+              hint: { maxCount: 50 },
+            },
+          ],
+        });
       });
-    });
-    test('failure, There cannot be extra characters in the line', () => {
-      const userProfile: UserProfile = { name: 'English$#%@' };
-      const vResult = userProfileVMap.name.validate(userProfile.name);
-      expect(vResult.isFailure()).toEqual(true);
-      expect(vResult.value).toEqual({
-        name: [
-          {
-            text: 'Строка не должна содержать символы кроме "-"(дефис) и может содержать слова только на латинице или на кирилице.',
-            hint: {},
-          },
-        ],
+      test('провал, срабатывает правило на проверку латиницы, кирилицы', () => {
+        const vResult = userProfileVMap.lastName.validate('Amangaliyev!');
+        expect(vResult.isFailure()).toEqual(true);
+        expect(vResult.value).toEqual({
+          lastName: [
+            {
+              name: 'OnlyDashAndLitinicOrCyrillicCharsValidationRule',
+              text: 'Строка не должна содержать символы кроме "-"(дефис) и может содержать слова только на латинице или на кирилице.',
+              hint: {},
+            },
+          ],
+        });
       });
     });
   });
 
   describe('test userAttrs', () => {
-    test('succes, all values are valid', () => {
+    test('успех, все валидаторы атрибутов валидны', () => {
       const userAttrs: UserAttrs = {
         userId: '68ae48f2-5ae8-4191-8bc5-93c21a4a35b3',
         telegramId: 1234567891011212,
-        employeeId: '75bf9744-201a-4747-96d8-a3f4d0291b43',
+        type: 'client',
         userProfile: {
-          name: 'Nurbolat',
+          firstName: 'Nurbolat',
+          lastName: 'Amangaliyev',
         },
       };
-      expect(userAttrsVMap.userId.validate(userAttrs.userId).value).toBeUndefined();
-      expect(userAttrsVMap.employeeId.validate(userAttrs.employeeId).value).toBeUndefined();
-      expect(userAttrsVMap.telegramId.validate(userAttrs.telegramId).value).toBeUndefined();
-      expect(userAttrsVMap.userProfile.validate(userAttrs.userProfile).value).toBeUndefined();
+      expect(userAttrsVMap.userId.validate(userAttrs.userId).isSuccess()).toBe(true);
+      expect(userAttrsVMap.type.validate(userAttrs.type).isSuccess()).toBe(true);
+      expect(userAttrsVMap.type.validate('employee').isSuccess()).toBe(true);
+      expect(userAttrsVMap.telegramId.validate(userAttrs.telegramId).isSuccess()).toBe(true);
+      expect(userAttrsVMap.userProfile.validate(userAttrs.userProfile).isSuccess()).toBe(true);
     });
 
-    test('failure, userId value does not match UUID format', () => {
-      const userAttrs: UserAttrs = {
-        userId: '68ae48f2d443275463b3',
-        telegramId: 123456789,
-        employeeId: '75bf9744-201a-4747-96d8-a3f4d0291b43',
-        userProfile: {
-          name: 'Nurbolat',
-        },
-      };
-      expect(userAttrsVMap.userId.validate(userAttrs.userId).value).toEqual({
-        userId: [{
-          text: 'Значение должно соответствовать формату UUID',
+    test('провал, идентификатор телеграм не может быть отрицательной', () => {
+      expect(userAttrsVMap.telegramId.validate(-123456789).value).toEqual({
+        telegramId: [{
+          name: 'PositiveNumberValidationRule',
+          text: 'Число должно быть положительным',
           hint: {},
         },
         ],
       });
-      expect(userAttrsVMap.employeeId.validate(userAttrs.employeeId).value).toBeUndefined();
-      expect(userAttrsVMap.telegramId.validate(userAttrs.telegramId).value).toBeUndefined();
-      expect(userAttrsVMap.userProfile.validate(userAttrs.userProfile).value).toBeUndefined();
     });
 
-    test('failure, telegram can only contain positive numbers', () => {
-      const userAttrs: UserAttrs = {
-        userId: '68ae48f2-5ae8-4191-8bc5-93c21a4a35b3',
-        telegramId: -123456789,
-        employeeId: '75bf9744-201a-4747-96d8-a3f4d0291b43',
-        userProfile: {
-          name: 'Nurbolat',
+    test('провал, тип клиента не валидна', () => {
+      expect(userAttrsVMap.type.validate('employeer').value).toEqual({
+        type: [{
+          name: 'StringChoiceValidationRule',
+          text: 'Значение должно быть одним из значений списка',
+          hint: { choices: ['employee', 'client'] },
         },
-      };
-      expect(userAttrsVMap.userId.validate(userAttrs.userId).value).toBeUndefined();
-      expect(userAttrsVMap.telegramId.validate(userAttrs.telegramId).value).toEqual({
-        telegramId: [
-          {
-            text: 'Число должно быть положительным',
-            hint: {},
-          },
         ],
-      });
-      expect(userAttrsVMap.employeeId.validate(userAttrs.employeeId).value).toBeUndefined();
-      expect(userAttrsVMap.userProfile.validate(userAttrs.userProfile).value).toBeUndefined();
-    });
-
-    test('failure, employeeId value does not match UUID format', () => {
-      const userAttrs: UserAttrs = {
-        userId: '68ae48f2-5ae8-4191-8bc5-93c21a4a35b3',
-        telegramId: 123456789,
-        employeeId: '75bf97a3f4d0291b43',
-        userProfile: {
-          name: 'Nurbolat',
-        },
-      };
-      expect(userAttrsVMap.userId.validate(userAttrs.userId).value).toBeUndefined();
-      expect(userAttrsVMap.telegramId.validate(userAttrs.telegramId).value).toBeUndefined();
-      expect(userAttrsVMap.employeeId.validate(userAttrs.employeeId).value).toEqual({
-        employeeId: [
-          {
-            text: 'Значение должно соответствовать формату UUID',
-            hint: {},
-          },
-        ],
-      });
-      expect(userAttrsVMap.userProfile.validate(userAttrs.userProfile).value).toBeUndefined();
-    });
-
-    test('failure, the name in the user profile has a symbolic violation', () => {
-      const userAttrs: UserAttrs = {
-        userId: '68ae48f2-5ae8-4191-8bc5-93c21a4a35b3',
-        telegramId: 1234568910,
-        employeeId: '75bf9744-201a-4747-96d8-a3f4d0291b43',
-        userProfile: {
-          name: 'Nurbolat";%',
-        },
-      };
-      expect(userAttrsVMap.userId.validate(userAttrs.userId).value).toBeUndefined();
-      expect(userAttrsVMap.telegramId.validate(userAttrs.telegramId).value).toBeUndefined();
-      expect(userAttrsVMap.employeeId.validate(userAttrs.employeeId).value).toBeUndefined();
-      expect(userAttrsVMap.userProfile.validate(userAttrs.userProfile).value).toEqual({
-        userProfile: {
-          name: [
-            {
-              text: 'Строка не должна содержать символы кроме "-"(дефис) и может содержать слова только на латинице или на кирилице.',
-              hint: {},
-            },
-          ],
-        },
-      });
-    });
-
-    test('failure, user profile name has string length violation', () => {
-      const userAttrs: UserAttrs = {
-        userId: '68ae48f2-5ae8-4191-8bc5-93c21a4a35b3',
-        telegramId: 1234568910,
-        employeeId: '75bf9744-201a-4747-96d8-a3f4d0291b43',
-        userProfile: {
-          name: 'Nurbolat-Solooooooooooong-name-i-think-its-sooooooo-looooooong',
-        },
-      };
-      expect(userAttrsVMap.userId.validate(userAttrs.userId).value).toBeUndefined();
-      expect(userAttrsVMap.telegramId.validate(userAttrs.telegramId).value).toBeUndefined();
-      expect(userAttrsVMap.employeeId.validate(userAttrs.employeeId).value).toBeUndefined();
-      expect(userAttrsVMap.userProfile.validate(userAttrs.userProfile).value).toEqual({
-        userProfile: {
-          name: [
-            {
-              text: 'Длина строки должна быть не больше {{maxCount}}',
-              hint: {
-                maxCount: 50,
-              },
-            },
-          ],
-        },
       });
     });
   });
