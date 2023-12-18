@@ -27,8 +27,6 @@ export class UserAR extends AggregateRoot<UserParams> {
     super();
     const result = userARValidator.validate(attrs);
     if (result.isFailure()) this.logger.error('Не соблюдены инварианты UserAR', { attrs, result });
-    this.attrs = attrs;
-    this.version = version;
   }
 
   protected getMeta(): UserMeta {
