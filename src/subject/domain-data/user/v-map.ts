@@ -29,3 +29,5 @@ export const userAttrsVMap: ValidatorMap<UserAttrs> = {
   ]),
   userProfile: new DtoFieldValidator('userProfile', true, { isArray: false }, 'dto', userProfileVMap),
 };
+
+export const userARValidator = new DtoFieldValidator('UserAR', true, { isArray: false }, 'dto', userAttrsVMap);
