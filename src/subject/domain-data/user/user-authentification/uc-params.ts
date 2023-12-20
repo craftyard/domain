@@ -22,6 +22,6 @@ export type UserIsAlreadyAuthorizedError = ErrorDod<UserIsAlreadyAuthorizedLocal
 
 export type UserAuthentificationErrors = UserIsAlreadyAuthorizedError | UserAuthentificationActionParams['errors'];
 
-export type AuthenticationUserUCParams = QueryUseCaseParams<
+export type UserAuthenticationUCParams = QueryUseCaseParams<
   UserParams, UserAuthentificationInputOptions, UserAuthentificationOut, UserAuthentificationErrors
 >
