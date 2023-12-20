@@ -5,7 +5,7 @@ import { JWTTokens } from 'rilata2/src/app/jwt/types';
 import { TelegramId } from '../../../../types';
 
 export type TelegramAuthDTO = {
-  id?: TelegramId,
+  id: TelegramId,
   first_name?: string,
   last_name?: string,
   username?: string,
