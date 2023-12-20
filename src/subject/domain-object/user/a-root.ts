@@ -8,8 +8,8 @@ import { DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-da
 import { Logger } from 'rilata2/src/common/logger/logger';
 import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
 import {
-  AuthentificationUserActionParams,
-  AuthentificationUserDomainQuery,
+  UserAuthentificationActionParams,
+  UserAuthentificationDomainQuery,
   JWTPayload,
   TelegramDateNotValidError,
   TelegramHashNotValidError,
@@ -42,9 +42,9 @@ export class UserAR extends AggregateRoot<UserParams> {
   }
 
   userAuthentification(
-    authQuery: AuthentificationUserDomainQuery,
+    authQuery: UserAuthentificationDomainQuery,
     tokenCreator: TokenCreator<JWTPayload>,
-  ):DomainResult<AuthentificationUserActionParams> {
+  ):DomainResult<UserAuthentificationActionParams> {
     const result = this.isValidHash(authQuery);
 
     if (result.isFailure()) {
@@ -59,7 +59,7 @@ export class UserAR extends AggregateRoot<UserParams> {
     return success(jwtTokens);
   }
 
-  private isValidHash(authQuery: AuthentificationUserDomainQuery):
+  private isValidHash(authQuery: UserAuthentificationDomainQuery):
    Result<TelegramHashNotValidError | TelegramDateNotValidError, true> {
     const secret = new Bun.CryptoHasher('sha256').update(authQuery.botToken).digest();
     const { hash, ...telegramAuthDTOWithoutHash } = authQuery.telegramAuthDTO;
