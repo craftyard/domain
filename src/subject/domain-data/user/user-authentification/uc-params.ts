@@ -1,7 +1,7 @@
 import { ErrorDod } from 'rilata2/src/domain/domain-object-data/common-types';
 import { InputOptions, QueryUseCaseParams } from 'rilata2/src/app/use-case/types';
 import { JWTTokens } from 'rilata2/src/app/jwt/types';
-import { AuthentificationUserActionParams, TelegramAuthDTO } from './a-params';
+import { UserAuthentificationActionParams, TelegramAuthDTO } from './a-params';
 import { UserParams } from '../params';
 
 export type UserAuthentificationActionDod = {
@@ -20,7 +20,7 @@ type UserIsAlreadyAuthorizedLocale = {
 
 export type UserIsAlreadyAuthorizedError = ErrorDod<UserIsAlreadyAuthorizedLocale, 'UserIsAlreadyAuthorized'>
 
-export type UserAuthentificationErrors = UserIsAlreadyAuthorizedError | AuthentificationUserActionParams['errors'];
+export type UserAuthentificationErrors = UserIsAlreadyAuthorizedError | UserAuthentificationActionParams['errors'];
 
 export type UserAuthentificationUCParams = QueryUseCaseParams<
   UserParams, UserAuthentificationInputOptions, UserAuthentificationOut, UserAuthentificationErrors
