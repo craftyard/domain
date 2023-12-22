@@ -21,7 +21,9 @@ const locationAttrsValidatorMap: ValidatorMap<Location> = {
   longitude: new LiteralFieldValidator(
     'longitude',
     true,
-    { isArray: false },
+    {
+      isArray: false,
+    },
     'number',
     [new RangeNumberValidationRule(-180, 180)],
   ),
@@ -31,7 +33,7 @@ const employeesRoleValidatorMap:ValidatorMap<GroupRoleAttrs> = {
   userIds: new LiteralFieldValidator(
     'userIds',
     true,
-    { isArray: true },
+    { isArray: true, mustBeFilled: true },
     'string',
     [new UUIDFormatValidationRule()],
   ),
