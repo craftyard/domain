@@ -7,6 +7,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'class-methods-use-this': 'off',
+    'no-useless-constructor': 'off',
+    'no-empty-function': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
   },
 };
