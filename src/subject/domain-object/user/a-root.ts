@@ -29,6 +29,10 @@ export class UserAR extends AggregateRoot<UserParams> {
     if (result.isFailure()) this.logger.error('Не соблюдены инварианты UserAR', { attrs, result });
   }
 
+  override getId(): string {
+    return this.attrs.userId;
+  }
+
   protected getMeta(): UserMeta {
     return {
       name: 'UserAR',
