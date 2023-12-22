@@ -20,6 +20,15 @@ describe('UserAr json implementation repository tests', () => {
     const result = await sut.findByTelegramId(3290593910);
     expect(result.length).toBe(1);
     expect(result[0].getId()).toBe('493f5cbc-f572-4469-9cf1-3702802e6a31');
+    expect(result[0].getAttrs()).toEqual({
+      userId: '493f5cbc-f572-4469-9cf1-3702802e6a31',
+      telegramId: 3290593910,
+      type: 'employee',
+      userProfile: {
+        firstName: 'Bill',
+        lastName: 'Oruell',
+      },
+    });
   });
 
   test('успех, когда в списке нет пользователей с таким telegramId, приходит пустой массив', async () => {
