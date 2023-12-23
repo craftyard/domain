@@ -20,15 +20,17 @@ type ManyAccountNotSupportedLocale = {
 
 export type ManyAccountNotSupportedError = ErrorDod<ManyAccountNotSupportedLocale, 'ManyAccountNotSupportedError'>
 
-type UserDoesNotExistLocale = {
+type TelegramUserDoesNotExistLocale = {
   text: 'У вас нет аккаунта сотрудника.',
   hint: { telegramId: number },
 }
 
-export type UserDoesNotExistError = ErrorDod<UserDoesNotExistLocale, 'UserDoesNotExistError'>
+export type TelegramUserDoesNotExistError = ErrorDod<
+  TelegramUserDoesNotExistLocale, 'TelegramUserDoesNotExistError'
+>
 
 export type UserAuthentificationErrors = ManyAccountNotSupportedError
-  | UserDoesNotExistError
+  | TelegramUserDoesNotExistError
   | UserAuthentificationActionParams['errors'];
 
 export type UserAuthentificationUCParams = QueryUseCaseParams<

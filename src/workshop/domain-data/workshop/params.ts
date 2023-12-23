@@ -16,5 +16,5 @@ export type WorkshopAttrs = {
 export type WorkshopMeta = DomainMeta<'WorkshopAR'>;
 
 export type WorkshopParams = AggregateRootDataParams<
-  WorkshopAttrs, WorkshopMeta, never
+  WorkshopAttrs, WorkshopMeta, never, []
 >;

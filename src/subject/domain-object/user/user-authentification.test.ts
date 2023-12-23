@@ -11,7 +11,7 @@ const TOKEN = '6698548206:AAHF49aVG7c-QkIbHQb-OBGwgkYdBRSmTCo';
 
 const authQuery = {
   id: 694528239,
-  auth_date: '1698656796',
+  auth_date: 1698656796,
   first_name: 'Дамир',
   username: 'xhetso',
   photo_url: 'https://t.me/i/userpic/320/GM3EKjh6x82Lo7cU3aGhVnmBC0BbE5uqOUIR5Ze_8bk.jpg',
@@ -19,7 +19,7 @@ const authQuery = {
 };
 const authQueryNotValid = {
   id: 694528239,
-  auth_date: '1698656796',
+  auth_date: 1698656796,
   first_name: 'Дамир',
   username: 'xhetso',
   photo_url: 'https://t.me/i/userpic/320/GM3EKjh6x82Lo7cU3aGhVnmBC0BbE5uqOUIR5Ze_8bk.jpg',
