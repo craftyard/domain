@@ -14,14 +14,14 @@ export type UserAuthentificationInputOptions = InputOptions<UserAuthentification
 export type UserAuthentificationOut = JWTTokens;
 
 type ManyAccountNotSupportedLocale = {
-  text: 'У вас с одним аккаунтом telegram имеется два пользовательских аккаунта сотрудников. К сожалению сейчас это не поддерживается. Обратитесь в техподдержку, чтобы вам помогли решить эту проблему.',
+  text: 'У вас с одним аккаунтом telegram имеется много аккаунтов, к сожалению сейчас это не поддерживается. Обратитесь в техподдержку, чтобы вам помогли решить эту проблему.',
   hint: { telegramId: number },
 }
 
 export type ManyAccountNotSupportedError = ErrorDod<ManyAccountNotSupportedLocale, 'ManyAccountNotSupportedError'>
 
 type TelegramUserDoesNotExistLocale = {
-  text: 'У вас нет аккаунта сотрудника.',
+  text: 'У вас нет аккаунта.',
   hint: { telegramId: number },
 }
 
