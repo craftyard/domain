@@ -13,22 +13,22 @@ export type UserAuthentificationInputOptions = InputOptions<UserAuthentification
 
 export type UserAuthentificationOut = JWTTokens;
 
-type ManyEmployeeAccountNotSupportedLocale = {
+type ManyAccountNotSupportedLocale = {
   text: 'У вас с одним аккаунтом telegram имеется два пользовательских аккаунта сотрудников. К сожалению сейчас это не поддерживается. Обратитесь в техподдержку, чтобы вам помогли решить эту проблему.',
   hint: { telegramId: number },
 }
 
-export type ManyEmployeeAccountNotSupportedError = ErrorDod<ManyEmployeeAccountNotSupportedLocale, 'TwoEmployeeAccountNotSupportedError'>
+export type ManyAccountNotSupportedError = ErrorDod<ManyAccountNotSupportedLocale, 'ManyAccountNotSupportedError'>
 
-type EmployeeUserDoesNotExistLocale = {
+type UserDoesNotExistLocale = {
   text: 'У вас нет аккаунта сотрудника.',
   hint: { telegramId: number },
 }
 
-export type EmployeeUserDoesNotExistError = ErrorDod<EmployeeUserDoesNotExistLocale, 'EmployeeUserDoesNotExistError'>
+export type UserDoesNotExistError = ErrorDod<UserDoesNotExistLocale, 'UserDoesNotExistError'>
 
-export type UserAuthentificationErrors = ManyEmployeeAccountNotSupportedError
-  | EmployeeUserDoesNotExistError
+export type UserAuthentificationErrors = ManyAccountNotSupportedError
+  | UserDoesNotExistError
   | UserAuthentificationActionParams['errors'];
 
 export type UserAuthentificationUCParams = QueryUseCaseParams<
