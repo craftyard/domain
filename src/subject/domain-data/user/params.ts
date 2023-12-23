@@ -21,5 +21,5 @@ export type UserAttrs = {
 export type UserMeta = DomainMeta<'UserAR'>;
 
 export type UserParams = AggregateRootDataParams<
-  UserAttrs, UserMeta, UserAuthentificationActionParams
+  UserAttrs, UserMeta, UserAuthentificationActionParams, []
 >;

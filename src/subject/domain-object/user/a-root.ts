@@ -7,6 +7,7 @@ import { success } from 'rilata2/src/common/result/success';
 import { DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
 import { Logger } from 'rilata2/src/common/logger/logger';
 import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
+import { AggregateRootHelper } from 'rilata2/src/domain/domain-object/aggregate-helper';
 import {
   UserAuthentificationActionParams,
   UserAuthentificationDomainQuery,
@@ -19,6 +20,8 @@ import { TG_AUTH_HASH_LIFETIME_AS_SECONDS } from '../../subject-config';
 import { userARValidator } from '../../domain-data/user/v-map';
 
 export class UserAR extends AggregateRoot<UserParams> {
+  protected helper: AggregateRootHelper<UserParams>;
+
   constructor(
     protected attrs: UserAttrs,
     protected version: number,
@@ -27,6 +30,7 @@ export class UserAR extends AggregateRoot<UserParams> {
     super();
     const result = userARValidator.validate(attrs);
     if (result.isFailure()) this.logger.error('Не соблюдены инварианты UserAR', { attrs, result });
+    this.helper = new AggregateRootHelper(attrs, 'UserAR', version, [], logger);
   }
 
   override getId(): string {
