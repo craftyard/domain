@@ -1,13 +1,13 @@
 import { describe, test, expect } from 'bun:test';
 import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
-import { getUserAttrs } from './fixture';
+import { getUserRecords } from './fixture';
 import { UserJsonRepository } from './repo';
 
 describe('userAr, тесты инвариантов', () => {
   const logger = new ConsoleLogger();
   test('провал, валидатор работает и ловит невалидные значения', () => {
     try {
-      const userAttrsWithUndefinedUserId = getUserAttrs({ userId: undefined });
+      const userAttrsWithUndefinedUserId = getUserRecords({ userId: undefined });
       (() => new UserJsonRepository(userAttrsWithUndefinedUserId, logger))();
       expect(true).toBe(false);
     } catch (error) {
@@ -15,7 +15,7 @@ describe('userAr, тесты инвариантов', () => {
     }
 
     try {
-      const userAttrsWithInvalidUserId = getUserAttrs(
+      const userAttrsWithInvalidUserId = getUserRecords(
         { userId: 'bc9166cb-ba37-43cb-93d3-ce6da27471dU' }, // last char not valid;
       );
       (() => new UserJsonRepository(userAttrsWithInvalidUserId, logger))();
