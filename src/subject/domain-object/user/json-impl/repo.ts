@@ -21,7 +21,9 @@ export class UserJsonRepository implements UserReadRepository, UserCmdRepository
   }
 
   async getUsers(userIds: string[]): Promise<UserAttrs[]> {
-    return this.usersRecords.filter((user) => userIds.includes(user.userId));
+    return this.usersRecords
+      .filter((records) => userIds.includes(records.userId))
+      .map((records) => dtoUtility.excludeAttrs(records, 'version'));
   }
 
   async findByTelegramId(telegramId: number): Promise<UserAR[]> {

@@ -15,7 +15,9 @@ import {
   TelegramDateNotValidError,
   TelegramHashNotValidError,
 } from '../../domain-data/user/user-authentification/a-params';
-import { UserAttrs, UserMeta, UserParams } from '../../domain-data/user/params';
+import {
+  UserAttrs, UserMeta, UserParams, UserType,
+} from '../../domain-data/user/params';
 import { TG_AUTH_HASH_LIFETIME_AS_SECONDS } from '../../subject-config';
 import { userARValidator } from '../../domain-data/user/v-map';
 
@@ -35,6 +37,14 @@ export class UserAR extends AggregateRoot<UserParams> {
 
   override getId(): string {
     return this.attrs.userId;
+  }
+
+  getTelegramId(): number {
+    return this.attrs.telegramId;
+  }
+
+  getType(): UserType {
+    return this.attrs.type;
   }
 
   protected getMeta(): UserMeta {

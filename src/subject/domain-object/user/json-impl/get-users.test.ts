@@ -1,12 +1,12 @@
 import { describe, expect, test } from 'bun:test';
 import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
 import { UserJsonRepository } from './repo';
-import { testUsersAsJson } from './fixture';
+import { testUsersRecordsAsJson } from './fixture';
 
 describe('тесты для получения списка пользователей по id', () => {
   const logger = new ConsoleLogger();
 
-  const sut = new UserJsonRepository(testUsersAsJson, logger);
+  const sut = new UserJsonRepository(testUsersRecordsAsJson, logger);
   test('успех, получить массив с одним пользователем', async () => {
     const users = await sut.getUsers(['bc9166cb-ba37-43cb-93d3-ce6da27471df']);
     expect(users).toEqual([

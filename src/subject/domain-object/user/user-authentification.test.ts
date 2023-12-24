@@ -52,10 +52,11 @@ class TokenCreatorMock implements TokenCreator<JWTPayload> {
 }
 
 describe('тесты аутентификации пользователя', () => {
-  test('Проверяем на успешное возвращение токенов и типы токенов', () => {
+  test('успех, созданный токен авторизации успешно возвращается', () => {
     const dateMock = spyOn(user, 'getNowDate').mockReturnValueOnce(
       new Date(Number(userQuery.telegramAuthDTO.auth_date) + 5000),
     );
+    dateMock.mockClear();
 
     const tokenCreatorMock = new TokenCreatorMock();
     const createTokenMock = spyOn(tokenCreatorMock, 'createToken').mockReturnValueOnce({
@@ -73,7 +74,12 @@ describe('тесты аутентификации пользователя', () 
     });
   });
 
-  test('Проверяем на ошибку времени приходящего хэша при авторизации', () => {
+  test('провал, время авторизации по данному токену прошло', () => {
+    const dateMock = spyOn(user, 'getNowDate').mockReturnValueOnce(
+      new Date(Number(userQuery.telegramAuthDTO.auth_date) + 10050),
+    );
+    dateMock.mockClear();
+
     const tokenCreatorMock = new TokenCreatorMock();
     const result = user.userAuthentification(userQuery, tokenCreatorMock);
     expect(result.isFailure()).toBe(true);
@@ -82,14 +88,16 @@ describe('тесты аутентификации пользователя', () 
       locale: {
         text: 'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
         hint: {
-          authHashLifetimeAsSeconds: 30,
+          authHashLifetimeAsSeconds: 10,
         },
       },
       errorType: 'domain-error',
       domainType: 'error',
     });
+    expect(dateMock).toHaveBeenCalledTimes(1);
   });
-  test('Проверяем на ошибку хэша при авторизации', () => {
+
+  test('провал, хеш авторизации не валиден', () => {
     const tokenCreatorMock = new TokenCreatorMock();
     const result = user.userAuthentification(userQuery2, tokenCreatorMock);
     expect(result.isFailure()).toBe(true);
