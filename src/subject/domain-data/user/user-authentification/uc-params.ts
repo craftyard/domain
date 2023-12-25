@@ -13,14 +13,25 @@ export type UserAuthentificationInputOptions = InputOptions<UserAuthentification
 
 export type UserAuthentificationOut = JWTTokens;
 
-type UserIsAlreadyAuthorizedLocale = {
-  text: 'Вы уже авторизованы',
-  hint: Record<string, never>,
+type ManyAccountNotSupportedLocale = {
+  text: 'У вас с одним аккаунтом telegram имеется много аккаунтов, к сожалению сейчас это не поддерживается. Обратитесь в техподдержку, чтобы вам помогли решить эту проблему.',
+  hint: { telegramId: number },
 }
 
-export type UserIsAlreadyAuthorizedError = ErrorDod<UserIsAlreadyAuthorizedLocale, 'UserIsAlreadyAuthorized'>
+export type ManyAccountNotSupportedError = ErrorDod<ManyAccountNotSupportedLocale, 'ManyAccountNotSupportedError'>
 
-export type UserAuthentificationErrors = UserIsAlreadyAuthorizedError | UserAuthentificationActionParams['errors'];
+type TelegramUserDoesNotExistLocale = {
+  text: 'У вас нет аккаунта.',
+  hint: { telegramId: number },
+}
+
+export type TelegramUserDoesNotExistError = ErrorDod<
+  TelegramUserDoesNotExistLocale, 'TelegramUserDoesNotExistError'
+>
+
+export type UserAuthentificationErrors = ManyAccountNotSupportedError
+  | TelegramUserDoesNotExistError
+  | UserAuthentificationActionParams['errors'];
 
 export type UserAuthentificationUCParams = QueryUseCaseParams<
   UserParams, UserAuthentificationInputOptions, UserAuthentificationOut, UserAuthentificationErrors
