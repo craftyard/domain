@@ -16,8 +16,8 @@ export class WorkshopJsonRepository implements WorkshopRepository {
   }
 
   async findWorkshopByUserId(userId: UserId): Promise<WorkshopAttrs | undefined> {
-    // eslint-disable-next-line max-len
-    const foundWorkshop = this.workshops.find((workshop) => workshop.employeesRole.userIds.includes(userId));
+    const foundWorkshop = this.workshops
+      .find((workshop) => workshop.employeesRole.userIds.includes(userId));
     return foundWorkshop;
   }
 }

@@ -1,12 +1,12 @@
 import { describe, expect, test } from 'bun:test';
 import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
 import { WorkshopJsonRepository } from './repo';
-import { testWorkshopsAsJson } from './fixture';
+import { testWorkshopsRecordsAsJson } from './fixture';
 
 describe('Тесты для получения workshopa по userid', () => {
   const logger = new ConsoleLogger();
 
-  const sut = new WorkshopJsonRepository(testWorkshopsAsJson, logger);
+  const sut = new WorkshopJsonRepository(testWorkshopsRecordsAsJson, logger);
   test('Успех, получен обьект мастерской', async () => {
     const workshop = await sut.findWorkshopByUserId('3312a8d6-67ab-4e87-8a21-9d17f508fd5c');
     expect(workshop).toEqual({
