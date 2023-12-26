@@ -5,7 +5,6 @@ import { dtoUtility } from 'rilata2/src/common/utils/dto';
 import { WorkshopAttrs } from '../../../domain-data/workshop/params';
 import { workshopAttrsVMap } from '../../../domain-data/workshop/v-map';
 import { WorkshopRepository } from '../repository';
-import { WorkshopFactory } from '../factory';
 
 type WorkshopRecords = WorkshopAttrs & { version: number };
 
