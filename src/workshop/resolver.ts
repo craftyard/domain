@@ -4,7 +4,7 @@ import { Facadable } from 'rilata2/src/domain/facadable';
 import { Logger } from 'rilata2/src/common/logger/logger';
 import { WorkshopRepository } from '../workshop/domain-object/workshop/repository';
 
-export class SubjectResolver implements Repositoriable, Realisable, Facadable {
+export class WorkshopResolver implements Repositoriable, Realisable, Facadable {
   constructor(
     protected workshopRepo: WorkshopRepository,
     protected logger: Logger,
@@ -15,13 +15,13 @@ export class SubjectResolver implements Repositoriable, Realisable, Facadable {
   }
 
   getRealisation(key: unknown): unknown {
-    this.logger.error(`not finded key for getRealisation method of SubjectResolver, key: ${key}`);
+    this.logger.error(`not finded key for getRealisation method of WorkshopResolver, key: ${key}`);
     throw Error();
   }
 
   getRepository(key: unknown): unknown {
     if (key === WorkshopRepository) return this.workshopRepo;
-    this.logger.error(`not finded key for getRealisation method of SubjectResolver, key: ${key}`);
+    this.logger.error(`not finded key for getRealisation method of WorkshopResolver, key: ${key}`);
     throw Error();
   }
 }
