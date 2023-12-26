@@ -23,11 +23,7 @@ export class WorkshopJsonRepository implements WorkshopRepository {
     const foundWorkshop = this.workshopRecord
       .find((workshop) => workshop.employeesRole.userIds.includes(userId));
     if (foundWorkshop) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { version, ...workshopWithoutVersion } = foundWorkshop;
-      const factory = new WorkshopFactory(this.logger);
-      const workshop = factory.restore(dtoUtility.excludeAttrs(foundWorkshop, 'version'), version);
-      return workshop.getAttrs();
+      return dtoUtility.excludeAttrs(foundWorkshop, 'version');
     }
     return undefined;
   }
