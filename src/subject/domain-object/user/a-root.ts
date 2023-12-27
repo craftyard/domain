@@ -4,19 +4,20 @@ import { failure } from 'rilata2/src/common/result/failure';
 import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
 import { Result } from 'rilata2/src/common/result/types';
 import { success } from 'rilata2/src/common/result/success';
-import { DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
+import { AssertionException } from 'rilata2/src/common/exeptions';
 import { Logger } from 'rilata2/src/common/logger/logger';
 import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
 import { AggregateRootHelper } from 'rilata2/src/domain/domain-object/aggregate-helper';
+import { DomainResult } from 'rilata2/src/domain/domain-data/params-types';
 import {
   UserAuthentificationActionParams,
   UserAuthentificationDomainQuery,
   JWTPayload,
-  TelegramDateNotValidError,
+  TelegramAuthDateNotValidError,
   TelegramHashNotValidError,
 } from '../../domain-data/user/user-authentification/a-params';
 import {
-  UserAttrs, UserMeta, UserParams, UserType,
+  UserAttrs, UserParams, UserType,
 } from '../../domain-data/user/params';
 import { TG_AUTH_HASH_LIFETIME_AS_SECONDS } from '../../subject-config';
 import { userARValidator } from '../../domain-data/user/v-map';
@@ -31,11 +32,15 @@ export class UserAR extends AggregateRoot<UserParams> {
   ) {
     super();
     const result = userARValidator.validate(attrs);
-    if (result.isFailure()) this.logger.error('Не соблюдены инварианты UserAR', { attrs, result });
-    this.helper = new AggregateRootHelper(attrs, 'UserAR', version, [], logger);
+    if (result.isFailure()) {
+      const errStr = 'Не соблюдены инварианты UserAR';
+      this.logger.error(errStr, { attrs, result });
+      throw new AssertionException(errStr);
+    }
+    this.helper = new AggregateRootHelper('UserAR', attrs, version, [], logger);
   }
 
-  override getId(): string {
+  getId(): string {
     return this.attrs.userId;
   }
 
@@ -43,16 +48,8 @@ export class UserAR extends AggregateRoot<UserParams> {
     return this.attrs.telegramId;
   }
 
-  getType(): UserType {
+  getUserType(): UserType {
     return this.attrs.type;
-  }
-
-  protected getMeta(): UserMeta {
-    return {
-      name: 'UserAR',
-      domainType: 'domain-object',
-      objectType: 'aggregate',
-    };
   }
 
   getShortName(): string {
@@ -78,7 +75,7 @@ export class UserAR extends AggregateRoot<UserParams> {
   }
 
   private isValidHash(authQuery: UserAuthentificationDomainQuery):
-   Result<TelegramHashNotValidError | TelegramDateNotValidError, true> {
+   Result<TelegramHashNotValidError | TelegramAuthDateNotValidError, true> {
     const secret = new Bun.CryptoHasher('sha256').update(authQuery.botToken).digest();
     const { hash, ...telegramAuthDTOWithoutHash } = authQuery.telegramAuthDTO;
     const rawData = Object
@@ -102,7 +99,7 @@ export class UserAR extends AggregateRoot<UserParams> {
     );
 
     if (hashLifeTimeValid < 0) {
-      return failure(dodUtility.getDomainErrorByType<TelegramDateNotValidError>(
+      return failure(dodUtility.getDomainErrorByType<TelegramAuthDateNotValidError>(
         'TelegramAuthDateNotValidError',
         'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
         { authHashLifetimeAsSeconds: TG_AUTH_HASH_LIFETIME_AS_SECONDS },
