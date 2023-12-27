@@ -1,4 +1,4 @@
-import { Repositoriable } from 'rilata2/src/domain/repositoriable';
+import { Repositoriable } from 'rilata2/src/app/resolves/repositoriable';
 import { UserId } from 'rilata2/src/common/types';
 import { WorkshopAttrs } from '../../domain-data/workshop/params';
 

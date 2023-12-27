@@ -1,7 +1,7 @@
 import { UuidType } from 'rilata2/src/common/types';
 import { GroupRoleAttrs } from 'rilata2/src/domain/domain-object/types';
-import { AggregateRootDataParams } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
-import { DomainMeta } from 'rilata2/src/domain/domain-object-data/common-types';
+import { DomainMeta } from 'rilata2/src/domain/domain-data/domain-types';
+import { AggregateRootDataParams } from 'rilata2/src/domain/domain-data/params-types';
 import { Location } from '../../../types';
 
 export type WorkshopAttrs = {

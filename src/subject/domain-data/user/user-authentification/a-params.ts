@@ -1,7 +1,7 @@
-import { ActionParams, DomainResult } from 'rilata2/src/domain/domain-object-data/aggregate-data-types';
 import { UserId } from 'rilata2/src/common/types';
-import { ErrorDod } from 'rilata2/src/domain/domain-object-data/common-types';
 import { JWTTokens } from 'rilata2/src/app/jwt/types';
+import { ErrorDod } from 'rilata2/src/domain/domain-data/domain-types';
+import { ActionParams, DomainResult } from 'rilata2/src/domain/domain-data/params-types';
 import { TelegramId } from '../../../../types';
 
 export type TelegramAuthDTO = {
@@ -35,12 +35,12 @@ type TelegramAuthDateNotValidLocale = {
     hint:{ authHashLifetimeAsSeconds: number }
 }
 
-export type TelegramDateNotValidError = ErrorDod<TelegramAuthDateNotValidLocale, 'TelegramAuthDateNotValidError'>
+export type TelegramAuthDateNotValidError = ErrorDod<TelegramAuthDateNotValidLocale, 'TelegramAuthDateNotValidError'>
 
 export type UserAuthentificationActionParams = ActionParams<
   UserAuthentificationDomainQuery,
   JWTTokens,
-  TelegramDateNotValidError | TelegramHashNotValidError,
+  TelegramAuthDateNotValidError | TelegramHashNotValidError,
   never
 >
 

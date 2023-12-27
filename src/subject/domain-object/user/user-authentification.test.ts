@@ -83,16 +83,18 @@ describe('тесты аутентификации пользователя', () 
     const tokenCreatorMock = new TokenCreatorMock();
     const result = user.userAuthentification(userQuery, tokenCreatorMock);
     expect(result.isFailure()).toBe(true);
-    expect(result.value).toStrictEqual({
-      name: 'TelegramAuthDateNotValidError',
+    expect(result.value).toEqual({
       locale: {
         text: 'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
         hint: {
           authHashLifetimeAsSeconds: 10,
         },
       },
-      errorType: 'domain-error',
-      domainType: 'error',
+      meta: {
+        name: 'TelegramAuthDateNotValidError',
+        errorType: 'domain-error',
+        domainType: 'error',
+      },
     });
     expect(dateMock).toHaveBeenCalledTimes(1);
   });
@@ -102,15 +104,17 @@ describe('тесты аутентификации пользователя', () 
     const result = user.userAuthentification(userQuery2, tokenCreatorMock);
     expect(result.isFailure()).toBe(true);
     expect(result.value).toStrictEqual({
-      name: 'TelegramHashNotValidError',
       locale: {
         text: 'Хэш телеграмма некорректный',
         hint: {
           hash: '24b95fcfe1b294643cdfdae068c2e5d643172a2b18ad9823812617187f3d68e4H',
         },
       },
-      errorType: 'domain-error',
-      domainType: 'error',
+      meta: {
+        name: 'TelegramHashNotValidError',
+        errorType: 'domain-error',
+        domainType: 'error',
+      },
     });
   });
 });

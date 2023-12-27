@@ -1,15 +1,18 @@
-import { ErrorDod } from 'rilata2/src/domain/domain-object-data/common-types';
-import { InputOptions, QueryUseCaseParams } from 'rilata2/src/app/use-case/types';
 import { JWTTokens } from 'rilata2/src/app/jwt/types';
+import { UuidType } from 'rilata2/src/common/types';
+import { ErrorDod } from 'rilata2/src/domain/domain-data/domain-types';
+import { QueryServiceParams } from 'rilata2/src/app/service/types';
 import { UserAuthentificationActionParams, TelegramAuthDTO } from './a-params';
 import { UserParams } from '../params';
 
 export type UserAuthentificationActionDod = {
-  actionName: 'userAuthentification',
-  body: TelegramAuthDTO,
+  meta: {
+    name: 'userAuthentification',
+    actionId: UuidType,
+    domainType: 'action',
+  }
+  attrs: TelegramAuthDTO,
 }
-
-export type UserAuthentificationInputOptions = InputOptions<UserAuthentificationActionDod>
 
 export type UserAuthentificationOut = JWTTokens;
 
@@ -33,6 +36,6 @@ export type UserAuthentificationErrors = ManyAccountNotSupportedError
   | TelegramUserDoesNotExistError
   | UserAuthentificationActionParams['errors'];
 
-export type UserAuthentificationUCParams = QueryUseCaseParams<
-  UserParams, UserAuthentificationInputOptions, UserAuthentificationOut, UserAuthentificationErrors
+export type UserAuthentificationServiceParams = QueryServiceParams<
+  UserParams, UserAuthentificationActionDod, UserAuthentificationOut, UserAuthentificationErrors
 >

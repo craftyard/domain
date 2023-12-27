@@ -1,6 +1,7 @@
 import { dtoUtility } from 'rilata2/src/common/utils/dto/';
 import { Logger } from 'rilata2/src/common/logger/logger';
 import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
+import { AssertionException } from 'rilata2/src/common/exeptions';
 import { UserAttrs } from '../../../domain-data/user/params';
 import { userAttrsVMap } from '../../../domain-data/user/v-map';
 import { UserReadRepository } from '../read-repository';
@@ -17,7 +18,11 @@ export class UserJsonRepository implements UserReadRepository, UserCmdRepository
     this.usersRecords = JSON.parse(jsonUsers);
     const userVMap = new DtoFieldValidator('userMap', true, { isArray: true }, 'dto', userAttrsVMap);
     const result = userVMap.validate(this.usersRecords);
-    if (result.isFailure()) logger.error('Входящие данные не валидны', result.value);
+    if (result.isFailure()) {
+      const errStr = 'Входящие данные не валидны';
+      logger.error(errStr, result.value);
+      throw new AssertionException(errStr);
+    }
   }
 
   async getUsers(userIds: string[]): Promise<UserAttrs[]> {

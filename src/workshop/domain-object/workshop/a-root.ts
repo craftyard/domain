@@ -1,7 +1,8 @@
 import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
 import { Logger } from 'rilata2/src/common/logger/logger';
 import { AggregateRootHelper } from 'rilata2/src/domain/domain-object/aggregate-helper';
-import { WorkshopAttrs, WorkshopMeta, WorkshopParams } from '../../domain-data/workshop/params';
+import { AssertionException } from 'rilata2/src/common/exeptions';
+import { WorkshopAttrs, WorkshopParams } from '../../domain-data/workshop/params';
 import { workshopARValidator } from '../../domain-data/workshop/v-map';
 
 export class WorkshopAR extends AggregateRoot<WorkshopParams> {
@@ -14,8 +15,12 @@ export class WorkshopAR extends AggregateRoot<WorkshopParams> {
   ) {
     super();
     const result = workshopARValidator.validate(attrs);
-    if (result.isFailure()) this.logger.error('Не соблюдены инварианты WorkshopAR', { attrs, result });
-    this.helper = new AggregateRootHelper(attrs, 'WorkshopAR', version, [], logger);
+    if (result.isFailure()) {
+      const errStr = 'Не соблюдены инварианты WorkshopAR';
+      this.logger.error(errStr, { attrs, result });
+      throw new AssertionException(errStr);
+    }
+    this.helper = new AggregateRootHelper('WorkshopAR', attrs, version, [], logger);
   }
 
   override getId(): string {
@@ -24,13 +29,5 @@ export class WorkshopAR extends AggregateRoot<WorkshopParams> {
 
   getShortName(): string {
     return this.attrs.name;
-  }
-
-  protected getMeta(): WorkshopMeta {
-    return {
-      name: 'WorkshopAR',
-      domainType: 'domain-object',
-      objectType: 'aggregate',
-    };
   }
 }

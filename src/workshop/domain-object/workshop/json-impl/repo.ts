@@ -2,6 +2,7 @@ import { Logger } from 'rilata2/src/common/logger/logger';
 import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
 import { UserId } from 'rilata2/src/common/types';
 import { dtoUtility } from 'rilata2/src/common/utils/dto';
+import { AssertionException } from 'rilata2/src/common/exeptions';
 import { WorkshopAttrs } from '../../../domain-data/workshop/params';
 import { workshopAttrsVMap } from '../../../domain-data/workshop/v-map';
 import { WorkshopRepository } from '../repository';
@@ -15,7 +16,11 @@ export class WorkshopJsonRepository implements WorkshopRepository {
     this.workshopRecord = JSON.parse(jsonWorkshop);
     const workshopVMap = new DtoFieldValidator('workshopMap', true, { isArray: true }, 'dto', workshopAttrsVMap);
     const result = workshopVMap.validate(this.workshopRecord);
-    if (result.isFailure()) logger.error('Входящие данные не валидны', result.value);
+    if (result.isFailure()) {
+      const errStr = 'Входящие данные не валидны';
+      logger.error(errStr, result.value);
+      throw new AssertionException(errStr);
+    }
   }
 
   async findWorkshopByUserId(userId: UserId): Promise<WorkshopAttrs | undefined> {

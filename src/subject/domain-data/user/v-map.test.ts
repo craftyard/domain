@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { UserAttrs, UserProfile } from './params';
+import { UserAttrs } from './params';
 import { userAttrsVMap, userProfileVMap } from './v-map';
 
 describe('тесты валидаторов для атрибутов User', () => {
