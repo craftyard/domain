@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'bun:test';
-import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
+import { ConsoleLogger } from 'rilata/src/common/logger/console-logger';
 import { getUserRecords } from './fixture';
 import { UserJsonRepository } from './repo';
 

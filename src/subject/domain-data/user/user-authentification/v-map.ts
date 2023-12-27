@@ -1,9 +1,9 @@
-import { ActionDodValidator } from 'rilata2/src/app/service/types';
-import { ValidatorMap } from 'rilata2/src/domain/validator/field-validator/types';
-import { LiteralFieldValidator } from 'rilata2/src/domain/validator/field-validator/literal-field-validator';
-import { PositiveNumberValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/number/positive-number.v-rule';
-import { IsTimeStampValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/timestamp/is-timestamp.v-rule';
-import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
+import { ActionDodValidator } from 'rilata/src/app/service/types';
+import { ValidatorMap } from 'rilata/src/domain/validator/field-validator/types';
+import { LiteralFieldValidator } from 'rilata/src/domain/validator/field-validator/literal-field-validator';
+import { PositiveNumberValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/number/positive-number.v-rule';
+import { IsTimeStampValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/timestamp/is-timestamp.v-rule';
+import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
 import { TelegramAuthDTO } from './a-params';
 import { UserAuthentificationServiceParams } from './s-params';
 

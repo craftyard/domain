@@ -1,6 +1,6 @@
-import { UuidType } from 'rilata2/src/common/types';
-import { ErrorDod } from 'rilata2/src/domain/domain-data/domain-types';
-import { QueryServiceParams } from 'rilata2/src/app/service/types';
+import { UuidType } from 'rilata/src/common/types';
+import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
+import { QueryServiceParams } from 'rilata/src/app/service/types';
 import { WorkshopAttrs, WorkshopParams } from '../params';
 
 export type GetMyWorkshopActionDod = {

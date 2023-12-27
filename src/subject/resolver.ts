@@ -1,10 +1,10 @@
-import { Logger } from 'rilata2/src/common/logger/logger';
-import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
-import { JWTTokens } from 'rilata2/src/app/jwt/types';
-import { Repositoriable } from 'rilata2/src/app/resolves/repositoriable';
-import { Realisable } from 'rilata2/src/app/resolves/realisable';
-import { Facadable } from 'rilata2/src/app/resolves/facadable';
-import { AssertionException } from 'rilata2/src/common/exeptions';
+import { Logger } from 'rilata/src/common/logger/logger';
+import { TokenCreator } from 'rilata/src/app/jwt/token-creator.interface';
+import { JWTTokens } from 'rilata/src/app/jwt/types';
+import { Repositoriable } from 'rilata/src/app/resolves/repositoriable';
+import { Realisable } from 'rilata/src/app/resolves/realisable';
+import { Facadable } from 'rilata/src/app/resolves/facadable';
+import { AssertionException } from 'rilata/src/common/exeptions';
 import { UserReadRepository } from './domain-object/user/read-repository';
 import { UserCmdRepository } from './domain-object/user/cmd-repository';
 

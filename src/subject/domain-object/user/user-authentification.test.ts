@@ -1,9 +1,9 @@
 import {
   describe, expect, spyOn, test,
 } from 'bun:test';
-import { JWTTokens } from 'rilata2/src/app/jwt/types';
-import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
-import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
+import { JWTTokens } from 'rilata/src/app/jwt/types';
+import { ConsoleLogger } from 'rilata/src/common/logger/console-logger';
+import { TokenCreator } from 'rilata/src/app/jwt/token-creator.interface';
 import { UserAR } from './a-root';
 import { JWTPayload } from '../../domain-data/user/user-authentification/a-params';
 

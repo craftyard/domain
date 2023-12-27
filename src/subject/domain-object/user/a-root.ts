@@ -1,14 +1,14 @@
-import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
+import { AggregateRoot } from 'rilata/src/domain/domain-object/aggregate-root';
 import crypto from 'crypto';
-import { failure } from 'rilata2/src/common/result/failure';
-import { dodUtility } from 'rilata2/src/common/utils/domain-object/dod-utility';
-import { Result } from 'rilata2/src/common/result/types';
-import { success } from 'rilata2/src/common/result/success';
-import { AssertionException } from 'rilata2/src/common/exeptions';
-import { Logger } from 'rilata2/src/common/logger/logger';
-import { TokenCreator } from 'rilata2/src/app/jwt/token-creator.interface';
-import { AggregateRootHelper } from 'rilata2/src/domain/domain-object/aggregate-helper';
-import { DomainResult } from 'rilata2/src/domain/domain-data/params-types';
+import { failure } from 'rilata/src/common/result/failure';
+import { dodUtility } from 'rilata/src/common/utils/domain-object/dod-utility';
+import { Result } from 'rilata/src/common/result/types';
+import { success } from 'rilata/src/common/result/success';
+import { AssertionException } from 'rilata/src/common/exeptions';
+import { Logger } from 'rilata/src/common/logger/logger';
+import { TokenCreator } from 'rilata/src/app/jwt/token-creator.interface';
+import { AggregateRootHelper } from 'rilata/src/domain/domain-object/aggregate-helper';
+import { DomainResult } from 'rilata/src/domain/domain-data/params-types';
 import {
   UserAuthentificationActionParams,
   UserAuthentificationDomainQuery,

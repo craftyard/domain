@@ -1,9 +1,9 @@
 /* eslint-disable function-paren-newline */
-import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
-import { ValidatorMap } from 'rilata2/src/domain/validator/field-validator/types';
-import { LiteralFieldValidator } from 'rilata2/src/domain/validator/field-validator/literal-field-validator';
-import { UUIDFormatValidationRule } from 'rilata2/src/domain/validator/rules/validate-rules/string/uuid-format.v-rule';
-import { ActionDodValidator, GetActionDodBody } from 'rilata2/src/app/service/types';
+import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
+import { ValidatorMap } from 'rilata/src/domain/validator/field-validator/types';
+import { LiteralFieldValidator } from 'rilata/src/domain/validator/field-validator/literal-field-validator';
+import { UUIDFormatValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/string/uuid-format.v-rule';
+import { ActionDodValidator, GetActionDodBody } from 'rilata/src/app/service/types';
 import { GetingUsersServiceParams } from './s-params';
 
 const getingUsersVMap: ValidatorMap<GetActionDodBody<GetingUsersServiceParams>> = {

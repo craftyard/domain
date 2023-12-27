@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { ConsoleLogger } from 'rilata2/src/common/logger/console-logger';
+import { ConsoleLogger } from 'rilata/src/common/logger/console-logger';
 import { WorkshopJsonRepository } from './repo';
 import { testWorkshopsRecordsAsJson } from './fixture';
 

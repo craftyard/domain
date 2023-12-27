@@ -1,7 +1,7 @@
-import { JWTTokens } from 'rilata2/src/app/jwt/types';
-import { UuidType } from 'rilata2/src/common/types';
-import { ErrorDod } from 'rilata2/src/domain/domain-data/domain-types';
-import { QueryServiceParams } from 'rilata2/src/app/service/types';
+import { JWTTokens } from 'rilata/src/app/jwt/types';
+import { UuidType } from 'rilata/src/common/types';
+import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
+import { QueryServiceParams } from 'rilata/src/app/service/types';
 import { UserAuthentificationActionParams, TelegramAuthDTO } from './a-params';
 import { UserParams } from '../params';
 
