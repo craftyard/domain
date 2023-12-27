@@ -1,8 +1,8 @@
-import { Logger } from 'rilata2/src/common/logger/logger';
-import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
-import { UserId } from 'rilata2/src/common/types';
-import { dtoUtility } from 'rilata2/src/common/utils/dto';
-import { AssertionException } from 'rilata2/src/common/exeptions';
+import { Logger } from 'rilata/src/common/logger/logger';
+import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
+import { UserId } from 'rilata/src/common/types';
+import { dtoUtility } from 'rilata/src/common/utils/dto';
+import { AssertionException } from 'rilata/src/common/exeptions';
 import { WorkshopAttrs } from '../../../domain-data/workshop/params';
 import { workshopAttrsVMap } from '../../../domain-data/workshop/v-map';
 import { WorkshopRepository } from '../repository';

@@ -1,4 +1,4 @@
-import { Repositoriable } from 'rilata2/src/app/resolves/repositoriable';
+import { Repositoriable } from 'rilata/src/app/resolves/repositoriable';
 import { TelegramId } from '../../../types';
 import { UserAR } from './a-root';
 

@@ -1,7 +1,7 @@
-import { AggregateRoot } from 'rilata2/src/domain/domain-object/aggregate-root';
-import { Logger } from 'rilata2/src/common/logger/logger';
-import { AggregateRootHelper } from 'rilata2/src/domain/domain-object/aggregate-helper';
-import { AssertionException } from 'rilata2/src/common/exeptions';
+import { AggregateRoot } from 'rilata/src/domain/domain-object/aggregate-root';
+import { Logger } from 'rilata/src/common/logger/logger';
+import { AggregateRootHelper } from 'rilata/src/domain/domain-object/aggregate-helper';
+import { AssertionException } from 'rilata/src/common/exeptions';
 import { WorkshopAttrs, WorkshopParams } from '../../domain-data/workshop/params';
 import { workshopARValidator } from '../../domain-data/workshop/v-map';
 

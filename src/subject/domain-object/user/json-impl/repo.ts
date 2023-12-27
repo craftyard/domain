@@ -1,7 +1,7 @@
-import { dtoUtility } from 'rilata2/src/common/utils/dto/';
-import { Logger } from 'rilata2/src/common/logger/logger';
-import { DtoFieldValidator } from 'rilata2/src/domain/validator/field-validator/dto-field-validator';
-import { AssertionException } from 'rilata2/src/common/exeptions';
+import { dtoUtility } from 'rilata/src/common/utils/dto/';
+import { Logger } from 'rilata/src/common/logger/logger';
+import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
+import { AssertionException } from 'rilata/src/common/exeptions';
 import { UserAttrs } from '../../../domain-data/user/params';
 import { userAttrsVMap } from '../../../domain-data/user/v-map';
 import { UserReadRepository } from '../read-repository';

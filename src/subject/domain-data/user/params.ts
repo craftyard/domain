@@ -1,6 +1,6 @@
-import { UuidType } from 'rilata2/src/common/types';
-import { DomainMeta } from 'rilata2/src/domain/domain-data/domain-types';
-import { AggregateRootDataParams } from 'rilata2/src/domain/domain-data/params-types';
+import { UuidType } from 'rilata/src/common/types';
+import { DomainMeta } from 'rilata/src/domain/domain-data/domain-types';
+import { AggregateRootDataParams } from 'rilata/src/domain/domain-data/params-types';
 import { TelegramId } from '../../../types';
 import { UserAuthentificationActionParams } from './user-authentification/a-params';
 

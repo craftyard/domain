@@ -1,5 +1,5 @@
-import { QueryServiceParams } from 'rilata2/src/app/service/types';
-import { UserId, UuidType } from 'rilata2/src/common/types';
+import { QueryServiceParams } from 'rilata/src/app/service/types';
+import { UserId, UuidType } from 'rilata/src/common/types';
 import { UserAttrs, UserParams } from '../params';
 
 export type GetUsersActionDod = {

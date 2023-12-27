@@ -1,5 +1,5 @@
-import { Repositoriable } from 'rilata2/src/app/resolves/repositoriable';
-import { UserId } from 'rilata2/src/common/types';
+import { Repositoriable } from 'rilata/src/app/resolves/repositoriable';
+import { UserId } from 'rilata/src/common/types';
 import { UserAttrs } from '../../domain-data/user/params';
 
 export interface UserReadRepository {

@@ -1,7 +1,7 @@
-import { UserId } from 'rilata2/src/common/types';
-import { JWTTokens } from 'rilata2/src/app/jwt/types';
-import { ErrorDod } from 'rilata2/src/domain/domain-data/domain-types';
-import { ActionParams, DomainResult } from 'rilata2/src/domain/domain-data/params-types';
+import { UserId } from 'rilata/src/common/types';
+import { JWTTokens } from 'rilata/src/app/jwt/types';
+import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
+import { ActionParams, DomainResult } from 'rilata/src/domain/domain-data/params-types';
 import { TelegramId } from '../../../../types';
 
 export type TelegramAuthDTO = {
