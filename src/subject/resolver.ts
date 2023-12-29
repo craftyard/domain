@@ -1,10 +1,10 @@
 import { Logger } from 'rilata/src/common/logger/logger';
 import { TokenCreator } from 'rilata/src/app/jwt/token-creator.interface';
-import { JWTTokens } from 'rilata/src/app/jwt/types';
 import { ModuleResolver } from 'rilata/src/app/resolves/module-resolver';
 import { AssertionException } from 'rilata/src/common/exeptions';
 import { Database } from 'rilata/src/app/database/database';
 import { TokenVerifier } from 'rilata/src/app/jwt/token-verifier.interface';
+import { RunMode } from 'rilata/src/app/types';
 import { Module } from 'rilata/src/app/module/module';
 import { UserCmdRepository } from './domain-object/user/cmd-repository';
 import { UserReadRepository } from './domain-object/user/read-repository';
@@ -15,18 +15,18 @@ export class SubjectResolver implements ModuleResolver {
 
   constructor(
     protected botToken: string,
-    protected tokenCreator: TokenCreator<JWTTokens>,
-    protected userReadRepo: UserReadRepository,
-    protected userCmdRepo: UserCmdRepository,
+    protected tokenManager: TokenCreator<JWTPayload> & TokenVerifier<JWTPayload>,
+    protected userRepo: UserReadRepository & UserCmdRepository,
     protected logger: Logger,
+    protected runMode: RunMode,
   ) {}
+
+  getRunMode(): RunMode {
+    return this.runMode;
+  }
 
   init(module: Module): void {
     this.module = module;
-  }
-
-  getTokenVerifier(): TokenVerifier<JWTPayload> {
-    throw new Error('Method not implemented.');
   }
 
   getModule(): Module {
@@ -48,15 +48,14 @@ export class SubjectResolver implements ModuleResolver {
 
   getRealisation(key: unknown): unknown {
     if (key === 'botToken') return this.botToken;
-    if (key === this.tokenCreator) return this.tokenCreator;
+    if (key === TokenCreator || key === TokenVerifier) return this.tokenManager;
     const errStr = `not finded key for getRealisation method of SubjectResolver, key: ${key}`;
     this.logger.error(errStr);
     throw new AssertionException(errStr);
   }
 
   getRepository(key: unknown): unknown {
-    if (key === UserReadRepository) return this.userReadRepo;
-    if (key === UserCmdRepository) return this.userCmdRepo;
+    if (key === UserReadRepository || key === UserCmdRepository) return this.userRepo;
     const errStr = `not finded key for getRealisation method of SubjectResolver, key: ${key}`;
     this.logger.error(errStr);
     throw new AssertionException(errStr);
