@@ -18,7 +18,10 @@
   },
   "include": [
     "src/**/*",
-    "tests/**/*",
   ],
+  "exclude": [
+    "**/*/*.test.ts",
+    "**/*/fixture.ts"
+  ]
 }
   
