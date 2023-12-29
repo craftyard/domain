@@ -5,11 +5,11 @@ import { dtoUtility } from 'rilata/src/common/utils/dto';
 import { AssertionException } from 'rilata/src/common/exeptions';
 import { WorkshopAttrs } from '../../../domain-data/workshop/params';
 import { workshopAttrsVMap } from '../../../domain-data/workshop/v-map';
-import { WorkshopRepository } from '../repository';
+import { WorkshopReadRepository } from '../repository';
 
 type WorkshopRecords = WorkshopAttrs & { version: number };
 
-export class WorkshopJsonRepository implements WorkshopRepository {
+export class WorkshopJsonRepository implements WorkshopReadRepository {
   private workshopRecord: WorkshopRecords[];
 
   constructor(jsonWorkshop: string, protected logger: Logger) {
