@@ -6,8 +6,8 @@ export interface WorkshopReadRepository {
     findWorkshopByUserId(userId:UserId): Promise<WorkshopAttrs | undefined>;
 }
 
-export const WorkshopRepository = {
+export const WorkshopReadRepository = {
   instance(repoResolver: Repositoriable): WorkshopReadRepository {
-    return repoResolver.getRepository(WorkshopRepository) as WorkshopReadRepository;
+    return repoResolver.getRepository(WorkshopReadRepository) as WorkshopReadRepository;
   },
 };
