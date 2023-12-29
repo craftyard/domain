@@ -3,23 +3,26 @@ import { Logger } from 'rilata/src/common/logger/logger';
 import { Database } from 'rilata/src/app/database/database';
 import { TokenVerifier } from 'rilata/src/app/jwt/token-verifier.interface';
 import { Module } from 'rilata/src/app/module/module';
-import { WorkshopRepository } from '../workshop/domain-object/workshop/repository';
+import { RunMode } from 'rilata/src/app/types';
+import { WorkshopReadRepository } from '../workshop/domain-object/workshop/repository';
 import { JWTPayload } from '../subject/domain-data/user/user-authentification/a-params';
 
 export class WorkshopResolver implements ModuleResolver {
   constructor(
-    protected workshopRepo: WorkshopRepository,
+    protected workshopReadRepo: WorkshopReadRepository,
     protected logger: Logger,
+    protected runMode: RunMode,
+    protected tokenVerifier: TokenVerifier<JWTPayload>,
   ) {}
+
+  getRunMode(): RunMode {
+    return this.runMode;
+  }
 
   private module!: Module;
 
   init(module: Module): void {
     this.module = module;
-  }
-
-  getTokenVerifier(): TokenVerifier<JWTPayload> {
-    throw new Error('Method not implemented.');
   }
 
   getModule(): Module {
@@ -39,12 +42,13 @@ export class WorkshopResolver implements ModuleResolver {
   }
 
   getRealisation(key: unknown): unknown {
+    if (key === TokenVerifier) return this.tokenVerifier;
     this.logger.error(`not finded key for getRealisation method of WorkshopResolver, key: ${key}`);
     throw Error();
   }
 
   getRepository(key: unknown): unknown {
-    if (key === WorkshopRepository) return this.workshopRepo;
+    if (key === WorkshopReadRepository) return this.workshopReadRepo;
     this.logger.error(`not finded key for getRealisation method of WorkshopResolver, key: ${key}`);
     throw Error();
   }
