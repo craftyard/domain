@@ -13,13 +13,22 @@ import { JWTPayload } from './domain-data/user/user-authentification/a-params';
 export class SubjectResolver implements ModuleResolver {
   private module!: Module;
 
+  protected botToken: string;
+
   constructor(
-    protected botToken: string,
     protected tokenManager: TokenCreator<JWTPayload> & TokenVerifier<JWTPayload>,
     protected userRepo: UserReadRepository & UserCmdRepository,
     protected logger: Logger,
     protected runMode: RunMode,
-  ) {}
+  ) {
+    const envBotToken = process.env.BOT_TOKEN;
+    if (envBotToken === undefined) {
+      const errStr = 'не найден токен бота в переменном окружений по ключу BOT_TOKEN';
+      this.logger.error(errStr);
+      throw new AssertionException(errStr);
+    }
+    this.botToken = envBotToken;
+  }
 
   getRunMode(): RunMode {
     return this.runMode;
