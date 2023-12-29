@@ -1,4 +1,6 @@
-{
+[
+  {
+    "version": 0,
     "workshopId": "a29e2bfc-9f52-4f58-afbd-7a6f6f25d51e",
     "name": "Dedok",
     "city": "Uralsk",
@@ -18,3 +20,4 @@
       ]
     }
   }
+]
