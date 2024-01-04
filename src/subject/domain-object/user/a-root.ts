@@ -1,3 +1,4 @@
+import Bun from 'bun';
 import { AggregateRoot } from 'rilata/src/domain/domain-object/aggregate-root';
 import crypto from 'crypto';
 import { failure } from 'rilata/src/common/result/failure';
