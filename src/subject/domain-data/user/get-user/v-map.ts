@@ -5,11 +5,10 @@ import { LiteralFieldValidator } from 'rilata/src/domain/validator/field-validat
 import { UUIDFormatValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/string/uuid-format.v-rule';
 import { ActionDodValidator, GetActionDodBody } from 'rilata/src/app/service/types';
 import { GetingUserServiceParams } from './s-params';
+import { userAttrsVMap } from '../v-map';
 
 const getingUserVMap: ValidatorMap<GetActionDodBody<GetingUserServiceParams>> = {
-  userId: new LiteralFieldValidator('userId', true, { isArray: false }, 'string', [
-    new UUIDFormatValidationRule(),
-  ]),
+  userId: userAttrsVMap.userId,
 };
 
 // eslint-disable-next-line max-len
