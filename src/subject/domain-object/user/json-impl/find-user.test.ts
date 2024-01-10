@@ -7,7 +7,7 @@ describe('Тесты для получения user-a по userId', () => {
   const logger = new ConsoleLogger();
 
   const sut = new UserJsonRepository(testUsersRecordsAsJson, logger);
-  test('Успех, получен обьект мастерской', async () => {
+  test('Успех, получен обьект пользователя', async () => {
     const user = await sut.getUser('fa91a299-105b-4fb0-a056-92634249130c');
     expect(user.value).toEqual({
       userId: 'fa91a299-105b-4fb0-a056-92634249130c',
