@@ -90,8 +90,8 @@ describe('тесты аутентификации пользователя', () 
           authHashLifetimeAsSeconds: 10,
         },
       },
+      name: 'TelegramAuthDateNotValidError',
       meta: {
-        name: 'TelegramAuthDateNotValidError',
         errorType: 'domain-error',
         domainType: 'error',
       },
@@ -110,8 +110,8 @@ describe('тесты аутентификации пользователя', () 
           hash: '24b95fcfe1b294643cdfdae068c2e5d643172a2b18ad9823812617187f3d68e4H',
         },
       },
+      name: 'TelegramHashNotValidError',
       meta: {
-        name: 'TelegramHashNotValidError',
         errorType: 'domain-error',
         domainType: 'error',
       },
