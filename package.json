@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "crypto": "^1.0.1",
-    "rilata": "git+https://github.com/craftyard/rilata-core"
+    "rilata": "craftyard/rilata-core"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.8.0",
