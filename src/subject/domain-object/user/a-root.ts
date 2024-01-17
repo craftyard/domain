@@ -93,7 +93,7 @@ export class UserAR extends AggregateRoot<UserParams> {
       ));
     }
 
-    const nowTimeStamp = this.getNowDate().getTime();
+    const nowTimeStamp = this.getNowDate().getTime()/1000;
     const hashLifeTimeAsMilliSeconds = nowTimeStamp - Number(authQuery.telegramAuthDTO.auth_date);
     const hashLifeTimeValid = (
       (TG_AUTH_HASH_LIFETIME_AS_SECONDS * 1000) - hashLifeTimeAsMilliSeconds
