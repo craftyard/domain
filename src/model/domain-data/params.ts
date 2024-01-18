@@ -8,3 +8,4 @@ export type ModelAttrs = {
     name: string,
     category: ModelCategory,
 }
+
