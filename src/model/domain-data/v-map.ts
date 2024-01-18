@@ -17,4 +17,4 @@ export const modelAttrsVMap: ValidatorMap<ModelAttrs> = {
   ]),
 };
 
-export const userARValidator = new DtoFieldValidator('ModelAR', true, { isArray: false }, 'dto', modelAttrsVMap);
+export const modelAttrsDtoVMap = new DtoFieldValidator('ModelAR', true, { isArray: false }, 'dto', modelAttrsVMap);

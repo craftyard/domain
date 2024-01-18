@@ -35,7 +35,7 @@ describe('test modelAttrs', () => {
     expect(modelAttrsVMap.name.validate(modelAttrs.name).value).toBeUndefined();
     expect(modelAttrsVMap.category.validate(modelAttrs.category).value).toBeUndefined();
   });
-  test('failure, incorrect category indicated', () => {
+  test('failure, name not valid', () => {
     const modelAttrs: ModelAttrs = {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       userId: '6f91d305-3f4b-4a3d-9bef-72cf3757c553',
