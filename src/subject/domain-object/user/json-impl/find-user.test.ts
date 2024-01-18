@@ -29,8 +29,8 @@ describe('Тесты для получения user-a по userId', () => {
           userId: '3332a8d6-67ab-4e87-8a21-9d17f508fd5c',
         },
       },
+      name: 'UserDoesNotExistError',
       meta: {
-        name: 'UserDoesNotExistError',
         errorType: 'domain-error',
         domainType: 'error',
       },
