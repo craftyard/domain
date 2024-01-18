@@ -8,7 +8,7 @@ import { ModelAttrs } from './params';
 
 export const modelAttrsVMap: ValidatorMap<ModelAttrs> = {
   workshopId: new UuidField('workshopId'),
-  userId: new UuidField('userId'),
+  modelId: new UuidField('modelId'),
   name: new LiteralFieldValidator('name', true, { isArray: false }, 'string', [
     new MaxCharsCountValidationRule(50),
   ]),
