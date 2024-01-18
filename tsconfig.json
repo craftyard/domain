@@ -1,16 +1,10 @@
 {
   "compilerOptions": {
-    "types": [ "bun-types" ],
-
-    "lib": ["esnext"],
-    "module": "NodeNext",
-    "target": "esnext",
-
+    "module": "nodeNext",
+    "target": "es2022",
     "moduleResolution": "nodeNext",
     "outDir": "./dist",
-
     "esModuleInterop": true,
-
     "noErrorTruncation": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,

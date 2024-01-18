@@ -37,6 +37,7 @@ export class WorkshopResolver implements ModuleResolver {
     throw new Error('Method not implemented.');
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getFacade(...args: unknown[]): unknown {
     throw new Error('Method not implemented.');
   }
