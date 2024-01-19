@@ -54,7 +54,7 @@ class TokenCreatorMock implements TokenCreator<JWTPayload> {
 describe('тесты аутентификации пользователя', () => {
   test('успех, созданный токен авторизации успешно возвращается', () => {
     const dateMock = spyOn(user, 'getNowDate').mockReturnValueOnce(
-      new Date(Number(userQuery.telegramAuthDTO.auth_date) + 5000),
+      new Date(Number(userQuery.telegramAuthDTO.auth_date) * 1000 + 5000),
     );
     dateMock.mockClear();
 
@@ -76,7 +76,7 @@ describe('тесты аутентификации пользователя', () 
 
   test('провал, время авторизации по данному токену прошло', () => {
     const dateMock = spyOn(user, 'getNowDate').mockReturnValueOnce(
-      new Date(Number(userQuery.telegramAuthDTO.auth_date) + 10050),
+      new Date(Number(userQuery.telegramAuthDTO.auth_date) * 1000 + 11000),
     );
     dateMock.mockClear();
 

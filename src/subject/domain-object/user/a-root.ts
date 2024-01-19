@@ -1,6 +1,5 @@
-import Bun from 'bun';
+import crypto from 'node:crypto';
 import { AggregateRoot } from 'rilata/src/domain/domain-object/aggregate-root';
-import crypto from 'crypto';
 import { failure } from 'rilata/src/common/result/failure';
 import { dodUtility } from 'rilata/src/common/utils/domain-object/dod-utility';
 import { Result } from 'rilata/src/common/result/types';
@@ -93,11 +92,9 @@ export class UserAR extends AggregateRoot<UserParams> {
       ));
     }
 
-    const nowTimeStamp = this.getNowDate().getTime()/1000;
-    const hashLifeTimeAsMilliSeconds = nowTimeStamp - Number(authQuery.telegramAuthDTO.auth_date);
-    const hashLifeTimeValid = (
-      (TG_AUTH_HASH_LIFETIME_AS_SECONDS * 1000) - hashLifeTimeAsMilliSeconds
-    );
+    const nowTimeStamp = Math.trunc(this.getNowDate().getTime() / 1000);
+    const hashLifeTimeAsSeconds = nowTimeStamp - authQuery.telegramAuthDTO.auth_date;
+    const hashLifeTimeValid = ((TG_AUTH_HASH_LIFETIME_AS_SECONDS) - hashLifeTimeAsSeconds);
 
     if (hashLifeTimeValid < 0) {
       return failure(dodUtility.getDomainErrorByType<TelegramAuthDateNotValidError>(

@@ -3,19 +3,12 @@
     "module": "nodeNext",
     "target": "es2022",
     "moduleResolution": "nodeNext",
-    "outDir": "./dist",
+    "noEmit": true,
     "esModuleInterop": true,
     "noErrorTruncation": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
   },
-  "include": [
-    "src/**/*",
-  ],
-  "exclude": [
-    "**/*/*.test.ts",
-    "**/*/fixture.ts"
-  ]
 }
   

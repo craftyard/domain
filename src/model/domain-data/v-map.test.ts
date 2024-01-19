@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { ModelAttrs } from './params';
+import { ModelAttrs, ModelCategory } from './params';
 import { modelAttrsVMap } from './v-map';
 
 describe('test modelAttrs', () => {
@@ -62,7 +62,7 @@ describe('test modelAttrs', () => {
       workshopId: '6f91d305-3f4b-4a3d-9bef-72cf3757cc33',
       modelId: '6f91d305-3f4b-4a3d-9bef-72cf3757c553',
       name: 'Компьютерный стол Hope 1',
-      category: 'Периферия',
+      category: 'Периферия' as ModelCategory,
     };
     expect(modelAttrsVMap.workshopId.validate(modelAttrs.workshopId).value).toBeUndefined();
     expect(modelAttrsVMap.modelId.validate(modelAttrs.modelId).value).toBeUndefined();
