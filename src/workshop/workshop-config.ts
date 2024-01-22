@@ -1,1 +1,1 @@
-export const WORKSHOP_MODULE_URL: string = 'http://localhost:3000/workshop';
+export const WORKSHOP_MODULE_URL = '/api/workshop';
