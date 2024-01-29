@@ -10,7 +10,7 @@ export type GetUserActionDod = {
     domainType: 'action',
   }
   attrs: {
-    userId: UserId | { onMe: true }
+    userId: UserId
   },
 }
 
