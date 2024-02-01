@@ -1,7 +1,7 @@
 import { UuidType } from 'rilata/src/common/types';
 import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
 import { QueryServiceParams } from 'rilata/src/app/service/types';
-import { WorkshopAttrs, WorkshopParams } from '../params';
+import { WorkshopOutAttrs, WorkshopParams } from '../params';
 
 export type GetMyWorkshopActionDod = {
   attrs: Record<string, never>,
@@ -12,7 +12,7 @@ export type GetMyWorkshopActionDod = {
   }
 };
 
-export type GetMyWorkshopOut = WorkshopAttrs;
+export type GetMyWorkshopOut = WorkshopOutAttrs;
 
 type WorkshopForUserDoesntExistLocale = {
   text: 'Мастерская не найдена',
