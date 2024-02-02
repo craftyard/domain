@@ -1,34 +1,39 @@
 import { ActionParams, DomainResult } from 'rilata/src/domain/domain-data/params-types';
-import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
-import { ModelCategory } from './params';
+import { ErrorDod, EventDod } from 'rilata/src/domain/domain-data/domain-types';
+import { ModelAttrs, ModelCategory } from './params';
 import { ModelAR } from '../domain-object/a-root';
 
-export type AddModelDomainQuery = {
+export type AddModelDomainCommand = {
     name: string,
     category: ModelCategory,
+    workshopId: string,
 }
 
 export type AddModelOut = ModelAR;
 
-type ModelerMustBeWorkshopLocale = {
+type UserMustBeModelerLocale = {
     text: 'Пользователь должен быть моделистом мастерской',
     hint:{ modeler: string }
 }
 
-export type ModelerMustBeWorkshopError = ErrorDod<ModelerMustBeWorkshopLocale, 'ModelerMustBeWorkshop'>
+export type UserMustBeModelerError = ErrorDod<UserMustBeModelerLocale, 'UserMustBeModeler'>
 
-type ModelNameSameCannotOneWorkshopLocale = {
+type ModelNameAlreadyHaveWorkshopLocale = {
     text: 'В одной мастерской не может быть одинаковых названий моделей',
     hint:{ model: string }
 }
 
-export type ModelNameSameCannotOneWorkshopError = ErrorDod<ModelNameSameCannotOneWorkshopLocale, 'ModelNameSameCannotOneWorkshop'>
+export type ModelNameAlreadyHaveWorkshopError = ErrorDod<ModelNameAlreadyHaveWorkshopLocale, 'ModelNameAlreadyHaveWorkshop'>
+
+type AddedModelEventAttrs = ModelAttrs;
+
+export type AddedModelEvent = EventDod<AddedModelEventAttrs, 'AddedModelEvent'>;
 
 export type AddModelActionParams = ActionParams<
-    AddModelDomainQuery,
+    AddModelDomainCommand,
     AddModelOut,
-    ModelerMustBeWorkshopError | ModelNameSameCannotOneWorkshopError,
-    never
+    never,
+    AddedModelEvent[]
 >
 
 export type AddModelResult = DomainResult<AddModelActionParams>;
