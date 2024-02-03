@@ -1,29 +1,30 @@
 import { ActionParams, DomainResult } from 'rilata/src/domain/domain-data/params-types';
 import { ErrorDod, EventDod } from 'rilata/src/domain/domain-data/domain-types';
+import { UuidType } from 'rilata/src/common/types';
 import { ModelAttrs, ModelCategory } from './params';
 import { ModelAR } from '../domain-object/a-root';
 
 export type AddModelDomainCommand = {
     name: string,
     category: ModelCategory,
-    workshopId: string,
+    workshopId: UuidType,
 }
 
 export type AddModelOut = ModelAR;
 
 type UserMustBeModelerLocale = {
     text: 'Пользователь должен быть моделистом мастерской',
-    hint:{ modeler: string }
+    hint: { modeler: string }
 }
 
 export type UserMustBeModelerError = ErrorDod<UserMustBeModelerLocale, 'UserMustBeModeler'>
 
-type ModelNameAlreadyHaveWorkshopLocale = {
-    text: 'В одной мастерской не может быть одинаковых названий моделей',
-    hint:{ model: string }
+type ModelNameAlreadyExistsLocale = {
+    text: 'Имя модели {{modelName}} уже существует в вашей мастерской',
+    hint: { modelName: string }
 }
 
-export type ModelNameAlreadyHaveWorkshopError = ErrorDod<ModelNameAlreadyHaveWorkshopLocale, 'ModelNameAlreadyHaveWorkshop'>
+export type ModelNameAlreadyExistsError = ErrorDod<ModelNameAlreadyExistsLocale, 'ModelNameAlreadyExists'>
 
 type AddedModelEventAttrs = ModelAttrs;
 
