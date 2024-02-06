@@ -3,7 +3,7 @@ import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
 import { QueryServiceParams } from 'rilata/src/app/service/types';
 import { WorkshopOutAttrs, WorkshopParams } from '../params';
 
-export type GetMyWorkshopActionDod = {
+export type FindWorkshopByUserIdActionDod = {
   attrs: Record<string, never>,
   meta: {
     name: 'getMyWorkshop',
@@ -12,7 +12,7 @@ export type GetMyWorkshopActionDod = {
   }
 };
 
-export type GetMyWorkshopOut = WorkshopOutAttrs;
+export type FindWorkshopByUserIdOut = WorkshopOutAttrs;
 
 type WorkshopForUserDoesntExistLocale = {
   text: 'Мастерская не найдена',
@@ -24,5 +24,5 @@ export type WorkshopForUserDoesntExistError = ErrorDod<
 >
 
 export type GetMyWorkshopServiceParams = QueryServiceParams<
-  WorkshopParams, GetMyWorkshopActionDod, GetMyWorkshopOut, WorkshopForUserDoesntExistError
+  WorkshopParams, FindWorkshopByUserIdActionDod, FindWorkshopByUserIdOut, WorkshopForUserDoesntExistError
 >
