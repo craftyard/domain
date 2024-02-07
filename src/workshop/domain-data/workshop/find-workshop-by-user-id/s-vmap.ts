@@ -1,9 +1,23 @@
 /* eslint-disable function-paren-newline */
-import { ActionDodValidator } from 'rilata/src/app/service/types';
+import { ActionDodValidator, GetActionDodBody } from 'rilata/src/app/service/types';
 import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
-import { GetMyWorkshopServiceParams } from './s-params';
+import { FindWorkshopByUserIdServiceParams } from './s-params';
+import { ValidatorMap } from 'rilata/src/domain/validator/field-validator/types';
+import { LiteralFieldValidator } from 'rilata/src/domain/validator/field-validator/literal-field-validator';
+import { UUIDFormatValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/string/uuid-format.v-rule';
+
+
+const gettingUserVMap: ValidatorMap<GetActionDodBody<FindWorkshopByUserIdServiceParams>> = {
+  userId: new LiteralFieldValidator(
+    'userId',
+    true,
+    { isArray: false },
+    'string',
+    [new UUIDFormatValidationRule()],
+  ),
+};
 
 export const findWorkshopByUserIdValidator:
-ActionDodValidator<GetMyWorkshopServiceParams> = new DtoFieldValidator(
-  'getMyWorkshop', true, { isArray: false }, 'dto', {},
+ActionDodValidator<FindWorkshopByUserIdServiceParams> = new DtoFieldValidator(
+  'findWorkshopByUserId', true, { isArray: false }, 'dto', gettingUserVMap,
 );

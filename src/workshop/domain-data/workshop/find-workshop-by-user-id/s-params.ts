@@ -6,7 +6,7 @@ import { WorkshopOutAttrs, WorkshopParams } from '../params';
 export type FindWorkshopByUserIdActionDod = {
   attrs: {userId: UserId},
   meta: {
-    name: 'getMyWorkshop',
+    name: 'findWorkshopByUserId',
     actionId: UuidType,
     domainType: 'action',
   }
@@ -23,6 +23,6 @@ export type WorkshopForUserDoesntExistError = ErrorDod<
   WorkshopForUserDoesntExistLocale, 'WorkshopForUserDoesntExistError'
 >
 
-export type GetMyWorkshopServiceParams = QueryServiceParams<
+export type FindWorkshopByUserIdServiceParams = QueryServiceParams<
   WorkshopParams, FindWorkshopByUserIdActionDod, FindWorkshopByUserIdOut, WorkshopForUserDoesntExistError
 >
