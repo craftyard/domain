@@ -1,10 +1,10 @@
-import { UuidType } from 'rilata/src/common/types';
+import { UserId, UuidType } from 'rilata/src/common/types';
 import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
 import { QueryServiceParams } from 'rilata/src/app/service/types';
 import { WorkshopOutAttrs, WorkshopParams } from '../params';
 
 export type FindWorkshopByUserIdActionDod = {
-  attrs: Record<string, never>,
+  attrs: {userId: UserId},
   meta: {
     name: 'getMyWorkshop',
     actionId: UuidType,
