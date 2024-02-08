@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/craftyard/domain.git"
   },
-    "scripts": {
+  "scripts": {
     "tslint": "bun tsc",
     "update": "rm -rf node_modules bun.lockb && bun remove rilata && bun add craftyard/rilata-core",
     "lint": "bun eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
