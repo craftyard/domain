@@ -2,9 +2,18 @@
   "name": "cy-domain",
   "version": "1.0.0",
   "author": "GIS Expert",
+  "description": "Предметный слой модуля субъектов ",
   "repository": {
     "type": "git",
     "url": "https://github.com/craftyard/domain.git"
+  },
+    "scripts": {
+    "tslint": "bun tsc",
+    "update": "rm -rf node_modules bun.lockb && bun remove rilata && bun add craftyard/rilata-core",
+    "lint": "bun eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+  },
+  "dependencies": {
+    "rilata": "craftyard/rilata-core"
   },
   "devDependencies": {
     "@types/bun": "^1.0.2",
@@ -14,14 +23,5 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.28.1",
     "typescript": "^5.2.2"
-  },
-  "description": "Предметный слой модуля субъектов ",
-  "scripts": {
-    "tslint": "bun tsc",
-    "update": "rm -rf node_modules bun.lockb && bun remove rilata && bun add craftyard/rilata-core",
-    "lint": "bun eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
-  },
-  "dependencies": {
-    "rilata": "craftyard/rilata-core"
   }
 }
