@@ -1,7 +1,7 @@
 import { UuidType } from 'rilata/src/common/types';
 import { DomainMeta } from 'rilata/src/domain/domain-data/domain-types';
 import { AggregateRootDataParams } from 'rilata/src/domain/domain-data/params-types';
-import { AddModelActionParams } from './a-params';
+import { AddModelActionParams } from './model/add-model/a-params';
 
 export type ModelCategory = 'Мебель' | 'Кухонная утварь' | 'Игрушки';
 
@@ -14,6 +14,6 @@ export type ModelAttrs = {
 
 export type ModelMeta = DomainMeta<'ModelAR'>;
 
-export type AddModelParams = AggregateRootDataParams<
+export type ModelParams = AggregateRootDataParams<
   ModelAttrs, ModelMeta, AddModelActionParams, []
 >;
