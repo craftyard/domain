@@ -29,18 +29,6 @@ const locationAttrsValidatorMap: ValidatorMap<Location> = {
   ),
 };
 
-const findWorkshopByUserIdValidatorMap:ValidatorMap<RoleAttrs> = {
-  userId: new LiteralFieldValidator(
-    'userId',
-    true,
-    { isArray: false },
-    'string',
-    [new UUIDFormatValidationRule()],
-  ),
-};
-
-export const findWorkshopByUserIdVMap = new DtoFieldValidator('findWPByUserIdVMap', true, { isArray: false }, 'dto', findWorkshopByUserIdValidatorMap);
-
 const employeesRoleValidatorMap:ValidatorMap<GroupRoleAttrs> = {
   userIds: new LiteralFieldValidator(
     'userIds',
