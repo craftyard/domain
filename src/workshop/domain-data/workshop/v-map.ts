@@ -5,7 +5,7 @@ import { MaxCharsCountValidationRule } from 'rilata/src/domain/validator/rules/v
 import { RangeNumberValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/number/range-number.v-rule';
 import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
 import { OnlyDashAndLitinicOrCyrillicCharsValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/string/only-dash-and-latinic-or-cyrillic-chars.v-rule';
-import { GroupRoleAttrs } from 'rilata/src/domain/domain-object/types';
+import { GroupRoleAttrs, RoleAttrs } from 'rilata/src/domain/domain-object/types';
 import { UUIDFormatValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/string/uuid-format.v-rule';
 import { Location } from '../../../types';
 import { WorkshopAttrs } from './params';

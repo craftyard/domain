@@ -32,6 +32,6 @@ export const testWorkshopsRecords: (WorkshopAttrs & { version: number })[] = [
 
 export const testWorkshopsRecordsAsJson = JSON.stringify(testWorkshopsRecords);
 
-export function getMyWorkshopRecords(attrs: Partial<WorkshopAttrs>): string {
+export function findWrokshopByUserIdRecords(attrs: Partial<WorkshopAttrs>): string {
   return JSON.stringify([{ ...testWorkshopsRecords[2], ...attrs }]);
 }
