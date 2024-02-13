@@ -1,5 +1,5 @@
 export const moduleUrls = {
-    subject: '/api/subject',
-    workshop: '/api/workshop',
-    subjectWorkshopRead: '/api/subject-workshop-read',
-}
+  subject: '/api/subject',
+  workshop: '/api/workshop',
+  subjectWorkshopRead: '/api/subject-workshop-read',
+};
