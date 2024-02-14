@@ -16,6 +16,6 @@ export type CurrentUser = UserAttrs & {
 };
 export type GetingCurrentUserOut = CurrentUser
 
-export type GetingUserServiceParams = QueryServiceParams<
+export type GetingCurrentUserServiceParams = QueryServiceParams<
   UserParams, GetCurrentUserActionDod, GetingCurrentUserOut, never
 >
