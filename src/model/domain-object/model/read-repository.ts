@@ -4,6 +4,8 @@ import { ModelAttrs } from '../../domain-data/params';
 
 export interface ModelReadRepository {
     getWorkshopModels(workshopId:UuidType): Promise<ModelAttrs[]>;
+
+    getWorkshopModel(modelId: UuidType): Promise<ModelAttrs>;
 }
 
 export const ModelReadRepository = {
