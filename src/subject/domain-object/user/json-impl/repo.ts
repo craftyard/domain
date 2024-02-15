@@ -14,7 +14,6 @@ import { UserCmdRepository } from '../cmd-repository';
 import { UserAR } from '../a-root';
 import { UserFactory } from '../factory';
 import { UserDoesNotExistError } from '../../../domain-data/user/get-user/s-params';
-import { CurrentUser } from '../../../domain-data/user/get-current-user/s-params';
 
 type UserRecord = UserAttrs & { version: number };
 

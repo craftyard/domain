@@ -5,7 +5,7 @@ import { WorkshopAttrs } from '../../../../workshop/domain-data/workshop/params'
 
 export type GetCurrentUserActionDod = {
   meta: {
-    name: 'GetCurrentUser',
+    name: 'getCurrentUser',
     actionId: UuidType,
     domainType: 'action',
   },
