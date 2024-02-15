@@ -10,7 +10,8 @@ export type GetWorkshopModelActionDod = {
     domainType: 'action',
   }
  attrs:{
-  modelId: UuidType
+  workshopId: UuidType,
+  modelId: UuidType,
  },
 }
 
@@ -21,8 +22,16 @@ type ModelIsntExistLocale = {
   hint: { modelId: UuidType }
 }
 
+type WorkshopIsntExistLocale = {
+  text: 'Мастерская под идентификатором {{workshopId}} не существует',
+  hint: { workshopId: UuidType }
+}
+
 export type ModelIsntExistError = ErrorDod<ModelIsntExistLocale, 'ModelIsntExistError'>;
 
-export type GetingWorkshopModelServiceParams = QueryServiceParams<
-  ModelParams, GetWorkshopModelActionDod, getWorkshopModelpOut, ModelIsntExistError
+export type WorkshopIsntExistError = ErrorDod<WorkshopIsntExistLocale, 'WorkshopIsntExistError'>;
+
+export type GettingWorkshopModelServiceParams = QueryServiceParams<
+  ModelParams, GetWorkshopModelActionDod, getWorkshopModelpOut,
+  ModelIsntExistError | WorkshopIsntExistError
 >
