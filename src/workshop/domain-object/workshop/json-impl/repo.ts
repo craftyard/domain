@@ -31,4 +31,11 @@ export class WorkshopJsonRepository implements WorkshopReadRepository {
     }
     return undefined;
   }
+
+  async findWorkshopNameByUserId(userId: UserId): Promise<WorkshopAttrs['name'] | undefined> {
+    const foundWorkshop = this.workshopRecord
+      .find((workshop) => workshop.employeesRole.userIds.includes(userId));
+
+    return foundWorkshop ? foundWorkshop.name : undefined;
+  }
 }
