@@ -3,7 +3,7 @@ import { ActionDodValidator } from 'rilata/src/app/service/types';
 import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
 import { GetingCurrentUserServiceParams } from './s-params';
 
-export const getUserServiceValidator:
+export const getCurrentUserServiceValidator:
 ActionDodValidator<GetingCurrentUserServiceParams> = new DtoFieldValidator(
-  'GetCurrentUser', true, { isArray: false }, 'dto', {},
+  'getCurrentUser', true, { isArray: false }, 'dto', {},
 );
