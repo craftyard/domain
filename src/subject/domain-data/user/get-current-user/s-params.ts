@@ -15,8 +15,7 @@ export type CurrentUser = UserAttrs & {
     workshopName: WorkshopAttrs['name'];
     workshopId: WorkshopAttrs['workshopId'];
 };
-export type GetingCurrentUserOut = CurrentUser
-
+export type GetingCurrentUserOut = CurrentUser;
 export type GetingCurrentUserServiceParams = QueryServiceParams<
   UserParams, GetCurrentUserActionDod, GetingCurrentUserOut, never
 >
