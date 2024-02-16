@@ -4,6 +4,7 @@ import { WorkshopAttrs } from '../../domain-data/workshop/params';
 
 export interface WorkshopReadRepository {
     findWorkshopByUserId(userId:UserId): Promise<WorkshopAttrs | undefined>;
+    findById(workshopId: WorkshopAttrs['workshopId']): Promise<WorkshopAttrs | undefined>
 }
 
 export const WorkshopReadRepository = {

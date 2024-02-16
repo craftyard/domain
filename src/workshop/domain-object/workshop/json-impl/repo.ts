@@ -31,4 +31,13 @@ export class WorkshopJsonRepository implements WorkshopReadRepository {
     }
     return undefined;
   }
+
+  async findById(workshopId: WorkshopAttrs['workshopId']):Promise<WorkshopAttrs | undefined> {
+    const foundWorkshop = this.workshopRecord
+      .find((workshop) => workshop.workshopId.includes(workshopId));
+    if (foundWorkshop) {
+      return dtoUtility.excludeAttrs(foundWorkshop, 'version');
+    }
+    return undefined;
+  }
 }
