@@ -1,17 +1,19 @@
 import { UuidType } from 'rilata/src/common/types';
 import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
 import { CommandServiceParams } from 'rilata/src/app/service/types';
-import { ModelAttrs, ModelParams } from './params';
-import { AddModelOut, AddedModelEvent } from './model/add-model/a-params';
+import { ModelParams } from '../../params';
+import { AddModelOut, AddedModelEvent } from './a-params';
 
 export type ModelActionDOD = {
     meta: {
-        name: 'AddModel',
+        name: 'addModel',
         actionId: UuidType,
         domainType: 'action',
       }
     attrs: {
-        model: ModelAttrs,
+        name: string,
+        category: string,
+        workshopId: UuidType,
     },
 }
 
