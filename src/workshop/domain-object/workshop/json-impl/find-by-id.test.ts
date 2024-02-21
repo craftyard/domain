@@ -25,7 +25,7 @@ describe('Тесты для получения workshopa по userid', () => {
     });
   });
   test('Провал, мастерская по такому пользователю не найден', async () => {
-    const workshopId = '6f91d305-3f4b-4a3d-9bef-72cf3757cc35'; // not valid
+    const workshopId = '6f91d305-3f4b-4a3d-9bef-72cf3757cc35';
     const workshop = await sut.findById(workshopId);
     expect(workshop).toBeUndefined();
   });

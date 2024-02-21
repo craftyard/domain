@@ -11,10 +11,7 @@ export type GetCurrentUserActionDod = {
   },
 attrs: Record<string, never>,
 }
-export type CurrentUser = UserAttrs & {
-    workshopName: WorkshopAttrs['name'];
-    workshopId: WorkshopAttrs['workshopId'];
-};
+export type CurrentUser = UserAttrs & Pick<WorkshopAttrs, 'name' | 'workshopId'>;
 export type GetingCurrentUserOut = CurrentUser;
 export type GetingCurrentUserServiceParams = QueryServiceParams<
   UserParams, GetCurrentUserActionDod, GetingCurrentUserOut, never
