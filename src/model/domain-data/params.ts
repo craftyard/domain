@@ -10,6 +10,7 @@ export type ModelAttrs = {
     workshopId: UuidType,
     name: string,
     category: ModelCategory,
+    images: string[],
 }
 
 export type ModelMeta = DomainMeta<'ModelAR'>;
