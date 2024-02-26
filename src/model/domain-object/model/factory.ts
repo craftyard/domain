@@ -11,6 +11,7 @@ export class ModelFactory extends AggregateFactory<ModelParams> {
     const modelAttrs: ModelAttrs = {
       ...action,
       modelId: uuidUtility.getNewUUID(),
+      images: [],
     };
 
     const addModel = new ModelAR(modelAttrs, 0, this.logger);
