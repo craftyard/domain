@@ -8,6 +8,7 @@ export type AddModelDomainCommand = {
     name: string,
     category: ModelCategory,
     workshopId: UuidType,
+    images: string[],
 }
 
 export type AddModelOut = ModelAR;

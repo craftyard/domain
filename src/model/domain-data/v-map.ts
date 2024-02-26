@@ -15,6 +15,7 @@ export const modelAttrsVMap: ValidatorMap<ModelAttrs> = {
   category: new LiteralFieldValidator('category', true, { isArray: false }, 'string', [
     new StringChoiceValidationRule(['Мебель', 'Кухонная утварь', 'Игрушки']),
   ]),
+  images: new LiteralFieldValidator('images', true, { isArray: true }, 'string', []),
 };
 
 export const modelAttrsDtoVMap = new DtoFieldValidator('ModelAR', true, { isArray: false }, 'dto', modelAttrsVMap);

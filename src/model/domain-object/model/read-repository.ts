@@ -7,7 +7,8 @@ import { ModelAttrs } from '../../domain-data/params';
 export interface ModelReadRepository {
     getWorkshopModels(workshopId:UuidType): Promise<ModelAttrs[]>;
 
-    getWorkshopModel(workshopId: UuidType, modelId: UuidType): Promise<ServiceResult<GettingWorkshopModelServiceParams>>;
+    getWorkshopModel(workshopId: UuidType, modelId: UuidType):
+    Promise<ServiceResult<GettingWorkshopModelServiceParams>>;
 }
 
 export const ModelReadRepository = {

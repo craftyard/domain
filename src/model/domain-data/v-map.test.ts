@@ -9,6 +9,7 @@ describe('test modelAttrs', () => {
       modelId: '6f91d305-3f4b-4a3d-9bef-72cf3757c553',
       name: 'Компьютерный стол Hope 1',
       category: 'Мебель',
+      images: [],
     };
     expect(modelAttrsVMap.workshopId.validate(modelAttrs.workshopId).value).toBeUndefined();
     expect(modelAttrsVMap.modelId.validate(modelAttrs.modelId).value).toBeUndefined();
@@ -21,6 +22,7 @@ describe('test modelAttrs', () => {
       modelId: '6f91d305-3f4b-4a3d-9bef-72cf3757c553',
       name: 'Компьютерный стол Hope 1',
       category: 'Мебель',
+      images: [],
     };
     expect(modelAttrsVMap.workshopId.validate(modelAttrs.workshopId).value).toEqual({
       workshopId: [
@@ -41,6 +43,7 @@ describe('test modelAttrs', () => {
       modelId: '6f91d305-3f4b-4a3d-9bef-72cf3757c553',
       name: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard',
       category: 'Мебель',
+      images: [],
     };
     expect(modelAttrsVMap.workshopId.validate(modelAttrs.workshopId).value).toBeUndefined();
     expect(modelAttrsVMap.modelId.validate(modelAttrs.modelId).value).toBeUndefined();
@@ -63,6 +66,7 @@ describe('test modelAttrs', () => {
       modelId: '6f91d305-3f4b-4a3d-9bef-72cf3757c553',
       name: 'Компьютерный стол Hope 1',
       category: 'Периферия' as ModelCategory,
+      images: [],
     };
     expect(modelAttrsVMap.workshopId.validate(modelAttrs.workshopId).value).toBeUndefined();
     expect(modelAttrsVMap.modelId.validate(modelAttrs.modelId).value).toBeUndefined();
