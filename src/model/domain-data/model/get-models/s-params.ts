@@ -12,8 +12,8 @@ export type GetWorkshopModelsActionDod = {
   workshopId: UuidType
  },
 }
-export type getWorkshopModelspOut = ModelAttrs[];
+export type getWorkshopModelsOut = ModelAttrs[];
 
 export type GetingWorkshopModelsServiceParams = QueryServiceParams<
-  ModelParams, GetWorkshopModelsActionDod, getWorkshopModelspOut, never
+  ModelParams, GetWorkshopModelsActionDod, getWorkshopModelsOut, never
 >
