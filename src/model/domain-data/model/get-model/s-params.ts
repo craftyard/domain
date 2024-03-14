@@ -3,11 +3,11 @@ import { UuidType } from 'rilata/src/common/types';
 import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
 import { ModelParams, ModelAttrs } from '../../params';
 
-export type GetWorkshopModelActionDod = {
+export type GetWorkshopModelRequestDod = {
   meta: {
     name: 'getWorkshopModel',
-    actionId: UuidType,
-    domainType: 'action',
+    requestId: UuidType,
+    domainType: 'request',
   }
  attrs:{
   workshopId: UuidType,
@@ -17,21 +17,29 @@ export type GetWorkshopModelActionDod = {
 
 export type getWorkshopModelOut = ModelAttrs;
 
-type ModelIsNotExistLocale = {
+type ModelIsNotExistBody = {
   text: 'Модель под идентификатором {{modelId}} не существует',
-  hint: { modelId: UuidType }
+  hint: {
+    modelId: UuidType
+  },
+  name: 'ModelIsNotExistError',
 }
 
-type WorkshopIsNotExistLocale = {
+export type ModelIsNotExistError = ErrorDod<'ModelIsNotExistError', ModelIsNotExistBody>;
+
+type WorkshopIsNotExistBody = {
   text: 'Мастерская под идентификатором {{workshopId}} не существует',
-  hint: { workshopId: UuidType }
+  hint: {
+    workshopId: UuidType,
+  },
+  name: 'WorkshopIsNotExistError',
 }
 
-export type ModelIsNotExistError = ErrorDod<ModelIsNotExistLocale, 'ModelIsntExistError'>;
-
-export type WorkshopIsNotExistError = ErrorDod<WorkshopIsNotExistLocale, 'WorkshopIsntExistError'>;
+export type WorkshopIsNotExistError = ErrorDod<'WorkshopIsNotExistError', WorkshopIsNotExistBody>;
 
 export type GettingWorkshopModelServiceParams = QueryServiceParams<
-  ModelParams, GetWorkshopModelActionDod, getWorkshopModelOut,
+  ModelParams,
+  GetWorkshopModelRequestDod,
+  getWorkshopModelOut,
   ModelIsNotExistError | WorkshopIsNotExistError
 >

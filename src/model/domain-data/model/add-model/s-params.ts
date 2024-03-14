@@ -4,11 +4,11 @@ import { CommandServiceParams } from 'rilata/src/app/service/types';
 import { ModelParams } from '../../params';
 import { AddModelOut, AddedModelEvent } from './a-params';
 
-export type ModelActionDOD = {
+export type ModelRequestDOD = {
     meta: {
         name: 'addModel',
-        actionId: UuidType,
-        domainType: 'action',
+        requestId: UuidType,
+        domainType: 'request',
       }
     attrs: {
         name: string,
@@ -17,25 +17,29 @@ export type ModelActionDOD = {
     },
 }
 
-type UserMustBeModelerLocale = {
+type UserMustBeModelerBody = {
     text: 'Пользователь должен быть моделистом мастерской',
     hint: Record<string, never>,
+    name: 'UserMustBeModelerError',
 }
 
-export type UserMustBeModelerError = ErrorDod<UserMustBeModelerLocale, 'UserMustBeModelerError'>
+export type UserMustBeModelerError = ErrorDod<'UserMustBeModelerError', UserMustBeModelerBody>;
 
-type ModelNameAlreadyExistsLocale = {
+type ModelNameAlreadyExistBody = {
     text: 'Имя модели {{modelName}} уже существует в вашей мастерской',
-    hint: { modelName: string }
+    hint: {
+        modelName: string
+    },
+    name: 'ModelNameAlreadyExistsError',
 }
 
-export type ModelNameAlreadyExistsError = ErrorDod<ModelNameAlreadyExistsLocale, 'ModelNameAlreadyExistsError'>
+export type ModelNameAlreadyExistsError = ErrorDod<'ModelNameAlreadyExistsError', ModelNameAlreadyExistBody>
 
 export type AddModelErrors = ModelNameAlreadyExistsError | UserMustBeModelerError;
 
 export type AddModelServiceParams = CommandServiceParams<
     ModelParams,
-    ModelActionDOD,
+    ModelRequestDOD,
     AddModelOut,
     AddModelErrors,
     AddedModelEvent[]

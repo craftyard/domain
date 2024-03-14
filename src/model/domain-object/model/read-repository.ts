@@ -5,14 +5,13 @@ import { GettingWorkshopModelServiceParams } from '../../domain-data/model/get-m
 import { ModelAttrs } from '../../domain-data/params';
 
 export interface ModelReadRepository {
-    getWorkshopModels(workshopId:UuidType): Promise<ModelAttrs[]>;
-
     getWorkshopModel(workshopId: UuidType, modelId: UuidType):
     Promise<ServiceResult<GettingWorkshopModelServiceParams>>;
+    getWorkshopModels(workshopId:UuidType): Promise<ModelAttrs[]>;
 }
 
 export const ModelReadRepository = {
-  instance(repoResolver: Repositoriable): ModelReadRepository {
-    return repoResolver.getRepository(ModelReadRepository) as ModelReadRepository;
+  instance(resolver: Repositoriable): ModelReadRepository {
+    return resolver.getRepository(ModelReadRepository) as ModelReadRepository;
   },
 };
