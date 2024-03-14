@@ -10,11 +10,11 @@ export class GettingWorkshopModelsService extends QueryService<GetingWorkshopMod
 
   aRootName = 'ModelAR' as const;
 
+  protected supportedCallers = ['DomainUser'] as const;
+
   protected validator: RequestDodValidator<
   GetingWorkshopModelsServiceParams
   > = getingWorkshopModelsValidator;
-
-  protected supportedCallers = ['DomainUser'] as const;
 
   protected async runDomain(
     requestDod: GetWorkshopModelsRequestDod,

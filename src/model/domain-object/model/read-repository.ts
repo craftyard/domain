@@ -5,8 +5,8 @@ import { GettingWorkshopModelServiceParams } from '../../domain-data/model/get-m
 import { ModelAttrs } from '../../domain-data/params';
 
 export interface ModelReadRepository {
-    getWorkshopModel(workshopId: UuidType, modelId: UuidType):
-    Promise<ServiceResult<GettingWorkshopModelServiceParams>>;
+    // eslint-disable-next-line max-len
+    getWorkshopModel(workshopId: UuidType, modelId: UuidType): Promise<ServiceResult<GettingWorkshopModelServiceParams>>;
     getWorkshopModels(workshopId:UuidType): Promise<ModelAttrs[]>;
 }
 

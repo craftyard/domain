@@ -3,11 +3,11 @@ import { UserId, UuidType } from 'rilata/src/common/types';
 import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
 import { UserAttrs, UserParams } from '../params';
 
-export type GetUserActionDod = {
+export type GetUserRequestDod = {
   meta: {
     name: 'getUser',
-    actionId: UuidType,
-    domainType: 'action',
+    requestId: UuidType,
+    domainType: 'request',
   }
   attrs: {
     userId: UserId
@@ -16,13 +16,16 @@ export type GetUserActionDod = {
 
 export type GetingUserOut = UserAttrs;
 
-type UserDoesNotExistLocale = {
+type UserDoesNotExistBody = {
     text: 'Такого пользователя не существует',
-    hint: { userId: UserId },
+    hint: {
+      userId: UserId
+    },
+    name: 'UserDoesNotExistError',
 }
 
-export type UserDoesNotExistError = ErrorDod<UserDoesNotExistLocale, 'UserDoesNotExistError'>
+export type UserDoesNotExistError = ErrorDod<'UserDoesNotExistError', UserDoesNotExistBody>
 
 export type GetingUserServiceParams = QueryServiceParams<
-  UserParams, GetUserActionDod, GetingUserOut, UserDoesNotExistError
+  UserParams, GetUserRequestDod, GetingUserOut, UserDoesNotExistError
 >

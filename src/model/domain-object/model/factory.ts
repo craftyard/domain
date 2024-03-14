@@ -4,10 +4,10 @@ import { uuidUtility } from 'rilata/src/common/utils/uuid/uuid-utility';
 import { UuidType } from 'rilata/src/common/types';
 import { ModelAR } from './a-root';
 import { ModelAttrs, ModelParams } from '../../domain-data/params';
-import { AddModelDomainCommand } from '../../domain-data/model/add-model/a-params';
+import { AddModelDomainCommand, AddedModelEvent } from '../../domain-data/model/add-model/a-params';
 
 export class ModelFactory extends AggregateFactory<ModelParams> {
-  create(caller: Caller, action: AddModelDomainCommand, actionId: UuidType): ModelAR {
+  create(caller: Caller, action: AddModelDomainCommand, requestId: UuidType): ModelAR {
     const modelAttrs: ModelAttrs = {
       ...action,
       modelId: uuidUtility.getNewUUID(),
@@ -16,7 +16,7 @@ export class ModelFactory extends AggregateFactory<ModelParams> {
 
     const addModel = new ModelAR(modelAttrs, 0, this.logger);
 
-    addModel.getHelper().registerDomainEvent('AddedModelEvent', modelAttrs, actionId, caller);
+    addModel.getHelper().registerEvent<AddedModelEvent>('AddedModelEvent', modelAttrs, requestId, caller);
 
     return addModel;
   }

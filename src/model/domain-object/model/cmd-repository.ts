@@ -8,7 +8,7 @@ export interface ModelCmdRepository {
 }
 
 export const ModelCmdRepository = {
-  instance(repoResolver: Repositoriable): ModelCmdRepository {
-    return repoResolver.getRepository(ModelCmdRepository) as ModelCmdRepository;
+  instance(resolver: Repositoriable): ModelCmdRepository {
+    return resolver.getRepository(ModelCmdRepository) as ModelCmdRepository;
   },
 };
