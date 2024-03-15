@@ -18,7 +18,7 @@ export type UserAttrs = {
   userProfile: UserProfile,
 }
 
-export type UserMeta = DomainMeta<'UserAR'>;
+export type UserMeta = DomainMeta<'UserAR', 'userId'>;
 
 export type UserParams = AggregateRootDataParams<
   UserAttrs, UserMeta, UserAuthentificationActionParams, []

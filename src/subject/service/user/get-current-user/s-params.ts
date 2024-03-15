@@ -1,15 +1,15 @@
 import { QueryServiceParams } from 'rilata/src/app/service/types';
 import { UuidType } from 'rilata/src/common/types';
-import { UserAttrs, UserParams } from '../params';
+import { UserAttrs, UserParams } from '../../../domain-data/user/params';
 import { WorkshopAttrs } from '../../../../workshop/domain-data/workshop/params';
 
-export type GetCurrentUserActionDod = {
+export type GetCurrentUserRequestDod = {
   meta: {
     name: 'getCurrentUser',
-    actionId: UuidType,
-    domainType: 'action',
+    requestId: UuidType,
+    domainType: 'request',
   },
-attrs: Record<string, never>,
+  attrs: Record<string, never>,
 }
 export type CurrentUser = UserAttrs & {
   workshopName: WorkshopAttrs['name'];
@@ -17,5 +17,5 @@ export type CurrentUser = UserAttrs & {
 };
 export type GettingCurrentUserOut = CurrentUser;
 export type GettingCurrentUserServiceParams = QueryServiceParams<
-  UserParams, GetCurrentUserActionDod, GettingCurrentUserOut, never
+  UserParams, GetCurrentUserRequestDod, GettingCurrentUserOut, never
 >
