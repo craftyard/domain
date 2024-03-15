@@ -5,7 +5,7 @@ import { GetWorkshopModelsRequestDod, GetingWorkshopModelsServiceParams } from '
 import { ModelReadRepository } from '../../domain-object/model/read-repository';
 import { getingWorkshopModelsValidator } from '../../domain-data/model/get-models/v-map';
 
-export class GettingWorkshopModelsService extends QueryService<GetingWorkshopModelsServiceParams> {
+export class GetingWorkshopModelsService extends QueryService<GetingWorkshopModelsServiceParams> {
   serviceName = 'getWorkshopModels' as const;
 
   aRootName = 'ModelAR' as const;

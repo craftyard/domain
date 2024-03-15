@@ -14,7 +14,6 @@ export class ModelAR extends AggregateRoot<ModelParams> {
 
   constructor(attrs: ModelAttrs, version: number, logger: Logger) {
     super();
-    super();
     this.logger = logger;
     this.checkInveriants(attrs);
     this.attrs = attrs;
