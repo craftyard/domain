@@ -19,7 +19,8 @@ export class SubjectModuleResolver extends ModuleResolver<SubjectModule, Subject
   }
 
   getRepository(key: unknown): ModuleResolveInstance {
-    if (key === UserReadRepository || key === UserCmdRepository) return this.resolves.subjectRepo;
+    if (key === UserReadRepository) return this.resolves.subjectReadRepo;
+    if (key === UserCmdRepository) return this.resolves.subjectCmdRepo;
     if (key === EventRepository || key === BusMessageRepository) {
       return this.resolves.busMessageRepo;
     }

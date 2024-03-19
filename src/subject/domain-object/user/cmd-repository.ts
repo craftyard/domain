@@ -3,6 +3,7 @@ import { TelegramId } from '../../../types';
 import { UserAR } from './a-root';
 
 export interface UserCmdRepository {
+  init(resolver: Repositoriable): void
   findByTelegramId(telegramId: TelegramId): Promise<UserAR[]>
 }
 

@@ -7,6 +7,7 @@ import { Result } from 'rilata/src/common/result/types';
 import { dodUtility } from 'rilata/src/common/utils/domain-object/dod-utility';
 import { failure } from 'rilata/src/common/result/failure';
 import { success } from 'rilata/src/common/result/success';
+import { Repositoriable } from 'rilata/src/app/resolves/repositoriable';
 import { UserAttrs } from '../../../domain-data/user/params';
 import { userAttrsVMap } from '../../../domain-data/user/v-map';
 import { UserReadRepository } from '../read-repository';
@@ -29,6 +30,10 @@ export class UserJsonRepository implements UserReadRepository, UserCmdRepository
       logger.error(errStr, result.value);
       throw new AssertionException(errStr);
     }
+  }
+
+  init(resolver: Repositoriable): void {
+    throw new Error('Method not implemented.');
   }
 
   async getUsers(userIds: string[]): Promise<UserAttrs[]> {

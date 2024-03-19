@@ -4,14 +4,21 @@ import {
 } from 'bun:test';
 import { setAndGetTestStoreDispatcher } from 'rilata/tests/fixtures/test-thread-store-mock';
 import { UuidType } from 'rilata/src/common/types';
-import { GettingUsersService } from './service';
-import { SubjectServiceFixtures as fixtures } from '../fixtures';
 import { UserAttrs } from '../../../domain-data/user/params';
 import { GetUsersRequestDod } from './s-params';
+import { SubjectServiceFixtures as fixtures } from '../../fixture';
+import { SubjectModule } from '../../../module';
+import { ServiceModulesFixtures } from '../../server-fixtures';
 
 describe('тесты для use-case getUsers', () => {
-  const sut = new GettingUsersService();
-  sut.init(resolver);
+  const testSever = await ServiceModulesFixtures.getServer<SubjectModule>(['SubjectModule']);
+  const module = testSever.getModule<SubjectModule>('AuthModule');
+  const resolver = module.getModuleResolver();
+  const store = setAndGetTestStoreDispatcher({
+    requestId,
+    moduleResolver: resolver,
+  }).getStoreOrExepction();
+  const sut = module.getServiceByName<GetingUsersService>('getUsers');
 
   const users: UserAttrs[] = [
     {

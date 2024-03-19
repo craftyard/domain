@@ -7,6 +7,7 @@ import { UserAR } from './a-root';
 import { TelegramId } from '../../../types';
 
 export interface UserReadRepository {
+  init(resolver: Repositoriable): void
   getUsers(userIds: UserId[]): Promise<UserAttrs[]>
   getUser(userId: UserId): Promise<Result<UserDoesNotExistError, UserAttrs>>
   findByTelegramId(telegramId: TelegramId): Promise<UserAR[]>

@@ -9,6 +9,7 @@ import { AsyncLocalStorage } from 'async_hooks';
 import { ServerResolver } from 'rilata/src/app/server/server-resolver';
 import { OnlyPostMethodMiddleware } from 'rilata/src/app/middleware/only-post-method';
 import { SubjectModule } from './subject/module';
+import { SubjectModuleResolver } from './subject/resolver';
 
 export namespace ServerTestFixtures {
 export class TestServer extends BunServer {
