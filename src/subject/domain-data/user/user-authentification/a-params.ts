@@ -39,11 +39,11 @@ type TelegramAuthDateNotValidBody = {
 
 export type TelegramAuthDateNotValidError = ErrorDod<'TelegramAuthDateNotValidError', TelegramAuthDateNotValidBody>
 
-export type UserAuthentificationActionParams = ActionParams<
+export type UserAuthentificationRequestParams = ActionParams<
   UserAuthentificationDomainQuery,
   JWTTokens,
   TelegramAuthDateNotValidError | TelegramHashNotValidError,
   never
 >
 
-export type UserAuthentificationResult = DomainResult<UserAuthentificationActionParams>;
+export type UserAuthentificationResult = DomainResult<UserAuthentificationRequestParams>;

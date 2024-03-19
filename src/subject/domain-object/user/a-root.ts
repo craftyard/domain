@@ -10,7 +10,7 @@ import { TokenCreator } from 'rilata/src/app/jwt/token-creator.interface';
 import { AggregateRootHelper } from 'rilata/src/domain/domain-object/aggregate-helper';
 import { DomainResult } from 'rilata/src/domain/domain-data/params-types';
 import {
-  UserAuthentificationActionParams,
+  UserAuthentificationRequestParams,
   UserAuthentificationDomainQuery,
   JWTPayload,
   TelegramAuthDateNotValidError,
@@ -59,7 +59,7 @@ export class UserAR extends AggregateRoot<UserParams> {
   userAuthentification(
     authQuery: UserAuthentificationDomainQuery,
     tokenCreator: TokenCreator<JWTPayload>,
-  ):DomainResult<UserAuthentificationActionParams> {
+  ):DomainResult<UserAuthentificationRequestParams> {
     const result = this.isValidHash(authQuery);
 
     if (result.isFailure()) {

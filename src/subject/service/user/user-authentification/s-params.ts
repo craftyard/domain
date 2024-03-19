@@ -1,35 +1,31 @@
 import { JWTTokens } from 'rilata/src/app/jwt/types';
-import { UuidType } from 'rilata/src/common/types';
-import { ErrorDod } from 'rilata/src/domain/domain-data/domain-types';
+import { ErrorDod, RequestDod } from 'rilata/src/domain/domain-data/domain-types';
 import { QueryServiceParams } from 'rilata/src/app/service/types';
-import { UserAuthentificationRequestParams, TelegramAuthDTO } from './a-params';
-import { UserParams } from '../params';
+import { TelegramAuthDTO, UserAuthentificationRequestParams } from '../../../domain-data/user/user-authentification/a-params';
+import { UserParams } from '../../../domain-data/user/params';
 
-export type UserAuthentificationActionDod = {
-  meta: {
-    name: 'userAuthentification',
-    actionId: UuidType,
-    domainType: 'action',
-  }
-  attrs: TelegramAuthDTO,
-}
+export type UserAuthenticationRequestDodAttrs = TelegramAuthDTO;
+
+export type UserAuthentificationRequestDod = RequestDod<UserAuthenticationRequestDodAttrs, 'userAuthentification'>
 
 export type UserAuthentificationOut = JWTTokens;
 
 type ManyAccountNotSupportedLocale = {
+  name: 'ManyAccountNotSupportedError',
   text: 'У вас с одним аккаунтом telegram имеется много аккаунтов, к сожалению сейчас это не поддерживается. Обратитесь в техподдержку, чтобы вам помогли решить эту проблему.',
   hint: { telegramId: number },
 }
 
-export type ManyAccountNotSupportedError = ErrorDod<ManyAccountNotSupportedLocale, 'ManyAccountNotSupportedError'>
+export type ManyAccountNotSupportedError = ErrorDod<'ManyAccountNotSupportedError', ManyAccountNotSupportedLocale>
 
 type TelegramUserDoesNotExistLocale = {
+  name: 'TelegramUserDoesNotExistError',
   text: 'У вас нет аккаунта.',
   hint: { telegramId: number },
 }
 
 export type TelegramUserDoesNotExistError = ErrorDod<
-  TelegramUserDoesNotExistLocale, 'TelegramUserDoesNotExistError'
+'TelegramUserDoesNotExistError', TelegramUserDoesNotExistLocale
 >
 
 export type UserAuthentificationErrors = ManyAccountNotSupportedError
@@ -37,5 +33,5 @@ export type UserAuthentificationErrors = ManyAccountNotSupportedError
   | UserAuthentificationRequestParams['errors'];
 
 export type UserAuthentificationServiceParams = QueryServiceParams<
-  UserParams, UserAuthentificationActionDod, UserAuthentificationOut, UserAuthentificationErrors
+  UserParams, UserAuthentificationRequestDod, UserAuthentificationOut, UserAuthentificationErrors
 >

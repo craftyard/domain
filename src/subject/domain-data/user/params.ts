@@ -2,7 +2,7 @@ import { UuidType } from 'rilata/src/common/types';
 import { DomainMeta } from 'rilata/src/domain/domain-data/domain-types';
 import { AggregateRootDataParams } from 'rilata/src/domain/domain-data/params-types';
 import { TelegramId } from '../../../types';
-import { UserAuthentificationActionParams } from './user-authentification/a-params';
+import { UserAuthentificationRequestParams } from './user-authentification/a-params';
 
 export type UserProfile = {
   firstName: string,
@@ -21,5 +21,5 @@ export type UserAttrs = {
 export type UserMeta = DomainMeta<'UserAR', 'userId'>;
 
 export type UserParams = AggregateRootDataParams<
-  UserAttrs, UserMeta, UserAuthentificationActionParams, []
+  UserAttrs, UserMeta, UserAuthentificationRequestParams, []
 >;
