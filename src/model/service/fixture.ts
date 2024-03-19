@@ -2,16 +2,27 @@
 import { Mock, spyOn } from 'bun:test';
 import { ServiceResult } from 'rilata/src/app/service/types';
 import { UuidType } from 'rilata/src/common/types';
-import { resolver } from 'rilata/tests/fixtures/test-resolver-mock';
-import { GettingWorkshopModelServiceParams } from '../../domain-data/model/get-model/s-params';
-import { ModelReadRepository } from '../../domain-object/model/read-repository';
-import { ModelAttrs } from '../../domain-data/params';
-import { GetWorkshopModelsRequestDod } from '../../domain-data/model/get-models/s-params';
+import { Result } from 'rilata/src/common/result/types';
+import { GettingWorkshopModelServiceParams } from '../domain-data/model/get-model/s-params';
+import { ModelAttrs } from '../domain-data/params';
+import { GetWorkshopModelsRequestDod } from '../domain-data/model/get-models/s-params';
+import { ModelRepository } from '../domain-object/model/repo';
+import { ModelNameAlreadyExistsError } from '../domain-data/model/add-model/s-params';
+import { ModelAR } from '../domain-object/model/a-root';
+import { ModelModuleResolver } from '../resolver';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace ModelServiceFixtures {
-    export class ModelReadRepositoryMock implements ModelReadRepository {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    export class ModelRepositoryMock implements ModelRepository {
+      init(resolver: ModelModuleResolver): void {
+        throw new Error('Method not implemented.');
+      }
+
+      addModel(model: ModelAR): Promise<Result<ModelNameAlreadyExistsError, undefined>> {
+        throw new Error('Method not implemented.');
+      }
+
+      // eslint-disable-next-line max-len
       getWorkshopModel(workshopId: string, modelId: string): Promise<
       ServiceResult<GettingWorkshopModelServiceParams>> {
         throw new Error('Method not implemented.');
@@ -40,8 +51,8 @@ export namespace ModelServiceFixtures {
       resolver,
       'getRepository',
     ).mockReturnValue(
-      new ModelReadRepositoryMock(),
-    )as Mock<(...args: unknown[]) => ModelReadRepositoryMock>;
+      new ModelRepositoryMock(),
+    )as Mock<(...args: unknown[]) => ModelRepositoryMock>;
 
     export const workshopModels: ModelAttrs[] = [
       {

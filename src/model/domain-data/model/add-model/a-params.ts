@@ -15,7 +15,11 @@ export type AddModelOut = ModelAR;
 
 type AddedModelEventAttrs = ModelAttrs;
 
-export type AddedModelEvent = EventDod<AddedModelEventAttrs, 'AddedModelEvent', ModelARDT>;
+export type AddedModelEvent = EventDod<
+    AddedModelEventAttrs,
+    'AddedModelEvent',
+    ModelARDT
+>;
 
 export type AddModelActionParams = ActionParams<
     AddModelDomainCommand,
