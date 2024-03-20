@@ -14,7 +14,7 @@ import { UserReadRepository } from '../read-repository';
 import { UserCmdRepository } from '../cmd-repository';
 import { UserAR } from '../a-root';
 import { UserFactory } from '../factory';
-import { UserDoesNotExistError } from '../../../domain-data/user/get-user/s-params';
+import { TelegramUserDoesNotExistError } from '../../../service/user/user-authentification/s-params';
 
 type UserRecord = UserAttrs & { version: number };
 
@@ -42,16 +42,16 @@ export class UserJsonRepository implements UserReadRepository, UserCmdRepository
       .map((records) => dtoUtility.excludeAttrs(records, 'version'));
   }
 
-  async getUser(userId: UserId): Promise <Result<UserDoesNotExistError, UserAttrs>> {
+  async getUser(userId: UserId): Promise <Result<TelegramUserDoesNotExistError, UserAttrs>> {
     const foundUser = this.usersRecords
       .find((user) => user.userId.includes(userId));
     if (foundUser) {
       const user: UserAttrs = dtoUtility.excludeAttrs(foundUser, 'version');
       return success(user);
     }
-    return failure(dodUtility.getDomainErrorByType<UserDoesNotExistError>(
-      'UserDoesNotExistError',
-      'Такого пользователя не существует',
+    return failure(dodUtility.getDomainError<ManyAccountNotSupportedLocale>(
+      'ManyAccountNotSupportedLocale',
+      'У вас с одним аккаунтом telegram имеется много аккаунтов, к сожалению сейчас это не поддерживается. Обратитесь в техподдержку, чтобы вам помогли решить эту проблему.',
       { userId },
     ));
   }

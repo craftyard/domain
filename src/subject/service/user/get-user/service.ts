@@ -1,23 +1,22 @@
 import { QueryService } from 'rilata/src/app/service/query-service';
-import { ActionDodValidator, ServiceResult } from 'rilata/src/app/service/types';
-import { GetUsersActionDod, GetingUsersServiceParams } from 'cy-domain/src/subject/domain-data/user/get-users/s-params';
-import { UserReadRepository } from 'cy-domain/src/subject/domain-object/user/read-repository';
-import { getUsersValidator } from 'cy-domain/src/subject/domain-data/user/get-users/v-map';
-import { success } from 'rilata/src/common/result/success';
+import { RequestDodValidator, ServiceResult } from 'rilata/src/app/service/types';
+import { GetUserRequestDod, GetUserServiceParams } from './s-params';
+import { getUserValidator } from './v-map';
+import { UserReadRepository } from '../../../domain-object/user/read-repository';
 
-export class GettingUsersService extends QueryService<GetingUsersServiceParams> {
-  protected aRootName: 'UserAR' = 'UserAR' as const;
+export class GettingUserService extends QueryService<GetUserServiceParams> {
+  public aRootName: 'UserAR' = 'UserAR' as const;
 
-  protected name: 'getUsers' = 'getUsers' as const;
+  public serviceName: 'getUser' = 'getUser' as const;
 
   protected supportedCallers: readonly ('ModuleCaller' | 'AnonymousUser' | 'DomainUser')[] = ['DomainUser'];
 
-  protected validatorMap: ActionDodValidator<GetingUsersServiceParams> = getUsersValidator;
+  protected validator: RequestDodValidator<GetUserServiceParams> = getUserValidator;
 
   protected async runDomain(
-    actionDod: GetUsersActionDod,
-  ): Promise<ServiceResult<GetingUsersServiceParams>> {
+    requestDod: GetUserRequestDod,
+  ): Promise<ServiceResult<GetUserServiceParams>> {
     const repo = UserReadRepository.instance(this.moduleResolver);
-    return success(await repo.getUsers(actionDod.attrs.userIds));
+    return repo.getUser(requestDod.attrs.userId);
   }
 }
