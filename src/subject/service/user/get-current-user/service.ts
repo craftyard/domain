@@ -5,8 +5,8 @@ import { storeDispatcher } from 'rilata/src/app/async-store/store-dispatcher';
 import { DomainUser } from 'rilata/src/app/caller';
 import { GettingCurrentUserServiceParams } from './s-params';
 import { getCurrentUserValidator } from './v-map';
-import { UserReadRepository } from '../../../domain-object/user/read-repository';
 import { WorkshopReadRepository } from '../../../../workshop/domain-object/workshop/repository';
+import { UserRepository } from '../../../domain-object/user/repository';
 
 export class GettingCurrentUserService extends QueryService<GettingCurrentUserServiceParams> {
   aRootName: 'UserAR' = 'UserAR' as const;
@@ -26,7 +26,7 @@ export class GettingCurrentUserService extends QueryService<GettingCurrentUserSe
     }
     const caller = store.caller as DomainUser;
     const { userId } = caller;
-    const repoUsers = UserReadRepository.instance(this.moduleResolver);
+    const repoUsers = UserRepository.instance(this.moduleResolver);
     const result = await repoUsers.getUser(userId);
     if ((result).isFailure()) {
       throw await this.logger.error(`Пользователь с id: ${userId} подписанным токеном авторизации в базе данных не существует`);

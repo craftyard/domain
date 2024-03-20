@@ -10,13 +10,13 @@ import {
   UserAuthentificationServiceParams,
 } from './s-params';
 import { userAuthentificationValidator } from './v-map';
-import { UserReadRepository } from '../../../domain-object/user/read-repository';
 import { UserAuthentificationDomainQuery } from '../../../domain-data/user/user-authentification/a-params';
+import { UserRepository } from '../../../domain-object/user/repository';
 
 export class UserAuthentificationService extends QueryService<UserAuthentificationServiceParams> {
-  public serviceName: 'userAuthentification' = 'userAuthentification' as const;
+  serviceName: 'userAuthentification' = 'userAuthentification' as const;
 
-  public aRootName: 'UserAR' = 'UserAR' as const;
+  aRootName: 'UserAR' = 'UserAR' as const;
 
   protected supportedCallers: readonly ('ModuleCaller' | 'AnonymousUser' | 'DomainUser')[] = ['AnonymousUser'];
 
@@ -25,7 +25,7 @@ export class UserAuthentificationService extends QueryService<UserAuthentificati
   protected async runDomain(
     actionDod: UserAuthentificationRequestDod,
   ): Promise<ServiceResult<UserAuthentificationServiceParams>> {
-    const userRepo = UserReadRepository.instance(this.moduleResolver);
+    const userRepo = UserRepository.instance(this.moduleResolver);
     const telegramId = actionDod.attrs.id;
     const users = await userRepo.findByTelegramId(telegramId);
 

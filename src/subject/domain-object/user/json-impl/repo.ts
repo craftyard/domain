@@ -11,14 +11,14 @@ import { Repositoriable } from 'rilata/src/app/resolves/repositoriable';
 import { UserAttrs } from '../../../domain-data/user/params';
 import { userAttrsVMap } from '../../../domain-data/user/v-map';
 import { UserReadRepository } from '../read-repository';
-import { UserCmdRepository } from '../cmd-repository';
+import { UserCmdRepository } from '../repository';
 import { UserAR } from '../a-root';
 import { UserFactory } from '../factory';
 import { TelegramUserDoesNotExistError } from '../../../service/user/user-authentification/s-params';
 
 type UserRecord = UserAttrs & { version: number };
 
-export class UserJsonRepository implements UserReadRepository, UserCmdRepository {
+export class UserJsonRepository implements UserRepository {
   private usersRecords: UserRecord[];
 
   constructor(jsonUsers: string, protected logger: Logger) {

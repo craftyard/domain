@@ -4,11 +4,9 @@ import { Mock, spyOn } from 'bun:test';
 import { Module } from 'rilata/src/app/module/module';
 import { WorkshopAttrs } from '../../workshop/domain-data/workshop/params';
 import { WorkshopReadRepository } from '../../workshop/domain-object/workshop/repository';
-import { UserDoesNotExistError } from '../domain-data/user/get-user/s-params';
 import { UserAttrs } from '../domain-data/user/params';
 import { UserAR } from '../domain-object/user/a-root';
-import { UserCmdRepository } from '../domain-object/user/cmd-repository';
-import { UserReadRepository } from '../domain-object/user/read-repository';
+import { UserRepository } from '../domain-object/user/repository';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export namespace SubjectServiceFixtures {
@@ -23,7 +21,7 @@ export namespace SubjectServiceFixtures {
     }
   }
 
-  export class UserRepoMock implements UserCmdRepository, UserReadRepository {
+  export class UserRepoMock implements UserRepository {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
     findByTelegramId(_telegramId: number): Promise<UserAR[]> {
       throw new Error('Method not implemented.');

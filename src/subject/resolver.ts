@@ -7,7 +7,7 @@ import { EventRepository } from 'rilata/src/app/database/event-repository';
 import { SubjectModule } from './module';
 import { SubjectResolves } from './resolves';
 import { UserReadRepository } from './domain-object/user/read-repository';
-import { UserCmdRepository } from './domain-object/user/cmd-repository';
+import { UserCmdRepository } from './domain-object/user/repository';
 
 export class SubjectModuleResolver extends ModuleResolver<SubjectModule, SubjectResolves> {
   protected moduleConfig: ModuleConfig = {
