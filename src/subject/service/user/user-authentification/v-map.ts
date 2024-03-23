@@ -1,11 +1,11 @@
-import { ActionDodValidator } from 'rilata/src/app/service/types';
 import { ValidatorMap } from 'rilata/src/domain/validator/field-validator/types';
 import { LiteralFieldValidator } from 'rilata/src/domain/validator/field-validator/literal-field-validator';
 import { PositiveNumberValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/number/positive-number.v-rule';
 import { IsTimeStampValidationRule } from 'rilata/src/domain/validator/rules/validate-rules/timestamp/is-timestamp.v-rule';
 import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
-import { TelegramAuthDTO } from './a-params';
+import { RequestDodValidator } from 'rilata/src/app/service/types';
 import { UserAuthentificationServiceParams } from './s-params';
+import { TelegramAuthDTO } from '../../../domain-data/user/user-authentification/a-params';
 
 const userAuthentificationVMap: ValidatorMap<TelegramAuthDTO> = {
   id: new LiteralFieldValidator('id', true, { isArray: false }, 'number', [
@@ -22,5 +22,5 @@ const userAuthentificationVMap: ValidatorMap<TelegramAuthDTO> = {
 };
 
 // eslint-disable-next-line operator-linebreak
-export const userAuthentificationValidator: ActionDodValidator<UserAuthentificationServiceParams> =
+export const userAuthentificationValidator: RequestDodValidator<UserAuthentificationServiceParams> =
   new DtoFieldValidator('userAuthentification', true, { isArray: false }, 'dto', userAuthentificationVMap);

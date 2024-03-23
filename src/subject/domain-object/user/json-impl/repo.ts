@@ -7,17 +7,18 @@ import { Result } from 'rilata/src/common/result/types';
 import { dodUtility } from 'rilata/src/common/utils/domain-object/dod-utility';
 import { failure } from 'rilata/src/common/result/failure';
 import { success } from 'rilata/src/common/result/success';
+import { Repositoriable } from 'rilata/src/app/resolves/repositoriable';
 import { UserAttrs } from '../../../domain-data/user/params';
 import { userAttrsVMap } from '../../../domain-data/user/v-map';
 import { UserReadRepository } from '../read-repository';
-import { UserCmdRepository } from '../cmd-repository';
+import { UserCmdRepository } from '../repository';
 import { UserAR } from '../a-root';
 import { UserFactory } from '../factory';
-import { UserDoesNotExistError } from '../../../domain-data/user/get-user/s-params';
+import { TelegramUserDoesNotExistError } from '../../../service/user/user-authentification/s-params';
 
 type UserRecord = UserAttrs & { version: number };
 
-export class UserJsonRepository implements UserReadRepository, UserCmdRepository {
+export class UserJsonRepository implements UserRepository {
   private usersRecords: UserRecord[];
 
   constructor(jsonUsers: string, protected logger: Logger) {
@@ -31,22 +32,26 @@ export class UserJsonRepository implements UserReadRepository, UserCmdRepository
     }
   }
 
+  init(resolver: Repositoriable): void {
+    throw new Error('Method not implemented.');
+  }
+
   async getUsers(userIds: string[]): Promise<UserAttrs[]> {
     return this.usersRecords
       .filter((records) => userIds.includes(records.userId))
       .map((records) => dtoUtility.excludeAttrs(records, 'version'));
   }
 
-  async getUser(userId: UserId): Promise <Result<UserDoesNotExistError, UserAttrs>> {
+  async getUser(userId: UserId): Promise <Result<TelegramUserDoesNotExistError, UserAttrs>> {
     const foundUser = this.usersRecords
       .find((user) => user.userId.includes(userId));
     if (foundUser) {
       const user: UserAttrs = dtoUtility.excludeAttrs(foundUser, 'version');
       return success(user);
     }
-    return failure(dodUtility.getDomainErrorByType<UserDoesNotExistError>(
-      'UserDoesNotExistError',
-      'Такого пользователя не существует',
+    return failure(dodUtility.getDomainError<ManyAccountNotSupportedLocale>(
+      'ManyAccountNotSupportedLocale',
+      'У вас с одним аккаунтом telegram имеется много аккаунтов, к сожалению сейчас это не поддерживается. Обратитесь в техподдержку, чтобы вам помогли решить эту проблему.',
       { userId },
     ));
   }
