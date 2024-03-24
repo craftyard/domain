@@ -54,4 +54,4 @@ export const workshopAttrsVMap: ValidatorMap<WorkshopAttrs> = {
   employeesRole: new DtoFieldValidator('employeesRole', true, { isArray: false }, 'dto', employeesRoleValidatorMap),
 };
 
-export const workshopARValidator = new DtoFieldValidator('workshopAr', true, { isArray: false }, 'dto', workshopAttrsVMap);
+export const workshopARValidator = new DtoFieldValidator('workshopAR', true, { isArray: false }, 'dto', workshopAttrsVMap);

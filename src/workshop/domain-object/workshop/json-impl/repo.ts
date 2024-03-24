@@ -5,7 +5,7 @@ import { dtoUtility } from 'rilata/src/common/utils/dto';
 import { AssertionException } from 'rilata/src/common/exeptions';
 import { WorkshopAttrs } from '../../../domain-data/workshop/params';
 import { workshopAttrsVMap } from '../../../domain-data/workshop/v-map';
-import { WorkshopReadRepository } from '../repository';
+import { WorkshopReadRepository } from '../repo';
 
 type WorkshopRecords = WorkshopAttrs & { version: number };
 

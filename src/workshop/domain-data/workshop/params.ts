@@ -18,7 +18,7 @@ export type WorkshopOutAttrs = Omit<WorkshopAttrs, 'employeesRole'> & {
   employeesRole: UserAttrs[]
 }
 
-export type WorkshopMeta = DomainMeta<'WorkshopAR'>;
+export type WorkshopMeta = DomainMeta<'WorkshopAR', 'workshopId'>;
 
 export type WorkshopParams = AggregateRootDataParams<
   WorkshopAttrs, WorkshopMeta, never, []

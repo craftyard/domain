@@ -1,26 +1,34 @@
 import { AggregateRoot } from 'rilata/src/domain/domain-object/aggregate-root';
 import { Logger } from 'rilata/src/common/logger/logger';
 import { AggregateRootHelper } from 'rilata/src/domain/domain-object/aggregate-helper';
-import { AssertionException } from 'rilata/src/common/exeptions';
+import { DtoFieldValidator } from 'rilata/src/domain/validator/field-validator/dto-field-validator';
 import { WorkshopAttrs, WorkshopParams } from '../../domain-data/workshop/params';
-import { workshopARValidator } from '../../domain-data/workshop/v-map';
+import { workshopAttrsVMap } from '../../domain-data/workshop/v-map';
 
 export class WorkshopAR extends AggregateRoot<WorkshopParams> {
   protected helper: AggregateRootHelper<WorkshopParams>;
 
-  constructor(
-    protected attrs: WorkshopAttrs,
-    protected version: number,
-    protected logger: Logger,
-  ) {
+  protected attrs: WorkshopAttrs;
+
+  protected logger: Logger;
+
+  constructor(attrs: WorkshopAttrs, version: number, logger: Logger) {
     super();
-    const result = workshopARValidator.validate(attrs);
-    if (result.isFailure()) {
-      const errStr = 'Не соблюдены инварианты WorkshopAR';
-      this.logger.error(errStr, { attrs, result });
-      throw new AssertionException(errStr);
+    this.logger = logger;
+    this.checkInveriants(attrs);
+    this.attrs = attrs;
+    this.helper = new AggregateRootHelper<WorkshopParams>('WorkshopAR', attrs, 'workshopId', version, [], logger);
+  }
+
+  protected checkInveriants(attrs: WorkshopAttrs): void {
+    const invariantValidator = new DtoFieldValidator('workshopInvariants', true, { isArray: false }, 'dto', workshopAttrsVMap);
+    const invariantsResult = invariantValidator.validate(attrs);
+    if (invariantsResult.isFailure()) {
+      throw this.logger.error('Не соблюдены инварианты агрегата Workshop', {
+        companyAttrs: attrs,
+        validatorValue: invariantsResult.value,
+      });
     }
-    this.helper = new AggregateRootHelper('WorkshopAR', attrs, version, [], logger);
   }
 
   override getId(): string {
