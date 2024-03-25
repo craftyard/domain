@@ -1,8 +1,8 @@
 import { QueryService } from 'rilata/src/app/service/query-service';
-import { RequestDodValidator, ServiceResult } from 'rilata/src/app/service/types';
+import { ServiceResult } from 'rilata/src/app/service/types';
 import { success } from 'rilata/src/common/result/success';
-import { GetWorkshopModelsRequestDod, GetingWorkshopModelsServiceParams } from '../../domain-data/model/get-models/s-params';
-import { getingWorkshopModelsValidator } from '../../domain-data/model/get-models/v-map';
+import { GetWorkshopModelsRequestDod, GetingWorkshopModelsServiceParams } from './s-params';
+import { getingWorkshopModelsValidator } from './v-map';
 import { ModelRepository } from '../../domain-object/model/repo';
 
 export class GetingWorkshopModelsService extends QueryService<GetingWorkshopModelsServiceParams> {
@@ -12,9 +12,7 @@ export class GetingWorkshopModelsService extends QueryService<GetingWorkshopMode
 
   protected supportedCallers = ['DomainUser'] as const;
 
-  protected validator: RequestDodValidator<
-  GetingWorkshopModelsServiceParams
-  > = getingWorkshopModelsValidator;
+  protected validator = getingWorkshopModelsValidator;
 
   protected async runDomain(
     requestDod: GetWorkshopModelsRequestDod,

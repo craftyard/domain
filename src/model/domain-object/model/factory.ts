@@ -3,7 +3,7 @@ import { Caller } from 'rilata/src/app/caller';
 import { uuidUtility } from 'rilata/src/common/utils/uuid/uuid-utility';
 import { UuidType } from 'rilata/src/common/types';
 import { ModelAR } from './a-root';
-import { ModelAttrs, ModelParams } from '../../domain-data/params';
+import { ModelAttrs, ModelParams } from '../../domain-data/model/params';
 import { AddModelDomainCommand, AddedModelEvent } from '../../domain-data/model/add-model/a-params';
 
 export class ModelFactory extends AggregateFactory<ModelParams> {
@@ -13,12 +13,9 @@ export class ModelFactory extends AggregateFactory<ModelParams> {
       modelId: uuidUtility.getNewUUID(),
       images: [],
     };
-
-    const addModel = new ModelAR(modelAttrs, 0, this.logger);
-
-    addModel.getHelper().registerEvent<AddedModelEvent>('AddedModelEvent', modelAttrs, requestId, caller);
-
-    return addModel;
+    const model = new ModelAR(modelAttrs, 0, this.logger);
+    model.getHelper().registerEvent<AddedModelEvent>('AddedModelEvent', modelAttrs, requestId, caller);
+    return model;
   }
 
   restore(modelAttrs: ModelAttrs, version: number): ModelAR {

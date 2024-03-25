@@ -5,10 +5,10 @@ import { UuidType } from 'rilata/src/common/types';
 import { Facadable } from 'rilata/src/app/resolves/facadable';
 import { DomainUser } from 'rilata/src/app/caller';
 import { ModelAR } from './domain-object/model/a-root';
-import { ModelNameAlreadyExistsError } from './domain-data/model/add-model/s-params';
-import { GettingWorkshopModelServiceParams } from './domain-data/model/get-model/s-params';
-import { ModelAttrs } from './domain-data/params';
+import { GettingWorkshopModelServiceParams } from './services/get-workshop-model/s-params';
+import { ModelAttrs } from './domain-data/model/params';
 import { ModelModuleResolver } from './resolver';
+import { ModelNameAlreadyExistsError } from './domain-object/model/repo-errors';
 
 export interface ModelFacade {
   init(resolver: ModelModuleResolver): void

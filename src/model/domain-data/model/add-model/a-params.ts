@@ -1,14 +1,13 @@
 import { ActionParams, DomainResult } from 'rilata/src/domain/domain-data/params-types';
 import { EventDod } from 'rilata/src/domain/domain-data/domain-types';
 import { UuidType } from 'rilata/src/common/types';
-import { ModelARDT, ModelAttrs, ModelCategory } from '../../params';
+import { ModelARDT, ModelAttrs, ModelCategory } from '../params';
 import { ModelAR } from '../../../domain-object/model/a-root';
 
 export type AddModelDomainCommand = {
     name: string,
     category: ModelCategory,
     workshopId: UuidType,
-    images: string[],
 }
 
 export type AddModelOut = ModelAR;

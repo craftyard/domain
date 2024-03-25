@@ -1,6 +1,6 @@
 import { QueryServiceParams } from 'rilata/src/app/service/types';
 import { UuidType } from 'rilata/src/common/types';
-import { ModelParams, ModelAttrs } from '../../params';
+import { ModelParams, ModelAttrs } from '../../domain-data/model/params';
 
 export type GetWorkshopModelsRequestDod = {
   meta: {
@@ -8,12 +8,12 @@ export type GetWorkshopModelsRequestDod = {
     requestId: UuidType,
     domainType: 'request',
   }
- attrs:{
-  workshopId: UuidType
- },
+  attrs:{
+    workshopId: UuidType
+  },
 }
-export type getWorkshopModelsOut = ModelAttrs[];
+export type GetWorkshopModelsOut = ModelAttrs[];
 
 export type GetingWorkshopModelsServiceParams = QueryServiceParams<
-  ModelParams, GetWorkshopModelsRequestDod, getWorkshopModelsOut, never
+  ModelParams, GetWorkshopModelsRequestDod, GetWorkshopModelsOut, never
 >

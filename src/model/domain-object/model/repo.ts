@@ -3,10 +3,10 @@ import { Result } from 'rilata/src/common/result/types';
 import { ServiceResult } from 'rilata/src/app/service/types';
 import { UuidType } from 'rilata/src/common/types';
 import { ModelAR } from './a-root';
-import { ModelNameAlreadyExistsError } from '../../domain-data/model/add-model/s-params';
-import { GettingWorkshopModelServiceParams } from '../../domain-data/model/get-model/s-params';
-import { ModelAttrs } from '../../domain-data/params';
+import { GettingWorkshopModelServiceParams } from '../../services/get-workshop-model/s-params';
+import { ModelAttrs } from '../../domain-data/model/params';
 import { ModelModuleResolver } from '../../resolver';
+import { ModelNameAlreadyExistsError } from './repo-errors';
 
 export interface ModelRepository {
   init(resolver: ModelModuleResolver): void

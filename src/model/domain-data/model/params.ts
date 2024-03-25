@@ -1,7 +1,7 @@
 import { UuidType } from 'rilata/src/common/types';
 import { DomainMeta, OutputAggregateDataTransfer } from 'rilata/src/domain/domain-data/domain-types';
 import { AggregateRootDataParams } from 'rilata/src/domain/domain-data/params-types';
-import { AddModelActionParams } from './model/add-model/a-params';
+import { AddModelActionParams } from './add-model/a-params';
 
 export type ModelCategory = 'Мебель' | 'Кухонная утварь' | 'Игрушки';
 
