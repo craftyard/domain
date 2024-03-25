@@ -23,7 +23,7 @@ export type JWTPayload = {
     userId: UserId,
 }
 
-type TelegramHashNotValidBody = {
+type TelegramHashNotValidLocale = {
     text: 'Хэш телеграмма некорректный',
     hint: {
       hash: string
@@ -31,9 +31,9 @@ type TelegramHashNotValidBody = {
     name: 'TelegramHashNotValidError',
 }
 
-export type TelegramHashNotValidError = ErrorDod<'TelegramHashNotValidError', TelegramHashNotValidBody>
+export type TelegramHashNotValidError = ErrorDod<TelegramHashNotValidLocale, 'TelegramHashNotValidError'>
 
-type TelegramAuthDateNotValidBody = {
+type TelegramAuthDateNotValidLocale = {
     text: 'Прошло больше {{authHashLifetimeAsSeconds}} секунд после получения кода авторизации в телеграм. Повторите процедуру авторизации еще раз.',
     hint:{
       authHashLifetimeAsSeconds: number
@@ -41,7 +41,7 @@ type TelegramAuthDateNotValidBody = {
     name: 'TelegramAuthDateNotValidError',
 }
 
-export type TelegramAuthDateNotValidError = ErrorDod<'TelegramAuthDateNotValidError', TelegramAuthDateNotValidBody>
+export type TelegramAuthDateNotValidError = ErrorDod<TelegramAuthDateNotValidLocale, 'TelegramAuthDateNotValidError'>
 
 export type UserAuthentificationActionParams = ActionParams<
   UserAuthentificationDomainQuery,
